@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Browser Tab Icon (Favicon) ke liye -->
+    <!-- Browser Tab Icon (Favicon) -->
     <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
 
-    <!-- Mobile ke "Add to Home Screen" aur iOS (Apple) ke liye -->
-    <link rel="apple-touch-icon" href="logo.png">
+    <!-- Mobile Add to Home Screen & iOS -->
+    <link class="apple-touch-icon" href="logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sasaram Connect</title>
@@ -34,7 +34,7 @@
         .ticker-text {
             display: inline-block;
             white-space: nowrap;
-            animation: ticker 15s linear infinite;
+            animation: ticker 20s linear infinite;
         }
     </style>
 </head>
@@ -43,33 +43,28 @@
     <!-- App Container -->
     <div class="mobile-container w-full h-screen bg-slate-950 flex flex-col relative">
         
-        <!-- HEADER -->
+        <!-- HEADER WITH INSTAGRAM INTEGRATION -->
         <header class="bg-gradient-to-r from-indigo-900 to-slate-900 px-4 py-3 flex justify-between items-center border-b border-indigo-950 shadow-lg">
             <div class="flex items-center gap-2">
                 <div class="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center font-black text-slate-950 text-base shadow-inner">SC</div>
                 <div>
                     <h1 class="text-sm font-black tracking-wider text-amber-400">Sasaram Connect</h1>
-                    <p class="text-[9px] text-indigo-200" id="trans-app-sub">रोहतास का अपना डिजिटल मंच</p>
+                    <p class="text-[9px] text-indigo-200">Rohtas' Own Digital Platform</p>
                 </div>
             </div>
             
-            <div class="flex items-center gap-1.5">
-                <!-- Language Selector -->
-                <button onclick="toggleLanguage()" id="lang-btn" class="bg-slate-800 hover:bg-slate-700 text-white text-[9px] font-black px-2 py-1 rounded border border-slate-700 transition uppercase">
-                    English
-                </button>
-                <!-- Emergency Blood Button -->
-                <button onclick="switchTab('blood')" class="bg-red-600 hover:bg-red-700 text-white text-[9px] font-black px-2.5 py-1.5 rounded-full flex items-center gap-1 animate-pulse shadow-lg">
-                    <i class="fa-solid fa-droplet"></i> <span id="trans-blood-btn">Emergency Blood</span>
-                </button>
-            </div>
+            <!-- INSTAGRAM PROFILE ACTION BUTTON -->
+            <a href="https://instagram.com/sasaram.connect" target="_blank" class="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-90 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide shadow transition-all duration-200">
+                <i class="fa-brands fa-instagram text-sm"></i>
+                <span>Follow</span>
+            </a>
         </header>
 
         <!-- LIVE NEWS TICKER -->
         <div class="bg-amber-500/10 border-b border-amber-500/20 py-1.5 overflow-hidden relative flex items-center">
             <span class="absolute left-0 bg-amber-500 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-r z-10 shadow-md">LIVE</span>
-            <div class="ticker-text text-[11px] text-amber-400 font-medium pl-14" id="trans-ticker">
-                🔴 माँ तारा चंडी धाम में उमड़ी श्रद्धालुओं की भारी भीड़... ⚠️ जी.टी. रोड बाईपास पर भारी वाहनों का प्रवेश वर्जित... 🟢 नगर निगम द्वारा वार्ड 12 में सफाई अभियान पूरा।
+            <div class="ticker-text text-[11px] text-amber-400 font-medium pl-14">
+                🔴 Heavy rush of devotees at Maa Tara Chandi Dham... ⚠️ Heavy vehicles restricted on G.T. Road Bypass... 🟢 Cleanliness drive completed in Ward 12.
             </div>
         </div>
 
@@ -81,62 +76,68 @@
                 
                 <!-- Hero Banner -->
                 <div class="relative rounded-2xl overflow-hidden h-44 shadow-2xl border border-slate-800">
-                    <img id="hero-image" src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQII7cgfIEvZw-U4ocWMlSRk7OKuOqxrHkfwvQmUf_b2TkD4YFoMPWCRcTpS-5eH5HTJDpP8bdTVfWl3GU" alt="Sasaram Pride" class="w-full h-full object-cover brightness-75 transition-all duration-500">
+                    <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQII7cgfIEvZw-U4ocWMlSRk7OKuOqxrHkfwvQmUf_b2TkD4YFoMPWCRcTpS-5eH5HTJDpP8bdTVfWl3GU" alt="Sasaram Pride" class="w-full h-full object-cover brightness-75">
                     <div class="absolute top-3 left-3 bg-indigo-900/80 backdrop-blur-md text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-indigo-700/50">
-                        📍 <span id="hero-location-tag">Sher Shah Suri Tomb</span>
+                        📍 <span>Sher Shah Suri Tomb</span>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent">
-                        <h2 id="hero-title" class="text-base font-black text-white">सासाराम की ऐतिहासिक धरोहर</h2>
-                        <p class="text-[10px] text-slate-300 mt-0.5" id="trans-banner-sub">पर्यटन को बढ़ावा, रोहतास का गौरव</p>
+                        <h2 class="text-base font-black text-white">Historical Heritage of Sasaram</h2>
+                        <p class="text-[10px] text-slate-300 mt-0.5">Promoting Tourism, Pride of Rohtas</p>
                     </div>
                 </div>
 
                 <!-- Quick Actions Grid -->
                 <div>
-                    <h3 class="text-[11px] font-bold uppercase text-slate-400 tracking-wider mb-2.5 flex items-center gap-1.5" id="trans-services-title">
-                        <i class="fa-solid fa-layer-group text-indigo-400"></i> मुख्य सुविधाएं
+                    <h3 class="text-[11px] font-bold uppercase text-slate-400 tracking-wider mb-2.5 flex items-center gap-1.5">
+                        <i class="fa-solid fa-layer-group text-indigo-400"></i> Key Features
                     </h3>
-                    <div class="grid grid-cols-4 gap-2">
-                        <div onclick="switchTab('services')" class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 hover:border-amber-500 text-center cursor-pointer transition">
-                            <i class="fa-solid fa-building-columns text-lg text-amber-400 mb-1"></i>
-                            <p class="text-[9px] font-bold block" id="trans-srv-govt">सर्करी हेल्प</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div onclick="switchTab('services')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-amber-500 flex items-center gap-3 cursor-pointer transition">
+                            <i class="fa-solid fa-building-columns text-xl text-amber-400"></i>
+                            <span class="text-[10px] font-bold">Government Help</span>
                         </div>
-                        <div onclick="switchTab('services')" class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 hover:border-cyan-500 text-center cursor-pointer transition">
-                            <i class="fa-solid fa-bolt text-lg text-cyan-400 mb-1"></i>
-                            <p class="text-[9px] font-bold block" id="trans-srv-utility">बिजली-पानी</p>
+                        <div onclick="switchTab('services')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-cyan-500 flex items-center gap-3 cursor-pointer transition">
+                            <i class="fa-solid fa-bolt text-xl text-cyan-400"></i>
+                            <span class="text-[10px] font-bold">Electricity & Water</span>
                         </div>
-                        <div onclick="switchTab('blood')" class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 hover:border-red-500 text-center cursor-pointer transition">
-                            <i class="fa-solid fa-heart-pulse text-lg text-red-400 mb-1"></i>
-                            <p class="text-[9px] font-bold block" id="trans-srv-blood">ब्लड मैच</p>
+                        <div onclick="alert('Local Market and shop directory coming soon!')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-orange-500 flex items-center gap-3 cursor-pointer transition">
+                            <i class="fa-solid fa-store text-xl text-orange-400"></i>
+                            <span class="text-[10px] font-bold">Local Market</span>
                         </div>
-                        <button onclick="window.location.href='tel:7449948786'" class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 hover:border-green-500 text-center transition">
-                            <i class="fa-solid fa-headset text-lg text-green-400 mb-1"></i>
-                            <p class="text-[9px] font-bold block" id="trans-srv-support">सपोर्ट डेस्क</p>
-                        </button>
+                        <div onclick="alert('Useful Links dashboard setup coming soon!')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-purple-500 flex items-center gap-3 cursor-pointer transition">
+                            <i class="fa-solid fa-link text-xl text-purple-400"></i>
+                            <span class="text-[10px] font-bold">Useful Links</span>
+                        </div>
                     </div>
+                    
+                    <!-- WHATSAPP INTEGRATION IN SUPPORT DESK -->
+                    <button onclick="window.location.href='https://wa.me/917449948786?text=Hello%20Sasaram%20Connect%20Support'" class="w-full mt-2 bg-slate-900/80 py-2 px-3 rounded-xl border border-slate-800 hover:border-green-500 flex items-center justify-center gap-2 transition">
+                        <i class="fa-brands fa-whatsapp text-sm text-green-400"></i>
+                        <span class="text-[10px] font-bold">Chat on WhatsApp Support</span>
+                    </button>
                 </div>
 
                 <!-- Mandi Bhav Section -->
                 <div class="bg-gradient-to-br from-slate-900 to-indigo-950/40 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-2.5 border-b border-slate-800 pb-2">
-                        <h3 class="text-[11px] font-bold uppercase text-amber-400 tracking-wider flex items-center gap-1.5" id="trans-mandi-title">
-                            🌾 रोहतास मंडी भाव (अनाज मंडी)
+                        <h3 class="text-[11px] font-bold uppercase text-amber-400 tracking-wider flex items-center gap-1.5">
+                            🌾 Rohtas Mandi Rates
                         </h3>
                         <span class="text-[9px] bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded font-mono">Today</span>
                     </div>
                     <div class="grid grid-cols-3 gap-2 text-center">
                         <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
-                            <p class="text-[10px] text-slate-400 font-bold" id="trans-paddy">धान (Sona Masoori)</p>
+                            <p class="text-[10px] text-slate-400 font-bold">Paddy (Sona Masoori)</p>
                             <p class="text-xs font-black text-green-400 mt-1">₹2,280 <span class="text-[9px]">/Q</span></p>
                             <span class="text-[8px] text-green-500 font-bold">▲ 1.5%</span>
                         </div>
                         <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
-                            <p class="text-[10px] text-slate-400 font-bold" id="trans-wheat">गेहूं (Wheat)</p>
+                            <p class="text-[10px] text-slate-400 font-bold">Wheat</p>
                             <p class="text-xs font-black text-red-400 mt-1">₹2,450 <span class="text-[9px]">/Q</span></p>
                             <span class="text-[8px] text-red-500 font-bold">▼ 0.8%</span>
                         </div>
                         <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
-                            <p class="text-[10px] text-slate-400 font-bold" id="trans-mustard">सरसों (Mustard)</p>
+                            <p class="text-[10px] text-slate-400 font-bold">Mustard</p>
                             <p class="text-xs font-black text-amber-400 mt-1">₹5,750 <span class="text-[9px]">/Q</span></p>
                             <span class="text-[8px] text-slate-400 font-bold">🟢 Stable</span>
                         </div>
@@ -145,158 +146,120 @@
 
                 <!-- Online Poll -->
                 <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
-                    <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest" id="trans-poll-tag">SASARAM ONLINE POLL</p>
-                    <h4 class="text-xs font-extrabold text-slate-100" id="trans-poll-q">सासाराम में आपके वार्ड की नाली-गली की सफाई व्यवस्था कैसी है?</h4>
-                    <div class="space-y-2" id="poll-section">
-                        <button onclick="votePoll('best')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition flex justify-between items-center group">
-                            <span id="trans-opt1">बहुत बढ़िया, समय पर सफाई होती है</span>
+                    <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest">SASARAM ONLINE POLL</p>
+                    <h4 class="text-xs font-extrabold text-slate-100">How is the drainage and cleanliness management in your ward?</h4>
+                    <div class="space-y-2">
+                        <button onclick="alert('Thank you for voting!')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
+                            Excellent, cleaned regularly on time
                         </button>
-                        <button onclick="votePoll('ok')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition flex justify-between items-center group">
-                            <span id="trans-opt2">ठीक-ठाक, पर और सुधार चाहिए</span>
+                        <button onclick="alert('Thank you for voting!')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
+                            Average, needs more improvement
                         </button>
-                        <button onclick="votePoll('bad')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition flex justify-between items-center group">
-                            <span id="trans-opt3">बहुत खराब, नालियां जाम रहती हैं</span>
+                        <button onclick="alert('Thank you for voting!')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
+                            Very poor, drains are clogged
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: CHAUPAL (FULLY WORKING NOW) -->
+            <!-- TAB 2: CHAUPAL -->
             <div id="tab-chaupal" class="tab-content hidden p-4 space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                     <div>
-                        <h2 class="text-sm font-black" id="trans-chaupal-header">सासाराम चौपाल</h2>
-                        <p class="text-[10px] text-slate-400" id="trans-chaupal-desc">अपनी बात रखें, समस्या का फोटो/वीडियो शेयर करें</p>
+                        <h2 class="text-sm font-black">Sasaram Chaupal</h2>
+                        <p class="text-[10px] text-slate-400">Share public updates or report local issues</p>
                     </div>
-                    <!-- Added Event Listener -->
                     <button onclick="openPostModal()" class="bg-indigo-600 hover:bg-indigo-700 text-xs px-3 py-2 rounded-lg font-bold shadow-lg flex items-center gap-1">
-                        <i class="fa-solid fa-plus"></i> <span id="trans-post-btn">पोस्ट करें</span>
+                        <i class="fa-solid fa-plus"></i> <span>Create Post</span>
                     </button>
                 </div>
                 
-                <!-- Dynamic Posts Container -->
+                <!-- Dynamic Post Container -->
                 <div id="chaupal-posts-container" class="space-y-4">
-                    <!-- Dynamic updates load here -->
+                    <!-- Default Initial Post -->
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-amber-400">Admin Announcement</span>
+                            <span class="text-[9px] text-slate-500">Just Now</span>
+                        </div>
+                        <p class="text-xs text-slate-300">Welcome to Sasaram Chaupal. Use the button above to publish updates regarding infrastructure, civic systems, or community notices.</p>
+                        <div class="text-[9px] text-indigo-400 font-bold"><i class="fa-solid fa-location-dot"></i> Sasaram City</div>
+                    </div>
                 </div>
             </div>
 
             <!-- TAB 3: GOVERNMENT DIRECTORY -->
             <div id="tab-services" class="tab-content hidden p-4 space-y-4">
                 <div>
-                    <h2 class="text-sm font-black" id="trans-dir-title">रोहतास सरकारी सेवाएं एवं हेल्पलाइन</h2>
-                    <p class="text-[10px] text-slate-400" id="trans-dir-desc">जिले के सभी महत्वपूर्ण सरकारी संपर्क विवरणी</p>
+                    <h2 class="text-sm font-black">Rohtas Public Services & Helpline</h2>
+                    <p class="text-[10px] text-slate-400">Important public contact reference links within the district</p>
                 </div>
 
                 <!-- Live Search -->
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="सर्करी ऑफिस, पुलिस या अस्पताल खोजें..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
+                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search offices, utilities, or emergency support..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
                 </div>
 
                 <div class="space-y-2.5" id="directory-list">
-                    <!-- 1. DM OFFICE -->
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="dm office rohtas जिलाधिकारी samaharnalay collectorate">
                         <div>
                             <span class="text-[8px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-black border border-amber-500/10">ADMINISTRATION</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-dm">जिलाधिकारी (DM Office), रोहतास</h3>
+                            <h3 class="text-xs font-black text-slate-100">District Magistrate (DM Office), Rohtas</h3>
                         </div>
                         <a href="tel:06184222226" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <!-- 2. SP OFFICE -->
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sp office rohtas superintendent police police mukhyalay">
                         <div>
                             <span class="text-[8px] bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded font-black border border-red-500/10">POLICE</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-sp">पुलिस अधीक्षक (SP Office), रोहतास</h3>
+                            <h3 class="text-xs font-black text-slate-100">Superintendent of Police (SP Office)</h3>
                         </div>
                         <a href="tel:9431822989" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <!-- 3. SDM SASARAM -->
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sdm sasaram sub divisional magistrate anumandal adhikari">
                         <div>
                             <span class="text-[8px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-black border border-amber-500/10">ADMINISTRATION</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-sdm">अनुमंडल अधिकारी (SDM), सासाराम</h3>
+                            <h3 class="text-xs font-black text-slate-100">Sub Divisional Magistrate (SDM), Sasaram</h3>
                         </div>
                         <a href="tel:9431818371" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <!-- 4. SADAR HOSPITAL -->
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sadar hospital civil surgeon medical ambulance hospital swasthya">
                         <div>
                             <span class="text-[8px] bg-green-500/10 text-green-400 px-1.5 py-0.5 rounded font-black border border-green-500/10">HEALTHCARE</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-sadar">सदर अस्पताल (Sadar Hospital), सासाराम</h3>
+                            <h3 class="text-xs font-black text-slate-100">Sadar Hospital, Sasaram</h3>
                         </div>
                         <a href="tel:06184222212" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <!-- 5. TOWN POLICE STATION -->
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sasaram town police station nagar thana kotwali">
-                        <div>
-                            <span class="text-[8px] bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded font-black border border-red-500/10">POLICE</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-thana">नगर थाना (Sasaram Town PS)</h3>
-                        </div>
-                        <a href="tel:06184222045" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                    <!-- 6. NAGAR NIGAM HELPLINE -->
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sasaram municipal corporation nagar nigam safai shikayat">
                         <div>
                             <span class="text-[8px] bg-cyan-500/10 text-cyan-400 px-1.5 py-0.5 rounded font-black border border-cyan-500/10">MUNICIPAL</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-nigam">नगर निगम हेल्पलाइन (Municipal Corp)</h3>
+                            <h3 class="text-xs font-black text-slate-100">Municipal Corporation Helpline</h3>
                         </div>
                         <a href="tel:18003456211" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <!-- 7. ELECTRICITY BOARD -->
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="electricity board sasaram light power bill bijli vibhag">
                         <div>
                             <span class="text-[8px] bg-cyan-500/10 text-cyan-400 px-1.5 py-0.5 rounded font-black border border-cyan-500/10">UTILITIES</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-bijli">बिजली शिकायत केंद्र (Electricity Urban)</h3>
+                            <h3 class="text-xs font-black text-slate-100">Electricity Complaint Urban</h3>
                         </div>
                         <a href="tel:7033095815" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <!-- 8. FIRE STATION -->
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="fire station brigade sasaram fire damkal aag">
-                        <div>
-                            <span class="text-[8px] bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded font-black border border-red-500/10">EMERGENCY</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-fire">दमकल केंद्र (Fire Station), सासाराम</h3>
-                        </div>
-                        <a href="tel:9631168434" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                    <!-- 9. WOMEN HELPLINE -->
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="women helpline rohtas safety mahila suraksha">
-                        <div>
-                            <span class="text-[8px] bg-purple-500/10 text-purple-400 px-1.5 py-0.5 rounded font-black border border-purple-500/10">SUPPORT</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-women">महिला हेल्पलाइन (Women Helpline)</h3>
-                        </div>
-                        <a href="tel:06184221245" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                    <!-- 10. NATIONAL AMBULANCE -->
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="national ambulance service medical emergency 102 108">
-                        <div>
-                            <span class="text-[8px] bg-green-500/10 text-green-400 px-1.5 py-0.5 rounded font-black border border-green-500/10">EMERGENCY</span>
-                            <h3 class="text-xs font-black text-slate-100" id="c-amb">सरकारी एम्बुलेंस सेवा (Ambulance)</h3>
-                        </div>
-                        <a href="tel:102" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
                 </div>
             </div>
 
-            <!-- TAB 4: BLOOD MATCHER -->
-            <div id="tab-blood" class="tab-content hidden p-4 space-y-4">
-                <div class="bg-red-950/30 border border-red-900/50 p-4 rounded-xl text-center space-y-2">
-                    <i class="fa-solid fa-circle-exclamation text-3xl text-red-500 animate-bounce"></i>
-                    <h2 class="text-sm font-bold text-red-400">Emergency Blood Matcher</h2>
-                    <p class="text-[11px] text-slate-300">अगर सासाराम या आस-पास के अस्पतालों में खून की जरूरत है, तो आपातकालीन फॉर्म भरें।</p>
-                    <button class="bg-red-600 hover:bg-red-700 text-xs font-bold px-4 py-2 rounded-lg shadow-lg">Urgent Blood Request Form</button>
-                </div>
-            </div>
-
-            <!-- TAB 5: SUPPORT & LEGAL -->
+            <!-- TAB 4: SUPPORT & LEGAL -->
             <div id="tab-support" class="tab-content hidden p-4 space-y-4">
-                <h2 class="text-sm font-bold" id="trans-supp-head">App Support & Helpdesk</h2>
+                <h2 class="text-sm font-bold">App Support & Helpdesk</h2>
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-center space-y-4">
-                    <p class="text-xs text-slate-400" id="trans-supp-desc">किसी भी शिकायत, सुझाव, या पार्टनरशिप के लिए सीधे संपर्क करें।</p>
+                    <p class="text-xs text-slate-400">For complaints, query reports, or direct contact reach our technical dashboard desk below.</p>
                     <div class="space-y-2 text-xs text-left">
-                        <div class="p-2 bg-slate-950 rounded-lg flex items-center gap-2">
-                            <i class="fa-solid fa-phone text-amber-500"></i>
-                            <span class="font-mono text-slate-300">+91 7449948786</span>
-                        </div>
+                        
+                        <!-- CHAT ON WHATSAPP LINK INSIDE SUPPORT TAB -->
+                        <a href="https://wa.me/917449948786?text=Hello%20Sasaram%20Connect%20Support" class="p-2 bg-slate-950 hover:bg-indigo-950 rounded-lg flex items-center gap-2 transition block">
+                            <i class="fa-brands fa-whatsapp text-green-500"></i>
+                            <span class="font-mono text-slate-300">Chat on WhatsApp: +91 7449948786</span>
+                        </a>
+                        
                         <div class="p-2 bg-slate-950 rounded-lg flex items-center gap-2">
                             <i class="fa-solid fa-envelope text-amber-500"></i>
                             <span class="font-mono text-slate-300">sasaramconnect@gmail.com</span>
@@ -304,22 +267,22 @@
                     </div>
                 </div>
 
-                <!-- PLAY STORE REQUIRED PAGES SECTION -->
+                <!-- POLICY PAGES -->
                 <div class="border-t border-slate-800 pt-4 space-y-2.5">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-1" id="trans-legal-title">Legal & Play Store Policies</h3>
+                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-1">Legal & Play Store Policies</h3>
                     
                     <button onclick="openPolicy('privacy')" class="w-full bg-slate-900 hover:bg-slate-800 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs text-left transition">
-                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-user-shield text-indigo-400"></i> <span id="trans-btn-privacy">Privacy Policy</span></span>
+                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-user-shield text-indigo-400"></i> <span>Privacy Policy</span></span>
                         <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
                     </button>
                     
                     <button onclick="openPolicy('terms')" class="w-full bg-slate-900 hover:bg-slate-800 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs text-left transition">
-                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-file-contract text-indigo-400"></i> <span id="trans-btn-terms">Terms & Conditions</span></span>
+                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-file-contract text-indigo-400"></i> <span>Terms & Conditions</span></span>
                         <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
                     </button>
                     
                     <button onclick="openPolicy('about')" class="w-full bg-slate-900 hover:bg-slate-800 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs text-left transition">
-                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-circle-info text-indigo-400"></i> <span id="trans-btn-about">About Us & Developer</span></span>
+                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-circle-info text-indigo-400"></i> <span>About Us & Developer</span></span>
                         <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
                     </button>
                 </div>
@@ -331,23 +294,23 @@
         <nav class="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 h-16 flex justify-around items-center px-2 z-50">
             <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center text-amber-500 transition">
                 <i class="fa-solid fa-house text-lg"></i>
-                <span class="text-[9px] mt-1" id="trans-nav-home">मुख्य पृष्ठ</span>
+                <span class="text-[9px] mt-1">Home</span>
             </button>
             <button onclick="switchTab('chaupal')" id="nav-chaupal" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-comments text-lg"></i>
-                <span class="text-[9px] mt-1" id="trans-nav-chaupal">चौपाल</span>
+                <span class="text-[9px] mt-1">Chaupal</span>
             </button>
             <button onclick="switchTab('services')" id="nav-services" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-address-book text-lg"></i>
-                <span class="text-[9px] mt-1" id="trans-nav-dir">निर्देशिका</span>
+                <span class="text-[9px] mt-1">Directory</span>
             </button>
             <button onclick="switchTab('support')" id="nav-support" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-circle-info text-lg"></i>
-                <span class="text-[9px] mt-1" id="trans-nav-supp">सहायता</span>
+                <span class="text-[9px] mt-1">Support</span>
             </button>
         </nav>
 
-        <!-- DYNAMIC FULL-SCREEN LEGAL MODAL (PLAY STORE) -->
+        <!-- DYNAMIC FULL-SCREEN LEGAL MODAL -->
         <div id="legal-modal" class="absolute inset-0 bg-slate-950 z-[100] hidden flex flex-col">
             <header class="bg-indigo-950 px-4 py-4 flex justify-between items-center border-b border-slate-800 shadow-md">
                 <h2 id="modal-title" class="text-sm font-black text-amber-400">Policy Title</h2>
@@ -355,513 +318,125 @@
                     <i class="fa-solid fa-xmark"></i> Close
                 </button>
             </header>
-            <div class="flex-1 overflow-y-auto p-5 text-xs text-slate-300 space-y-4 hide-scroll" id="modal-content">
-                <!-- Dynamic Content Will Load Here -->
-            </div>
+            <div class="flex-1 overflow-y-auto p-5 text-xs text-slate-300 space-y-4 hide-scroll" id="modal-content"></div>
         </div>
 
-        <!-- DYNAMIC FULL-SCREEN POST MODAL (NEW) -->
+        <!-- DYNAMIC FULL-SCREEN POST MODAL -->
         <div id="post-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] hidden flex flex-col justify-center p-5">
             <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-4 shadow-2xl">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                    <h3 id="trans-post-modal-title" class="text-xs font-black text-amber-400">नई पोस्ट लिखें</h3>
+                    <h3 class="text-xs font-black text-amber-400">Create New Post</h3>
                     <button onclick="closePostModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 
                 <div class="space-y-3">
                     <div>
-                        <label id="trans-post-name-label" class="block text-[10px] text-slate-400 font-bold uppercase mb-1">आपका नाम</label>
-                        <input type="text" id="postName" placeholder="जैसे: अमित कुमार" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                        <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Your Name</label>
+                        <input type="text" id="postName" placeholder="e.g. Amit Kumar" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
                     </div>
                     <div>
-                        <label id="trans-post-loc-label" class="block text-[10px] text-slate-400 font-bold uppercase mb-1">आपका क्षेत्र/वार्ड</label>
-                        <input type="text" id="postLoc" placeholder="जैसे: धर्मशाला रोड, सासाराम" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                        <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Your Location / Ward</label>
+                        <input type="text" id="postLoc" placeholder="e.g. Ward No. 12, Sasaram" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
                     </div>
                     <div>
-                        <label id="trans-post-msg-label" class="block text-[10px] text-slate-400 font-bold uppercase mb-1">अपनी समस्या या संदेश लिखें</label>
-                        <textarea id="postMsg" rows="3" placeholder="यहाँ अपनी बात लिखें..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+                        <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Message or Issue Description</label>
+                        <textarea id="postMsg" rows="3" placeholder="Type your notice or civic issue details here..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 resize-none"></textarea>
                     </div>
                 </div>
 
                 <div class="flex gap-2 pt-2">
-                    <button onclick="closePostModal()" id="trans-post-cancel-btn" class="flex-1 bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800 font-bold">रद्द करें</button>
-                    <button onclick="submitPost()" id="trans-post-submit-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs py-2.5 rounded-lg font-bold">पोस्ट पब्लिश करें</button>
+                    <button onclick="closePostModal()" class="flex-1 bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800 font-bold">Cancel</button>
+                    <button onclick="submitPost()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs py-2.5 rounded-lg font-bold">Publish Post</button>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- APP FUNCTIONAL & TRANSLATION LOGIC -->
+    <!-- APP FUNCTIONAL LOGIC -->
     <script>
-        // Language database
-        const translations = {
-            hi: {
-                app_sub: "रोहतास का अपना डिजिटल मंच",
-                blood_btn: "आपातकालीन ब्लड",
-                ticker: "🔴 माँ तारा चंडी धाम में उमड़ी श्रद्धालुओं की भारी भीड़... ⚠️ जी.टी. रोड बाईपास पर भारी वाहनों का प्रवेश वर्जित... 🟢 नगर निगम द्वारा वार्ड 12 में सफाई अभियान पूरा।",
-                banner_sub: "पर्यटन को बढ़ावा, रोहतास का गौरव",
-                services_title: "मुख्य सुविधाएं",
-                srv_govt: "सर्करी हेल्प",
-                srv_utility: "बिजली-पानी",
-                srv_blood: "ब्लड मैच",
-                srv_support: "सपोर्ट डेस्क",
-                mandi_title: "🌾 रोहतास मंडी भाव (अनाज मंडी)",
-                paddy: "धान (Sona Masoori)",
-                wheat: "गेहूं (Wheat)",
-                mustard: "सरसों (Mustard)",
-                poll_tag: "SASARAM ONLINE POLL",
-                poll_q: "सासाराम में आपके वार्ड की नाली-गली की सफाई व्यवस्था कैसी है?",
-                opt1: "बहुत बढ़िया, समय पर सफाई होती है",
-                opt2: "ठीक-ठाक, पर और सुधार चाहिए",
-                opt3: "बहुत खराब, नालियां जाम रहती हैं",
-                chaupal_header: "सासाराम चौपाल",
-                chaupal_desc: "अपनी बात रखें, समस्या का फोटो/वीडियो शेयर करें",
-                post_btn: "पोस्ट करें",
-                dir_title: "रोहतास सरकारी सेवाएं एवं हेल्पलाइन",
-                dir_desc: "जिले के सभी महत्वपूर्ण सरकारी संपर्क विवरणी",
-                search_placeholder: "सर्करी ऑफिस, पुलिस या अस्पताल खोजें...",
-                nav_home: "मुख्य पृष्ठ",
-                nav_chaupal: "चौपाल",
-                nav_dir: "निर्देशिका",
-                nav_supp: "सहायता",
-                supp_head: "सपोर्ट एवं सहायता",
-                supp_desc: "किसी भी शिकायत, सुझाव, या पार्टनरशिप के लिए सीधे संपर्क करें।",
-                legal_title: "लीगल एवं प्ले स्टोर नीतियां",
-                btn_privacy: "गोपनीयता नीति (Privacy Policy)",
-                btn_terms: "नियम एवं शर्तें (Terms & Conditions)",
-                btn_about: "हमारे बारे में (About Us)",
-                
-                // Contacts Translation
-                c_dm: "जिलाधिकारी (DM Office), रोहतास",
-                c_sp: "पुलिस अधीक्षक (SP Office), रोहतास",
-                c_sdm: "अनुमंडल अधिकारी (SDM), सासाराम",
-                c_sadar: "सदर अस्पताल (Sadar Hospital), सासाराम",
-                c_thana: "नगर थाना (Sasaram Town PS)",
-                c_nigam: "नगर निगम हेल्पलाइन (Municipal Corp)",
-                c_bijli: "बिजली शिकायत केंद्र (Electricity Urban)",
-                c_fire: "दमकल केंद्र (Fire Station), सासाराम",
-                c_women: "महिला हेल्पलाइन (Women Helpline)",
-                c_amb: "सरकारी एम्बुलेंस सेवा (Ambulance)",
-
-                // New Post Modal Translation
-                post_modal_title: "नई पोस्ट लिखें",
-                post_name_label: "आपका नाम",
-                post_loc_label: "आपका क्षेत्र/वार्ड",
-                post_msg_label: "अपनी समस्या या संदेश लिखें",
-                post_submit_btn: "पोस्ट पब्लिश करें",
-                post_cancel_btn: "रद्द करें",
-                post_name_placeholder: "जैसे: अमित कुमार",
-                post_loc_placeholder: "जैसे: धर्मशाला रोड, सासाराम",
-                post_msg_placeholder: "यहाँ अपनी बात लिखें..."
-            },
-            en: {
-                app_sub: "Rohtas's Own Digital Platform",
-                blood_btn: "Emergency Blood",
-                ticker: "🔴 Huge crowd of devotees gathered at Maa Tara Chandi Dham... ⚠️ Heavy vehicles strictly prohibited on GT Road Bypass...",
-                banner_sub: "Promoting Tourism, Pride of Rohtas",
-                services_title: "Core Services",
-                srv_govt: "Govt Help",
-                srv_utility: "Utility Bills",
-                srv_blood: "Blood Match",
-                srv_support: "Support Desk",
-                mandi_title: "🌾 Rohtas Mandi Rates (Grain Market)",
-                paddy: "Paddy (Sona Masoori)",
-                wheat: "Wheat (Gehun)",
-                mustard: "Mustard (Sarson)",
-                poll_tag: "SASARAM ONLINE POLL",
-                poll_q: "How is the drainage & cleanliness in your ward?",
-                opt1: "Excellent, cleaned regularly",
-                opt2: "Decent, but needs improvement",
-                opt3: "Very poor, drains are clogged",
-                chaupal_header: "Sasaram Chaupal",
-                chaupal_desc: "Share your thoughts or post photos/videos of local issues",
-                post_btn: "Post Now",
-                dir_title: "Rohtas Govt Services Directory",
-                dir_desc: "Important government and emergency helpline contacts",
-                search_placeholder: "Search govt office, police, or hospital...",
-                nav_home: "Home",
-                nav_chaupal: "Chaupal",
-                nav_dir: "Directory",
-                nav_supp: "Support",
-                supp_head: "App Support & Helpdesk",
-                supp_desc: "Directly connect with us for complaints, queries, or partnerships.",
-                legal_title: "Legal & Play Store Policies",
-                btn_privacy: "Privacy Policy",
-                btn_terms: "Terms & Conditions",
-                btn_about: "About Us & Developer",
-                
-                // Contacts Translation
-                c_dm: "District Magistrate (DM Office), Rohtas",
-                c_sp: "Superintendent of Police (SP Office)",
-                c_sdm: "Sub-Divisional Magistrate (SDM), Sasaram",
-                c_sadar: "Sadar Hospital, Sasaram",
-                c_thana: "Sasaram Town Police Station",
-                c_nigam: "Nagar Nigam Helpline (Municipal)",
-                c_bijli: "Electricity Complaint (Urban Grid)",
-                c_fire: "Fire Station Sasaram",
-                c_women: "Women Helpline Rohtas",
-                c_amb: "Govt Ambulance Service",
-
-                // New Post Modal Translation
-                post_modal_title: "Create New Post",
-                post_name_label: "Your Name",
-                post_loc_label: "Your Area/Ward",
-                post_msg_label: "Write your issue or message",
-                post_submit_btn: "Publish Post",
-                post_cancel_btn: "Cancel",
-                post_name_placeholder: "e.g., Amit Kumar",
-                post_loc_placeholder: "e.g., Dharmshala Road, Sasaram",
-                post_msg_placeholder: "Write your thoughts here..."
-            }
-        };
-
-        let currentLang = 'hi';
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'hi' ? 'en' : 'hi';
-            document.getElementById('lang-btn').textContent = currentLang === 'hi' ? 'English' : 'हिंदी';
-            
-            // Translate all marked elements
-            document.getElementById('trans-app-sub').textContent = translations[currentLang].app_sub;
-            document.getElementById('trans-blood-btn').textContent = translations[currentLang].blood_btn;
-            document.getElementById('trans-ticker').textContent = translations[currentLang].ticker;
-            document.getElementById('trans-banner-sub').textContent = translations[currentLang].banner_sub;
-            document.getElementById('trans-services-title').innerHTML = `<i class="fa-solid fa-layer-group text-indigo-400"></i> ${translations[currentLang].services_title}`;
-            document.getElementById('trans-srv-govt').textContent = translations[currentLang].srv_govt;
-            document.getElementById('trans-srv-utility').textContent = translations[currentLang].srv_utility;
-            document.getElementById('trans-srv-blood').textContent = translations[currentLang].srv_blood;
-            document.getElementById('trans-srv-support').textContent = translations[currentLang].srv_support;
-            document.getElementById('trans-mandi-title').textContent = translations[currentLang].mandi_title;
-            document.getElementById('trans-paddy').textContent = translations[currentLang].paddy;
-            document.getElementById('trans-wheat').textContent = translations[currentLang].wheat;
-            document.getElementById('trans-mustard').textContent = translations[currentLang].mustard;
-            document.getElementById('trans-poll-tag').textContent = translations[currentLang].poll_tag;
-            document.getElementById('trans-poll-q').textContent = translations[currentLang].poll_q;
-            if (document.getElementById('trans-opt1')) {
-                document.getElementById('trans-opt1').textContent = translations[currentLang].opt1;
-                document.getElementById('trans-opt2').textContent = translations[currentLang].opt2;
-                document.getElementById('trans-opt3').textContent = translations[currentLang].opt3;
-            }
-            document.getElementById('trans-chaupal-header').textContent = translations[currentLang].chaupal_header;
-            document.getElementById('trans-chaupal-desc').textContent = translations[currentLang].chaupal_desc;
-            document.getElementById('trans-post-btn').textContent = translations[currentLang].post_btn;
-            
-            // Directory Translations
-            document.getElementById('trans-dir-title').textContent = translations[currentLang].dir_title;
-            document.getElementById('trans-dir-desc').textContent = translations[currentLang].dir_desc;
-            document.getElementById('directorySearch').placeholder = translations[currentLang].search_placeholder;
-            
-            document.getElementById('c-dm').textContent = translations[currentLang].c_dm;
-            document.getElementById('c-sp').textContent = translations[currentLang].c_sp;
-            document.getElementById('c-sdm').textContent = translations[currentLang].c_sdm;
-            document.getElementById('c-sadar').textContent = translations[currentLang].c_sadar;
-            document.getElementById('c-thana').textContent = translations[currentLang].c_thana;
-            document.getElementById('c-nigam').textContent = translations[currentLang].c_nigam;
-            document.getElementById('c-bijli').textContent = translations[currentLang].c_bijli;
-            document.getElementById('c-fire').textContent = translations[currentLang].c_fire;
-            document.getElementById('c-women').textContent = translations[currentLang].c_women;
-            document.getElementById('c-amb').textContent = translations[currentLang].c_amb;
-
-            // Support & Legal
-            document.getElementById('trans-supp-head').textContent = translations[currentLang].supp_head;
-            document.getElementById('trans-supp-desc').textContent = translations[currentLang].supp_desc;
-            document.getElementById('trans-legal-title').textContent = translations[currentLang].legal_title;
-            document.getElementById('trans-btn-privacy').textContent = translations[currentLang].btn_privacy;
-            document.getElementById('trans-btn-terms').textContent = translations[currentLang].btn_terms;
-            document.getElementById('trans-btn-about').textContent = translations[currentLang].btn_about;
-
-            document.getElementById('trans-nav-home').textContent = translations[currentLang].nav_home;
-            document.getElementById('trans-nav-chaupal').textContent = translations[currentLang].nav_chaupal;
-            document.getElementById('trans-nav-dir').textContent = translations[currentLang].nav_dir;
-            document.getElementById('trans-nav-supp').textContent = translations[currentLang].nav_supp;
-
-            // Modal elements translation
-            document.getElementById('trans-post-modal-title').textContent = translations[currentLang].post_modal_title;
-            document.getElementById('trans-post-name-label').textContent = translations[currentLang].post_name_label;
-            document.getElementById('trans-post-loc-label').textContent = translations[currentLang].post_loc_label;
-            document.getElementById('trans-post-msg-label').textContent = translations[currentLang].post_msg_label;
-            document.getElementById('postName').placeholder = translations[currentLang].post_name_placeholder;
-            document.getElementById('postLoc').placeholder = translations[currentLang].post_loc_placeholder;
-            document.getElementById('postMsg').placeholder = translations[currentLang].post_msg_placeholder;
-            document.getElementById('trans-post-submit-btn').textContent = translations[currentLang].post_submit_btn;
-            document.getElementById('trans-post-cancel-btn').textContent = translations[currentLang].post_cancel_btn;
-        }
-
-        // Hero Image Slideshow
-        const slides = [
-            {
-                img: "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQII7cgfIEvZw-U4ocWMlSRk7OKuOqxrHkfwvQmUf_b2TkD4YFoMPWCRcTpS-5eH5HTJDpP8bdTVfWl3GU",
-                title: "सासाराम की ऐतिहासिक धरोहर",
-                loc: "Sher Shah Suri Tomb"
-            },
-            {
-                img: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSt3etJkfiN1BsWS0OTBVA1-19v9DiD5yxdv6BC37wc79mEzKaJWtHt0X3YCJsJUjRyo9zQiXjYeQHyPf4",
-                title: "रोहतास की अद्भुत प्राकृतिक सुंदरता",
-                loc: "Tutla Dham"
-            }
-        ];
-        let currentSlide = 0;
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            document.getElementById('hero-image').src = slides[currentSlide].img;
-            document.getElementById('hero-title').textContent = slides[currentSlide].title;
-            document.getElementById('hero-location-tag').textContent = slides[currentSlide].loc;
-        }, 5000);
-
-        // Tab Switching
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.add('hidden');
-            });
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) activeTab.classList.remove('hidden');
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-amber-500');
                 btn.classList.add('text-slate-400');
             });
-            const activeBtn = document.getElementById('nav-' + tabId);
-            if (activeBtn) {
-                activeBtn.classList.remove('text-slate-400');
-                activeBtn.classList.add('text-amber-500');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('text-amber-500');
+                activeNav.classList.remove('text-slate-400');
             }
         }
 
-        // Live Poll Interaction
-        function votePoll(option) {
-            let p1 = 15, p2 = 35, p3 = 50;
-            const successMsg = currentLang === 'hi' ? '✓ धन्यवाद! आपका मत दर्ज कर लिया गया है।' : '✓ Thank you! Your vote has been counted.';
-            const label1 = currentLang === 'hi' ? 'बहुत बढ़िया' : 'Excellent';
-            const label2 = currentLang === 'hi' ? 'ठीक-ठाक' : 'Average';
-            const label3 = currentLang === 'hi' ? 'बहुत खराब' : 'Very Poor';
-
-            document.getElementById('poll-section').innerHTML = `
-                <div class="space-y-3 pt-2 text-xs">
-                    <p class="text-[10px] text-green-400 font-bold">${successMsg}</p>
-                    <div>
-                        <div class="flex justify-between font-bold mb-1">
-                            <span>${label1}</span>
-                            <span>${p1}%</span>
-                        </div>
-                        <div class="w-full bg-slate-950 rounded-full h-2">
-                            <div class="bg-green-500 h-1.5 rounded-full" style="width: ${p1}%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between font-bold mb-1">
-                            <span>${label2}</span>
-                            <span>${p2}%</span>
-                        </div>
-                        <div class="w-full bg-slate-950 rounded-full h-2">
-                            <div class="bg-amber-500 h-1.5 rounded-full" style="width: ${p2}%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between font-bold mb-1">
-                            <span>${label3}</span>
-                            <span>${p3}%</span>
-                        </div>
-                        <div class="w-full bg-slate-950 rounded-full h-2">
-                            <div class="bg-red-500 h-1.5 rounded-full" style="width: ${p3}%"></div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Search Filter
         function filterDirectory() {
             const input = document.getElementById('directorySearch').value.toLowerCase();
             const cards = document.querySelectorAll('.contact-card');
             cards.forEach(card => {
-                const nameText = card.getAttribute('data-name');
-                if (nameText.includes(input)) {
-                    card.style.display = "flex";
+                const name = card.getAttribute('data-name');
+                if (name.includes(input)) {
+                    card.style.display = 'flex';
                 } else {
-                    card.style.display = "none";
+                    card.style.display = 'none';
                 }
             });
         }
 
-        // --- PLAY STORE DYNAMIC LEGAL MODAL LOGIC ---
-        const policies = {
-            privacy: {
-                title: { hi: "गोपनीयता नीति (Privacy Policy)", en: "Privacy Policy" },
-                body: {
-                    hi: `
-                        <p class="font-bold">अंतिम अपडेट: जुलाई 2026</p>
-                        <p><strong>Sasaram Connect</strong> में आपका स्वागत है। हम आपकी गोपनीयता की सुरक्षा के लिए प्रतिबद्ध हैं।</p>
-                        <h4 class="font-black text-amber-400 mt-3">1. हम कौन सी जानकारी एकत्र करते हैं?</h4>
-                        <p>हम केवल आवश्यक सेवाएं देने के लिए बेसिक जानकारी लेते हैं:</p>
-                        <ul class="list-disc pl-5 mt-1 space-y-1">
-                            <li><strong>फ़ोन नंबर/नाम:</strong> आपातकालीन ब्लड मैचिंग और चौपाल पोस्ट की प्रमाणिकता के लिए।</li>
-                            <li><strong>लोकेशन और कैमरा:</strong> सासाराम में स्थानीय समस्या की रिपोर्ट करने और सही संपर्क दिखाने के लिए।</li>
-                        </ul>
-                        <h4 class="font-black text-amber-400 mt-3">2. डेटा का उपयोग</h4>
-                        <p>हमारा ऐप बिना किसी थर्ड-पार्टी विज्ञापन या डेटा-बिक्री के चलता है। आपका डेटा पूरी तरह से सुरक्षित है।</p>
-                    `,
-                    en: `
-                        <p class="font-bold">Last Updated: July 2026</p>
-                        <p>Welcome to <strong>Sasaram Connect</strong>. We value your trust and are committed to protecting your personal information.</p>
-                        <h4 class="font-black text-amber-400 mt-3">1. Information We Collect</h4>
-                        <p>We collect essential data to keep the community active & helpful:</p>
-                        <ul class="list-disc pl-5 mt-1 space-y-1">
-                            <li><strong>Name & Phone Number:</strong> Verified contact info for local civic issues & blood matcher.</li>
-                            <li><strong>Camera & Location Access:</strong> Required to upload real issue photos in the Chaupal tab.</li>
-                        </ul>
-                        <h4 class="font-black text-amber-400 mt-3">2. Data Safety</h4>
-                        <p>We do not share, lease, or sell any of your personally identifiable data with corporate networks or third-party ads.</p>
-                    `
-                }
-            },
-            terms: {
-                title: { hi: "नियम एवं शर्तें (Terms & Conditions)", en: "Terms & Conditions" },
-                body: {
-                    hi: `
-                        <p class="font-bold">अंतिम अपडेट: जुलाई 2026</p>
-                        <p>Sasaram Connect का उपयोग करते समय आपको निम्नलिखित नियमों का पालन करना अनिवार्य है:</p>
-                        <h4 class="font-black text-amber-400 mt-3">1. चौपाल और पोस्ट के नियम</h4>
-                        <p>सासाराम चौपाल फीड पर केवल वास्तविक नागरिक समस्याओं (सफाई, पानी, सड़क) की ही तस्वीरें पोस्ट करें। किसी भी प्रकार की धार्मिक, राजनीतिक, या आपत्तिजनक पोस्ट तुरंत ब्लॉक कर दी जाएगी।</p>
-                        <h4 class="font-black text-amber-400 mt-3">2. ...Disclaimer</h4>
-                        <p>यह ऐप जनता की सुविधा के लिए रोहतास के सार्वजनिक सरकारी नंबरों को संकलित करता है। हम किसी सरकारी संस्था का प्रतिनिधित्व नहीं करते।</p>
-                    `,
-                    en: `
-                        <p class="font-bold">Last Updated: July 2026</p>
-                        <p>By registering or using the Sasaram Connect mobile app, you agree to these terms:</p>
-                        <h4 class="font-black text-amber-400 mt-3">1. Platform Guidelines</h4>
-                        <p>Users are strictly prohibited from writing or posting hate speech, fake municipal updates, or political slander. Breach of protocol leads to lifetime user ban.</p>
-                        <h4 class="font-black text-amber-400 mt-3">2. Disclaimer of Govt Representation</h4>
-                        <p>All directory numbers provided in this app are aggregated public helplines. This app is a citizen-driven portal and does not officially represent the Government of India or the State of Bihar.</p>
-                    `
-                }
-            },
-            about: {
-                title: { hi: "हमारे बारे में (About Us)", en: "About & Developer" },
-                body: {
-                    hi: `
-                        <h4 class="font-black text-amber-400 text-sm">Sasaram Connect - रोहतास का अपना डिजिटल मंच</h4>
-                        <p class="mt-2">यह ऐप सासाराम, डेहरी, नोखा और संपूर्ण रोहतास जिले के निवासियों को सीधा समाधान देने के लिए बनाया गया है।</p>
-                        <p class="mt-1">हमारा उद्देश्य तकनीक के माध्यम से जनता और स्थानीय प्रशासनिक जानकारी के बीच की दूरी को कम करना है।</p>
-                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 mt-4">
-                            <p class="font-bold text-amber-400">डेवलपर विवरण:</p>
-                            <p class="mt-1"><strong>ईमेल:</strong> xpress.sameer@gmail.com</p>
-                            <p><strong>वेबसाइट:</strong> sasaram-connect.vercel.app</p>
-                        </div>
-                    `,
-                    en: `
-                        <h4 class="font-black text-amber-400 text-sm">Sasaram Connect - Rohtas's Pride</h4>
-                        <p class="mt-2">Designed exclusively for residents of Sasaram and the surrounding district, bringing swift local access, real-time public communication, and emergencies inside one neat container.</p>
-                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 mt-4">
-                            <p class="font-bold text-amber-400">Developer Details:</p>
-                            <p class="mt-1"><strong>Support:</strong> xpress.sameer@gmail.com</p>
-                            <p><strong>Deployment:</strong> sasaram-connect.vercel.app</p>
-                        </div>
-                    `
-                }
-            }
-        };
+        function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
+        function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
 
-        function openPolicy(type) {
-            const modal = document.getElementById('legal-modal');
-            const titleEl = document.getElementById('modal-title');
-            const contentEl = document.getElementById('modal-content');
-
-            titleEl.textContent = policies[type].title[currentLang];
-            contentEl.innerHTML = policies[type].body[currentLang];
-            
-            modal.classList.remove('hidden');
-        }
-
-        function closePolicy() {
-            document.getElementById('legal-modal').classList.add('hidden');
-        }
-
-
-        // --- NEW DYNAMIC CHAUPAL POSTS LOGIC ---
-        
-        // Initializing posts array from LocalStorage or default fallback
-        let posts = JSON.parse(localStorage.getItem('chaupal_posts')) || [
-            {
-                name: "विकास सिंह",
-                location: "धर्मशाला रोड, सासाराम",
-                text: "धर्मशाला रोड के कोने पर कचरे का ढेर लगा है। २ दिन से गाड़ी नहीं आई।"
-            }
-        ];
-
-        // Function to render posts inside the container
-        function renderPosts() {
-            const container = document.getElementById('chaupal-posts-container');
-            container.innerHTML = '';
-            
-            posts.forEach((post, index) => {
-                const firstLetter = post.name ? post.name.charAt(0).toUpperCase() : 'U';
-                const postHTML = `
-                    <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden transition duration-300">
-                        <div class="p-3 flex items-center justify-between border-b border-slate-800">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center font-bold text-xs">${firstLetter}</div>
-                                <div>
-                                    <h3 class="text-xs font-bold">${post.name}</h3>
-                                    <p class="text-[10px] text-slate-400">${post.location}</p>
-                                </div>
-                            </div>
-                            <button onclick="deletePost(${index})" class="text-slate-500 hover:text-red-500 text-[10px] p-1 transition">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                        </div>
-                        <div class="p-3">
-                            <p class="text-xs text-slate-300 leading-relaxed">${post.text}</p>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += postHTML;
-            });
-        }
-
-        function openPostModal() {
-            document.getElementById('post-modal').classList.remove('hidden');
-        }
-
-        function closePostModal() {
-            document.getElementById('post-modal').classList.add('hidden');
-            // Form clean-up
-            document.getElementById('postName').value = '';
-            document.getElementById('postLoc').value = '';
-            document.getElementById('postMsg').value = '';
-        }
-
+        // Dynamic Post Injection Engine
         function submitPost() {
             const name = document.getElementById('postName').value.trim();
             const location = document.getElementById('postLoc').value.trim();
-            const text = document.getElementById('postMsg').value.trim();
-
-            if(!name || !location || !text) {
-                alert(currentLang === 'hi' ? 'कृपया सभी फील्ड भरें!' : 'Please fill all fields!');
+            const message = document.getElementById('postMsg').value.trim();
+            
+            if(!name || !location || !message) {
+                alert('Please fill out all the fields before publishing.');
                 return;
             }
 
-            // Prepend new post to array
-            posts.unshift({ name, location, text });
+            const container = document.getElementById('chaupal-posts-container');
             
-            // Save to localStorage
-            localStorage.setItem('chaupal_posts', JSON.stringify(posts));
+            const newPostHTML = `
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-black text-indigo-400">${name}</span>
+                        <span class="text-[9px] text-slate-500">Just Now</span>
+                    </div>
+                    <p class="text-xs text-slate-300">${message}</p>
+                    <div class="text-[9px] text-amber-500 font-bold"><i class="fa-solid fa-location-dot"></i> ${location}</div>
+                </div>
+            `;
             
-            renderPosts();
+            container.insertAdjacentHTML('afterbegin', newPostHTML);
+            
+            document.getElementById('postName').value = '';
+            document.getElementById('postLoc').value = '';
+            document.getElementById('postMsg').value = '';
             closePostModal();
         }
 
-        function deletePost(index) {
-            const confirmMsg = currentLang === 'hi' ? 'क्या आप इस पोस्ट को डिलीट करना चाहते हैं?' : 'Do you want to delete this post?';
-            if(confirm(confirmMsg)) {
-                posts.splice(index, 1);
-                localStorage.setItem('chaupal_posts', JSON.stringify(posts));
-                renderPosts();
+        function openPolicy(type) {
+            const modal = document.getElementById('legal-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            
+            if(type === 'privacy') {
+                title.innerText = "Privacy Policy";
+                content.innerHTML = "<p>Your privacy is strictly monitored. Sasaram Connect structures basic contact and structural directories for neighborhood lookup workflows.</p>";
+            } else if(type === 'terms') {
+                title.innerText = "Terms & Conditions";
+                content.innerHTML = "<p>By utilizing this utility portal app layout, you accept independent configuration workflows without administrative liability representation.</p>";
+            } else {
+                title.innerText = "About & Developer";
+                content.innerHTML = "<p>Sasaram Connect is an independent public digital index portal engineered for modular community layout tracking.</p>";
             }
         }
-
-        // Run Chaupal render on page load
-        renderPosts();
-
+        function closePolicy() { document.getElementById('legal-modal').classList.add('hidden'); }
     </script>
 </body>
 </html>
