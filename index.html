@@ -43,7 +43,7 @@
     <!-- App Container -->
     <div class="mobile-container w-full h-screen bg-slate-950 flex flex-col relative">
         
-        <!-- HEADER WITH INSTAGRAM INTEGRATION -->
+        <!-- HEADER WITH WHATSAPP COMMUNITY & INSTAGRAM NATIVE DEEP LINKING -->
         <header class="bg-gradient-to-r from-indigo-900 to-slate-900 px-4 py-3 flex justify-between items-center border-b border-indigo-950 shadow-lg">
             <div class="flex items-center gap-2">
                 <div onclick="checkForAdminLogin()" class="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center font-black text-slate-950 text-base shadow-inner cursor-pointer">SC</div>
@@ -53,11 +53,19 @@
                 </div>
             </div>
             
-            <!-- INSTAGRAM PROFILE ACTION BUTTON -->
-            <a href="https://instagram.com/sasaram.connect" target="_blank" class="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-90 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide shadow transition-all duration-200">
-                <i class="fa-brands fa-instagram text-sm"></i>
-                <span>Follow</span>
-            </a>
+            <div class="flex items-center gap-1.5">
+                <!-- NATIVE WHATSAPP COMMUNITY TRIGGER -->
+                <button onclick="redirectToWhatsAppCommunity()" class="bg-emerald-600 hover:opacity-90 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide shadow transition-all duration-200 cursor-pointer">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>Community</span>
+                </button>
+                
+                <!-- NATIVE INSTAGRAM APP DEEP LINK REDIRECT -->
+                <button onclick="redirectToInstagram()" class="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-90 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide shadow transition-all duration-200 cursor-pointer">
+                    <i class="fa-brands fa-instagram text-sm"></i>
+                    <span>Follow</span>
+                </button>
+            </div>
         </header>
 
         <!-- LIVE NEWS TICKER -->
@@ -100,9 +108,10 @@
                             <i class="fa-solid fa-bolt text-xl text-cyan-400"></i>
                             <span class="text-[10px] font-bold">Electricity & Water</span>
                         </div>
-                        <div onclick="alert('Local Market and shop directory coming soon!')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-orange-500 flex items-center gap-3 cursor-pointer transition">
+                        <!-- GOOGLE FORM INTEGRATION WITH SYSTEM ACTION HANDLER -->
+                        <div onclick="redirectToGoogleForm()" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-orange-500 flex items-center gap-3 cursor-pointer transition">
                             <i class="fa-solid fa-store text-xl text-orange-400"></i>
-                            <span class="text-[10px] font-bold">Local Market</span>
+                            <span class="text-[10px] font-bold text-left">List Your Store / Market</span>
                         </div>
                         <div onclick="alert('Useful Links dashboard setup coming soon!')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-purple-500 flex items-center gap-3 cursor-pointer transition">
                             <i class="fa-solid fa-link text-xl text-purple-400"></i>
@@ -110,8 +119,8 @@
                         </div>
                     </div>
                     
-                    <!-- WHATSAPP INTEGRATION IN SUPPORT DESK -->
-                    <button onclick="window.location.href='https://wa.me/917449948786?text=Hello%20Sasaram%20Connect%20Support'" class="w-full mt-2 bg-slate-900/80 py-2 px-3 rounded-xl border border-slate-800 hover:border-green-500 flex items-center justify-center gap-2 transition">
+                    <!-- WHATSAPP SUPPORT DIRECT APP INTENT INJECTION -->
+                    <button onclick="redirectToWhatsAppSupport()" class="w-full mt-2 bg-slate-900/80 py-2 px-3 rounded-xl border border-slate-800 hover:border-green-500 flex items-center justify-center gap-2 transition cursor-pointer">
                         <i class="fa-brands fa-whatsapp text-sm text-green-400"></i>
                         <span class="text-[10px] font-bold">Chat on WhatsApp Support</span>
                     </button>
@@ -168,7 +177,6 @@
                     <div>
                         <h2 class="text-sm font-black flex items-center gap-2">
                             <span>Sasaram Chaupal</span>
-                            <!-- Admin Indicator (Invisible normally, visible when admin is logged in) -->
                             <span id="admin-badge" class="hidden text-[8px] bg-red-600 text-white px-1.5 py-0.5 rounded font-black">ADMIN MODE</span>
                         </h2>
                         <p class="text-[10px] text-slate-400">Share public updates or report local issues</p>
@@ -185,15 +193,7 @@
                 
                 <!-- Dynamic Post Container -->
                 <div id="chaupal-posts-container" class="space-y-4">
-                    <!-- Default Initial Post -->
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-black text-amber-400">Admin Announcement</span>
-                            <span class="text-[9px] text-slate-500">Official</span>
-                        </div>
-                        <p class="text-xs text-slate-300">Welcome to Sasaram Chaupal. Use the button above to publish updates regarding infrastructure, civic systems, or community notices. Note: All posts go through admin verification before becoming public.</p>
-                        <div class="text-[9px] text-indigo-400 font-bold"><i class="fa-solid fa-location-dot"></i> Sasaram City</div>
-                    </div>
+                    <!-- Default Post Injection -->
                 </div>
             </div>
 
@@ -258,22 +258,37 @@
 
             <!-- TAB 4: SUPPORT & LEGAL -->
             <div id="tab-support" class="tab-content hidden p-4 space-y-4">
-                <h2 class="text-sm font-bold">App Support & Helpdesk</h2>
+                <h2 class="text-sm font-bold">App Support & Community Hub</h2>
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-center space-y-4">
-                    <p class="text-xs text-slate-400">For complaints, query reports, or direct contact reach our technical dashboard desk below.</p>
+                    <p class="text-xs text-slate-400">Join our local community or reach our technical support desk below.</p>
                     <div class="space-y-2 text-xs text-left">
                         
-                        <!-- CHAT ON WHATSAPP LINK INSIDE SUPPORT TAB -->
-                        <a href="https://wa.me/917449948786?text=Hello%20Sasaram%20Connect%20Support" class="p-2 bg-slate-950 hover:bg-indigo-950 rounded-lg flex items-center gap-2 transition block">
+                        <!-- DEEP LINKED WHATSAPP COMMUNITY CARD -->
+                        <div onclick="redirectToWhatsAppCommunity()" class="p-2 bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-800/30 rounded-lg flex items-center gap-2 transition cursor-pointer">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                            <span class="font-bold text-emerald-300">Join Sasaram Connect WhatsApp Community</span>
+                        </div>
+
+                        <!-- DEEP LINKED WHATSAPP CHAT ROW -->
+                        <div onclick="redirectToWhatsAppSupport()" class="p-2 bg-slate-950 hover:bg-indigo-950 rounded-lg flex items-center gap-2 transition cursor-pointer">
                             <i class="fa-brands fa-whatsapp text-green-500"></i>
                             <span class="font-mono text-slate-300">Chat on WhatsApp: +91 7449948786</span>
-                        </a>
+                        </div>
                         
                         <div class="p-2 bg-slate-950 rounded-lg flex items-center gap-2">
                             <i class="fa-solid fa-envelope text-amber-500"></i>
                             <span class="font-mono text-slate-300">sasaramconnect@gmail.com</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- GOOGLE FORM INTEGRATED BANNER -->
+                <div class="bg-gradient-to-r from-amber-600/20 to-orange-600/20 p-4 rounded-xl border border-amber-500/20 space-y-2 text-center">
+                    <h4 class="text-xs font-black text-amber-400">Want to grow your local business?</h4>
+                    <p class="text-[11px] text-slate-300">List your shop, service, or outlet in the Sasaram Market Directory today.</p>
+                    <button onclick="redirectToGoogleForm()" class="inline-block bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black px-4 py-2 rounded-lg transition shadow-md cursor-pointer">
+                        Fill Registration Form
+                    </button>
                 </div>
 
                 <!-- POLICY PAGES -->
@@ -377,20 +392,61 @@
 
     <!-- APP FUNCTIONAL LOGIC -->
     <script>
-        // Default Key for LocalStorage
         const STORAGE_KEY = 'sasaram_connect_posts';
         let isAdmin = false;
 
-        // On Load initialization
         window.addEventListener('DOMContentLoaded', () => {
             initializePosts();
         });
 
+        // 1. NATIVE INSTAGRAM REDIRECT (FIXES IN-APP WEBVIEW ERRORS)
+        function redirectToInstagram() {
+            const appUrl = 'instagram://user?username=sasaram.connect';
+            const webUrl = 'https://instagram.com/sasaram.connect';
+            
+            window.location.href = appUrl;
+            
+            setTimeout(() => {
+                window.open(webUrl, '_blank');
+            }, 500);
+        }
+
+        // 2. WHATSAPP COMMUNITY REDIRECT DIRECTLY OPENING IN APP
+        function redirectToWhatsAppCommunity() {
+            const communityCode = 'BREfz2bY2YAK9rW5SNbWLe?s=cl&p=a&ilr=4&amv=3';
+            const appUrl = 'whatsapp://chat?code=' + communityCode;
+            const webUrl = 'https://chat.whatsapp.com/' + communityCode;
+
+            window.location.href = appUrl;
+
+            setTimeout(() => {
+                window.open(webUrl, '_blank');
+            }, 500);
+        }
+
+        // 3. WHATSAPP CHAT SUPPORT APP REDIRECT
+        function redirectToWhatsAppSupport() {
+            const message = encodeURIComponent("Hello Sasaram Connect Support Team, I need assistance.");
+            const appUrl = `whatsapp://send?phone=917449948786&text=${message}`;
+            const webUrl = `https://wa.me/917449948786?text=${message}`;
+
+            window.location.href = appUrl;
+
+            setTimeout(() => {
+                window.open(webUrl, '_blank');
+            }, 500);
+        }
+
+        // 4. GOOGLE FORM REDIRECT LOGIC FOR BUSINESS REGISTRATION
+        function redirectToGoogleForm() {
+            const formUrl = 'https://forms.gle/kQ8qrozitDH1SXyNA';
+            // PWA standard internal iframe optimization fallback prevention
+            window.open(formUrl, '_blank');
+        }
+
         function initializePosts() {
-            // Get local posts from localStorage
             let posts = JSON.parse(localStorage.getItem(STORAGE_KEY));
             if (!posts) {
-                // Initial Default Data
                 posts = [
                     {
                         id: 'default-1',
@@ -406,11 +462,10 @@
             renderApprovedPosts();
         }
 
-        // Render Only Approved Posts in Feed
         function renderApprovedPosts() {
             const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             const container = document.getElementById('chaupal-posts-container');
-            container.innerHTML = ''; // Clear
+            container.innerHTML = '';
 
             const approvedPosts = posts.filter(p => p.status === 'approved');
 
@@ -419,7 +474,6 @@
                 return;
             }
 
-            // Show latest first
             approvedPosts.reverse().forEach(post => {
                 const html = `
                     <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
@@ -438,7 +492,6 @@
             });
         }
 
-        // Switch Tabs Engine
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
             const activeTab = document.getElementById(`tab-${tabId}`);
@@ -471,55 +524,43 @@
         function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
         function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
 
-        // Post Submission (Enters "pending" status instead of instantly visible)
         function submitPost() {
             const name = document.getElementById('postName').value.trim();
-            const location = document.getElementById('postLoc').value.trim();
-            const message = document.getElementById('postMsg').value.trim();
-            
-            if(!name || !location || !message) {
-                alert('Please fill out all the fields before publishing.');
+            const loc = document.getElementById('postLoc').value.trim();
+            const msg = document.getElementById('postMsg').value.trim();
+
+            if (!name || !loc || !msg) {
+                alert('Please fill all fields.');
                 return;
             }
 
-            const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            
-            // New Post Structure (Kept in 'pending' status)
             const newPost = {
                 id: 'post-' + Date.now(),
                 name: name,
-                location: location,
-                message: message,
-                status: 'pending', // <--- This holds it!
-                timestamp: 'Just Now'
+                location: loc,
+                message: msg,
+                status: 'pending',
+                timestamp: 'Just now'
             };
 
+            const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             posts.push(newPost);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            
-            alert('Aapka post hold par hai aur verification ke baad live ho jayega!');
-            
-            // Reset Fields
+
+            alert('Post submitted for admin verification!');
+            closePostModal();
             document.getElementById('postName').value = '';
             document.getElementById('postLoc').value = '';
             document.getElementById('postMsg').value = '';
-            closePostModal();
-            renderApprovedPosts();
         }
 
-        /* ---------------- ADMIN MODERATION ENGINE ---------------- */
-
-        // Secret Admin Activation: Header ke Circular 'SC' Logo par click karein!
         function checkForAdminLogin() {
-            const password = prompt("Enter Admin Password to verify posts:");
-            if (password === "1234") { // Change password as you like
+            const pass = prompt('Enter Admin Password:');
+            if (pass === 'admin123') {
                 isAdmin = true;
-                alert("Welcome Admin! Approved/Pending dashboard unlocked.");
                 document.getElementById('admin-badge').classList.remove('hidden');
                 document.getElementById('admin-panel-btn').classList.remove('hidden');
                 renderApprovedPosts();
-            } else if (password !== null) {
-                alert("Incorrect Pin!");
             }
         }
 
@@ -532,77 +573,84 @@
             document.getElementById('admin-modal').classList.add('hidden');
         }
 
-        // Render Pending Posts for Review inside Admin Panel
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.shiftKey && event.key === 'A') {
+                checkForAdminLogin();
+            }
+        });
+
         function renderPendingPosts() {
             const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            const listContainer = document.getElementById('pending-posts-list');
-            listContainer.innerHTML = '';
+            const list = document.getElementById('pending-posts-list');
+            list.innerHTML = '';
 
             const pending = posts.filter(p => p.status === 'pending');
 
             if (pending.length === 0) {
-                listContainer.innerHTML = `<p class="text-center text-xs text-slate-500 py-10">No pending posts to approve.</p>`;
+                list.innerHTML = `<p class="text-center text-xs text-slate-500 py-8">No pending posts for approval.</p>`;
                 return;
             }
 
             pending.forEach(post => {
                 const html = `
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-amber-400 font-bold">User: ${post.name}</span>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <div class="flex justify-between text-xs">
+                            <span class="font-bold text-amber-400">${post.name}</span>
                             <span class="text-slate-500">${post.location}</span>
                         </div>
-                        <p class="text-xs text-slate-300 font-serif">${post.message}</p>
-                        <div class="flex gap-2 pt-2">
-                            <button onclick="approvePost('${post.id}')" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-[10px] font-bold py-1.5 rounded">Approve</button>
-                            <button onclick="deletePost('${post.id}')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold py-1.5 rounded">Reject / Delete</button>
+                        <p class="text-xs text-slate-300">${post.message}</p>
+                        <div class="flex gap-2">
+                            <button onclick="approvePost('${post.id}')" class="flex-1 bg-green-600 py-1.5 rounded text-xs font-bold">Approve</button>
+                            <button onclick="rejectPost('${post.id}')" class="flex-1 bg-red-600 py-1.5 rounded text-xs font-bold">Reject</button>
                         </div>
                     </div>
                 `;
-                listContainer.insertAdjacentHTML('beforeend', html);
+                list.insertAdjacentHTML('beforeend', html);
             });
         }
 
-        // Admin Action: Approve Post
-        window.approvePost = function(id) {
+        function approvePost(id) {
             let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            const postIndex = posts.findIndex(p => p.id === id);
-            if (postIndex !== -1) {
-                posts[postIndex].status = 'approved';
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-                renderPendingPosts();
-                renderApprovedPosts();
-            }
-        };
+            posts = posts.map(p => p.id === id ? { ...p, status: 'approved' } : p);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+            renderPendingPosts();
+            renderApprovedPosts();
+        }
 
-        // Admin Action: Delete Post
-        window.deletePost = function(id) {
+        function rejectPost(id) {
             let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             posts = posts.filter(p => p.id !== id);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
             renderPendingPosts();
-            renderApprovedPosts();
-        };
+        }
 
-        /* --------------------------------------------------------- */
+        function deletePost(id) {
+            if (confirm('Delete this post?')) {
+                let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+                posts = posts.filter(p => p.id !== id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+                renderApprovedPosts();
+            }
+        }
 
         function openPolicy(type) {
             const modal = document.getElementById('legal-modal');
             const title = document.getElementById('modal-title');
             const content = document.getElementById('modal-content');
             modal.classList.remove('hidden');
-            
-            if(type === 'privacy') {
-                title.innerText = "Privacy Policy";
-                content.innerHTML = "<p>Your privacy is strictly monitored. Sasaram Connect structures basic contact and structural directories for neighborhood lookup workflows.</p>";
-            } else if(type === 'terms') {
-                title.innerText = "Terms & Conditions";
-                content.innerHTML = "<p>By utilizing this utility portal app layout, you accept independent configuration workflows without administrative liability representation.</p>";
-            } else {
-                title.innerText = "About & Developer";
-                content.innerHTML = "<p>Sasaram Connect is an independent public digital index portal engineered for modular community layout tracking.</p>";
+
+            if (type === 'privacy') {
+                title.innerText = 'Privacy Policy';
+                content.innerHTML = `<p>Your privacy is important to us. Sasaram Connect platform does not trade, share, or capture persistent tracking elements outside local context storage rules...</p>`;
+            } else if (type === 'terms') {
+                title.innerText = 'Terms & Conditions';
+                content.innerHTML = `<p>By accessing Sasaram Connect local link aggregation dashboard tools, you comply with regional content moderation standards...</p>`;
+            } else if (type === 'about') {
+                title.innerText = 'About Us & Developer';
+                content.innerHTML = `<p>Sasaram Connect is designed as a public link aggregator utility dashboard built to empower local citizens with instant navigation data...</p>`;
             }
         }
+
         function closePolicy() { document.getElementById('legal-modal').classList.add('hidden'); }
     </script>
 </body>
