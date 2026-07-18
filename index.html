@@ -108,7 +108,7 @@
                             <i class="fa-solid fa-bolt text-xl text-cyan-400"></i>
                             <span class="text-[10px] font-bold">Electricity & Water</span>
                         </div>
-                        <!-- GOOGLE FORM INTEGRATION WITH SYSTEM ACTION HANDLER -->
+                        <!-- GOOGLE FORM INTEGRATION -->
                         <div onclick="redirectToGoogleForm()" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-orange-500 flex items-center gap-3 cursor-pointer transition">
                             <i class="fa-solid fa-store text-xl text-orange-400"></i>
                             <span class="text-[10px] font-bold text-left">List Your Store / Market</span>
@@ -399,48 +399,29 @@
             initializePosts();
         });
 
-        // 1. NATIVE INSTAGRAM REDIRECT (FIXES IN-APP WEBVIEW ERRORS)
+        // 1. UNIVERSAL HTTPS REDIRECT FOR INSTAGRAM
         function redirectToInstagram() {
-            const appUrl = 'instagram://user?username=sasaram.connect';
-            const webUrl = 'https://instagram.com/sasaram.connect';
-            
-            window.location.href = appUrl;
-            
-            setTimeout(() => {
-                window.open(webUrl, '_blank');
-            }, 500);
+            const webUrl = 'https://www.instagram.com/_u/sasaram.connect';
+            window.open(webUrl, '_blank');
         }
 
-        // 2. WHATSAPP COMMUNITY REDIRECT DIRECTLY OPENING IN APP
+        // 2. UNIVERSAL HTTPS REDIRECT FOR WHATSAPP COMMUNITY
         function redirectToWhatsAppCommunity() {
-            const communityCode = 'BREfz2bY2YAK9rW5SNbWLe?s=cl&p=a&ilr=4&amv=3';
-            const appUrl = 'whatsapp://chat?code=' + communityCode;
-            const webUrl = 'https://chat.whatsapp.com/' + communityCode;
-
-            window.location.href = appUrl;
-
-            setTimeout(() => {
-                window.open(webUrl, '_blank');
-            }, 500);
+            const communityCode = 'BREfz2bY2YAK9rW5SNbWLe';
+            const webUrl = `https://chat.whatsapp.com/${communityCode}`;
+            window.open(webUrl, '_blank');
         }
 
-        // 3. WHATSAPP CHAT SUPPORT APP REDIRECT
+        // 3. UNIVERSAL HTTPS REDIRECT FOR WHATSAPP SUPPORT DESK
         function redirectToWhatsAppSupport() {
             const message = encodeURIComponent("Hello Sasaram Connect Support Team, I need assistance.");
-            const appUrl = `whatsapp://send?phone=917449948786&text=${message}`;
             const webUrl = `https://wa.me/917449948786?text=${message}`;
-
-            window.location.href = appUrl;
-
-            setTimeout(() => {
-                window.open(webUrl, '_blank');
-            }, 500);
+            window.open(webUrl, '_blank');
         }
 
-        // 4. GOOGLE FORM REDIRECT LOGIC FOR BUSINESS REGISTRATION
+        // 4. GOOGLE FORM STRIPPED REDIRECT FOR WEBVIEW OVERLAYS
         function redirectToGoogleForm() {
             const formUrl = 'https://forms.gle/kQ8qrozitDH1SXyNA';
-            // PWA standard internal iframe optimization fallback prevention
             window.open(formUrl, '_blank');
         }
 
@@ -521,6 +502,7 @@
             });
         }
 
+        /* Modal Handlers */
         function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
         function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
 
@@ -573,12 +555,6 @@
             document.getElementById('admin-modal').classList.add('hidden');
         }
 
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.shiftKey && event.key === 'A') {
-                checkForAdminLogin();
-            }
-        });
-
         function renderPendingPosts() {
             const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             const list = document.getElementById('pending-posts-list');
@@ -616,6 +592,12 @@
             renderPendingPosts();
             renderApprovedPosts();
         }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.shiftKey && event.key === 'A') {
+                checkForAdminLogin();
+            }
+        });
 
         function rejectPost(id) {
             let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
