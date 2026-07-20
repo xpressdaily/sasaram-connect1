@@ -47,7 +47,6 @@
         <!-- HEADER -->
         <header class="bg-gradient-to-r from-indigo-950 to-slate-900 px-3 py-3 flex justify-between items-center border-b border-indigo-950 shadow-lg">
             <div class="flex items-center gap-2">
-                <!-- SC Logo opens Admin Login on Click -->
                 <button onclick="openAdminScreen()" title="Admin Login" class="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center font-black text-slate-950 text-base shadow-inner hover:scale-105 transition cursor-pointer active:scale-95">
                     SC
                 </button>
@@ -70,7 +69,7 @@
                 LIVE
             </span>
             <div id="ticker-display" class="ticker-text text-[11px] text-amber-400 font-medium pl-14">
-                🔴 Heavy rush of devotees at Maa Tara Chandi Dham... ⚠️ Heavy vehicles restricted on G.T. Road Bypass... 🟢 Cleanliness drive completed in Ward 12.
+                Loading live updates...
             </div>
         </div>
 
@@ -142,19 +141,13 @@
                     </div>
 
                     <h4 id="poll-question-display" class="text-xs font-extrabold text-slate-100">
-                        How is the drainage and cleanliness management in your ward?
+                        Loading Poll...
                     </h4>
 
                     <div id="poll-options-container" class="space-y-2">
-                        <button onclick="votePoll(1)" id="poll-opt-1" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
-                            Excellent, cleaned regularly on time
-                        </button>
-                        <button onclick="votePoll(2)" id="poll-opt-2" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
-                            Average, needs more improvement
-                        </button>
-                        <button onclick="votePoll(3)" id="poll-opt-3" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
-                            Very poor, drains are clogged
-                        </button>
+                        <button onclick="votePoll(1)" id="poll-opt-1" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">Option 1</button>
+                        <button onclick="votePoll(2)" id="poll-opt-2" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">Option 2</button>
+                        <button onclick="votePoll(3)" id="poll-opt-3" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">Option 3</button>
                     </div>
                 </div>
             </div>
@@ -232,9 +225,8 @@
             </button>
         </nav>
 
-        <!-- ================= FULL ADMIN PORTAL SCREEN ================= -->
+        <!-- ADMIN PORTAL -->
         <div id="admin-screen" class="absolute inset-0 bg-slate-950 z-[300] hidden flex flex-col">
-            <!-- Admin Top Bar -->
             <header class="bg-slate-900 px-4 py-3 flex justify-between items-center border-b border-slate-800">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-shield-halved text-amber-400 text-sm"></i>
@@ -245,7 +237,6 @@
                 </button>
             </header>
 
-            <!-- VIEW 1: ADMIN LOGIN SCREEN -->
             <div id="admin-login-view" class="flex-1 flex flex-col justify-center items-center p-6 space-y-4">
                 <div class="w-16 h-16 bg-red-600/10 text-red-500 border border-red-500/20 rounded-full flex items-center justify-center text-2xl shadow-inner">
                     <i class="fa-solid fa-lock"></i>
@@ -262,14 +253,12 @@
                 </div>
             </div>
 
-            <!-- VIEW 2: ADMIN DASHBOARD (AFTER LOGIN) -->
             <div id="admin-dashboard-view" class="flex-1 overflow-y-auto p-4 space-y-5 hidden hide-scroll">
                 <div class="flex justify-between items-center bg-indigo-950/40 p-3 rounded-xl border border-indigo-900">
                     <span class="text-[10px] font-bold text-green-400 flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> Admin Session Active</span>
                     <button onclick="adminLogout()" class="text-[9px] bg-red-600 text-white font-bold px-2.5 py-1 rounded">Logout</button>
                 </div>
 
-                <!-- SECTION 1: LIVE TICKER CONTROL -->
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
                     <h3 class="text-xs font-black text-amber-400 flex items-center gap-2">
                         <i class="fa-solid fa-bullhorn"></i> Update Live Ticker Text
@@ -280,7 +269,6 @@
                     </button>
                 </div>
 
-                <!-- SECTION 2: ONLINE POLL CONTROL -->
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
                     <h3 class="text-xs font-black text-indigo-400 flex items-center gap-2">
                         <i class="fa-solid fa-square-poll-vertical"></i> Update Online Poll
@@ -296,7 +284,6 @@
                     </button>
                 </div>
 
-                <!-- SECTION 3: CHAUPAL PENDING MODERATION -->
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
                     <h3 class="text-xs font-black text-red-400 flex items-center gap-2">
                         <i class="fa-solid fa-clock"></i> Pending Chaupal Posts
@@ -327,17 +314,28 @@
 
     </div>
 
-    <!-- SCRIPT -->
+    <!-- FIREBASE SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <script>
-        const STORAGE_KEY = 'sasaram_connect_posts';
-        const TICKER_KEY = 'sasaram_connect_ticker';
-        const POLL_KEY = 'sasaram_connect_poll';
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWoHEDVLGCSwR9LPNY60ImtNvqSJGwcn0",
+            authDomain: "sasaram-connect.firebaseapp.com",
+            projectId: "sasaram-connect",
+            storageBucket: "sasaram-connect.firebasestorage.app",
+            messagingSenderId: "873384703418",
+            appId: "1:873384703418:web:a286d7323a3e02b7799983",
+            measurementId: "G-0FEC7TP8PH"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         let isAdmin = false;
 
         window.addEventListener('DOMContentLoaded', () => {
-            initializePosts();
-            loadTickerData();
-            loadPollData();
+            listenToLiveUpdates();
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if(splash) {
@@ -347,29 +345,42 @@
             }, 500);
         });
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Failed:', err));
+        function listenToLiveUpdates() {
+            db.collection("settings").doc("ticker").onSnapshot(doc => {
+                if (doc.exists) {
+                    document.getElementById('ticker-display').innerText = doc.data().text;
+                } else {
+                    document.getElementById('ticker-display').innerText = "🔴 Welcome to Sasaram Connect digital civic portal.";
+                }
+            });
+
+            db.collection("settings").doc("poll").onSnapshot(doc => {
+                if (doc.exists) {
+                    const poll = doc.data();
+                    document.getElementById('poll-question-display').innerText = poll.q;
+                    document.getElementById('poll-opt-1').innerText = poll.o1;
+                    document.getElementById('poll-opt-2').innerText = poll.o2;
+                    document.getElementById('poll-opt-3').innerText = poll.o3;
+                }
+            });
+
+            db.collection("posts").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+                const posts = [];
+                snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
+                renderPosts(posts);
             });
         }
 
-        /* --- ADMIN PORTAL NAVIGATION & LOGIN --- */
-        function openAdminScreen() {
-            document.getElementById('admin-screen').classList.remove('hidden');
-        }
-        function closeAdminScreen() {
-            document.getElementById('admin-screen').classList.add('hidden');
-        }
+        function openAdminScreen() { document.getElementById('admin-screen').classList.remove('hidden'); }
+        function closeAdminScreen() { document.getElementById('admin-screen').classList.add('hidden'); }
 
         function handleAdminLogin() {
             const pass = document.getElementById('adminPassInput').value;
-            // Updated password requirement
             if (pass === 'sameer@786') {
                 isAdmin = true;
                 document.getElementById('admin-login-view').classList.add('hidden');
                 document.getElementById('admin-dashboard-view').classList.remove('hidden');
                 populateAdminFields();
-                renderApprovedPosts();
             } else {
                 alert('Invalid Admin Code!');
             }
@@ -380,7 +391,6 @@
             document.getElementById('adminPassInput').value = '';
             document.getElementById('admin-dashboard-view').classList.add('hidden');
             document.getElementById('admin-login-view').classList.remove('hidden');
-            renderApprovedPosts();
         }
 
         function populateAdminFields() {
@@ -389,34 +399,14 @@
             document.getElementById('adminPollOpt1').value = document.getElementById('poll-opt-1').innerText;
             document.getElementById('adminPollOpt2').value = document.getElementById('poll-opt-2').innerText;
             document.getElementById('adminPollOpt3').value = document.getElementById('poll-opt-3').innerText;
-            renderPendingPosts();
-        }
-
-        /* --- TICKER FUNCTIONS --- */
-        function loadTickerData() {
-            const savedTicker = localStorage.getItem(TICKER_KEY);
-            if (savedTicker) {
-                document.getElementById('ticker-display').innerText = savedTicker;
-            }
         }
 
         function saveTickerFromAdmin() {
-            const val = document.getElementById('adminTickerText').value.trim();
-            if (val) {
-                localStorage.setItem(TICKER_KEY, val);
-                document.getElementById('ticker-display').innerText = val;
-                alert('Live News Ticker Updated Successfully!');
-            }
-        }
-
-        /* --- POLL FUNCTIONS --- */
-        function loadPollData() {
-            const savedPoll = JSON.parse(localStorage.getItem(POLL_KEY));
-            if (savedPoll) {
-                document.getElementById('poll-question-display').innerText = savedPoll.q;
-                document.getElementById('poll-opt-1').innerText = savedPoll.o1;
-                document.getElementById('poll-opt-2').innerText = savedPoll.o2;
-                document.getElementById('poll-opt-3').innerText = savedPoll.o3;
+            const text = document.getElementById('adminTickerText').value.trim();
+            if (text) {
+                db.collection("settings").doc("ticker").set({ text })
+                    .then(() => alert('Live News Ticker Updated Globally!'))
+                    .catch(err => alert('Error: ' + err.message));
             }
         }
 
@@ -427,75 +417,90 @@
             const o3 = document.getElementById('adminPollOpt3').value.trim();
 
             if (q && o1 && o2 && o3) {
-                const pollObj = { q, o1, o2, o3 };
-                localStorage.setItem(POLL_KEY, JSON.stringify(pollObj));
-                loadPollData();
-                alert('Online Poll Updated Successfully!');
+                db.collection("settings").doc("poll").set({ q, o1, o2, o3 })
+                    .then(() => alert('Poll Updated Globally!'))
+                    .catch(err => alert('Error: ' + err.message));
             }
         }
 
-        function votePoll(optionNum) { alert('Thank you for voting!'); }
+        function submitPost() {
+            const name = document.getElementById('postName').value.trim();
+            const loc = document.getElementById('postLoc').value.trim();
+            const msg = document.getElementById('postMsg').value.trim();
 
-        /* --- REDIRECT & OTHER FUNCTIONS --- */
-        function redirectToWhatsAppCommunity() { window.open("https://chat.whatsapp.com/BREfz2bY2YAK9rW5SNbWLe", '_blank'); }
-        function redirectToWhatsAppSupport() { window.open("https://wa.me/917449948786", '_blank'); }
-        function redirectToGoogleForm() { window.open('https://forms.gle/kQ8qrozitDH1SXyNA', '_blank'); }
+            if (!name || !loc || !msg) { alert('Please fill all fields.'); return; }
 
-        /* --- DIRECTORY FILTER --- */
-        function filterDirectory() {
-            const q = document.getElementById('directorySearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.contact-card');
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                if (name.includes(q)) {
-                    card.style.display = 'flex';
+            db.collection("posts").add({
+                name,
+                location: loc,
+                message: msg,
+                status: isAdmin ? 'approved' : 'pending',
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById('postName').value = '';
+                document.getElementById('postLoc').value = '';
+                document.getElementById('postMsg').value = '';
+                closePostModal();
+                alert(isAdmin ? 'Published Globally!' : 'Submitted for admin review.');
+            });
+        }
+
+        function renderPosts(posts) {
+            const approvedContainer = document.getElementById('chaupal-posts-container');
+            const pendingContainer = document.getElementById('admin-pending-list');
+
+            approvedContainer.innerHTML = '';
+            if (pendingContainer) pendingContainer.innerHTML = '';
+
+            const approved = posts.filter(p => p.status === 'approved');
+            const pending = posts.filter(p => p.status === 'pending');
+
+            if (approved.length === 0) {
+                approvedContainer.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No active posts on Chaupal.</p>`;
+            } else {
+                approved.forEach(post => {
+                    approvedContainer.innerHTML += `
+                        <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-black text-indigo-400">${post.name}</span>
+                                <span class="text-[9px] text-slate-500">${post.timestamp || ''}</span>
+                            </div>
+                            <p class="text-xs text-slate-300">${post.message}</p>
+                            <div class="flex justify-between items-center">
+                                <div class="text-[9px] text-amber-500 font-bold"><i class="fa-solid fa-location-dot"></i> ${post.location}</div>
+                                ${isAdmin ? `<button onclick="deletePost('${post.id}')" class="text-red-500 text-[10px] font-bold">Delete</button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            if (pendingContainer) {
+                if (pending.length === 0) {
+                    pendingContainer.innerHTML = `<p class="text-center text-xs text-slate-500 py-2">No pending posts for approval.</p>`;
                 } else {
-                    card.style.display = 'none';
+                    pending.forEach(post => {
+                        pendingContainer.innerHTML += `
+                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-amber-400">${post.name} (${post.location})</span>
+                                    <span class="text-[9px] text-slate-500">${post.timestamp || ''}</span>
+                                </div>
+                                <p class="text-xs text-slate-300">${post.message}</p>
+                                <div class="flex gap-2 justify-end pt-1">
+                                    <button onclick="approvePost('${post.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Approve</button>
+                                    <button onclick="deletePost('${post.id}')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Reject</button>
+                                </div>
+                            </div>
+                        `;
+                    });
                 }
-            });
-        }
-
-        /* --- CHAUPAL POSTS & TAB LOGIC --- */
-        function initializePosts() {
-            let posts = JSON.parse(localStorage.getItem(STORAGE_KEY));
-            if (!posts) {
-                posts = [{
-                    id: 'default-1', name: 'Admin Announcement', location: 'Sasaram City',
-                    message: 'Welcome to Sasaram Chaupal. Share public issues or news updates here.',
-                    status: 'approved', timestamp: 'Official'
-                }];
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
             }
-            renderApprovedPosts();
         }
 
-        function renderApprovedPosts() {
-            const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            const container = document.getElementById('chaupal-posts-container');
-            container.innerHTML = '';
-            const approvedPosts = posts.filter(p => p.status === 'approved');
-
-            if (approvedPosts.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No active posts on Chaupal.</p>`;
-                return;
-            }
-
-            approvedPosts.slice().reverse().forEach(post => {
-                container.innerHTML += `
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-black text-indigo-400">${post.name}</span>
-                            <span class="text-[9px] text-slate-500">${post.timestamp}</span>
-                        </div>
-                        <p class="text-xs text-slate-300">${post.message}</p>
-                        <div class="flex justify-between items-center">
-                            <div class="text-[9px] text-amber-500 font-bold"><i class="fa-solid fa-location-dot"></i> ${post.location}</div>
-                            ${isAdmin ? `<button onclick="deletePost('${post.id}')" class="text-red-500 text-[10px] font-bold">Delete</button>` : ''}
-                        </div>
-                    </div>
-                `;
-            });
-        }
+        function approvePost(id) { db.collection("posts").doc(id).update({ status: 'approved' }); }
+        function deletePost(id) { db.collection("posts").doc(id).delete(); }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -511,73 +516,19 @@
 
         function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
         function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
+        function votePoll(optionNum) { alert('Thank you for voting!'); }
+        function redirectToWhatsAppCommunity() { window.open("https://chat.whatsapp.com/BREfz2bY2YAK9rW5SNbWLe", '_blank'); }
+        function redirectToWhatsAppSupport() { window.open("https://wa.me/917449948786", '_blank'); }
+        function redirectToGoogleForm() { window.open('https://forms.gle/kQ8qrozitDH1SXyNA', '_blank'); }
 
-        function submitPost() {
-            const name = document.getElementById('postName').value.trim();
-            const loc = document.getElementById('postLoc').value.trim();
-            const msg = document.getElementById('postMsg').value.trim();
-
-            if (!name || !loc || !msg) { alert('Please fill out all fields.'); return; }
-
-            const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            posts.push({
-                id: 'post-' + Date.now(), name, location: loc, message: msg,
-                status: isAdmin ? 'approved' : 'pending',
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        function filterDirectory() {
+            const q = document.getElementById('directorySearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.contact-card');
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name.includes(q)) card.style.display = 'flex';
+                else card.style.display = 'none';
             });
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            document.getElementById('postName').value = '';
-            document.getElementById('postLoc').value = '';
-            document.getElementById('postMsg').value = '';
-            closePostModal();
-            renderApprovedPosts();
-            alert(isAdmin ? 'Published!' : 'Submitted for admin review.');
-        }
-
-        /* --- MODERATION FUNCTIONS --- */
-        function renderPendingPosts() {
-            const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            const container = document.getElementById('admin-pending-list');
-            container.innerHTML = '';
-            const pending = posts.filter(p => p.status === 'pending');
-
-            if (pending.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-slate-500 py-2">No pending posts for approval.</p>`;
-                return;
-            }
-
-            pending.forEach(post => {
-                container.innerHTML += `
-                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs font-bold text-amber-400">${post.name} (${post.location})</span>
-                            <span class="text-[9px] text-slate-500">${post.timestamp}</span>
-                        </div>
-                        <p class="text-xs text-slate-300">${post.message}</p>
-                        <div class="flex gap-2 justify-end pt-1">
-                            <button onclick="approvePost('${post.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Approve</button>
-                            <button onclick="deletePost('${post.id}')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Reject</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function approvePost(id) {
-            let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            posts = posts.map(p => p.id === id ? { ...p, status: 'approved' } : p);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            renderPendingPosts();
-            renderApprovedPosts();
-        }
-
-        function deletePost(id) {
-            let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            posts = posts.filter(p => p.id !== id);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            renderPendingPosts();
-            renderApprovedPosts();
         }
     </script>
 </body>
