@@ -1,121 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Browser Tab Icon (Favicon) -->
-    <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
-
-    <!-- Mobile Add to Home Screen & iOS -->
-    <link class="apple-touch-icon" href="logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#020617">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sasaram Connect</title>
-    <!-- Tailwind CSS CDN -->
+
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+
     <style>
+        body { -webkit-tap-highlight-color: transparent; }
         @media (min-width: 640px) {
             .mobile-container {
-                max-width: 410px;
-                height: 840px;
-                border: 12px solid #1f2937;
-                border-radius: 40px;
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-                overflow: hidden;
+                max-width: 410px; height: 840px; border: 12px solid #1f2937;
+                border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden;
             }
         }
         .hide-scroll::-webkit-scrollbar { display: none; }
-        
-        /* News Ticker Animation */
         @keyframes ticker {
             0% { transform: translate3d(100%, 0, 0); }
             100% { transform: translate3d(-100%, 0, 0); }
         }
         .ticker-text {
-            display: inline-block;
-            white-space: nowrap;
-            animation: ticker 20s linear infinite;
-        }
-
-        /* Splash Screen Animation */
-        @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-        .animate-splash-logo {
-            animation: pulseGlow 1.8s infinite ease-in-out;
+            display: inline-block; white-space: nowrap; animation: ticker 20s linear infinite;
         }
     </style>
 </head>
 <body class="bg-slate-900 sm:py-6 flex justify-center items-center min-h-screen text-white font-sans">
 
-    <!-- App Container -->
     <div class="mobile-container w-full h-screen bg-slate-950 flex flex-col relative overflow-hidden">
 
-        <!-- 1. WELCOME SPLASH SCREEN -->
-        <div id="splash-screen" class="absolute inset-0 bg-gradient-to-b from-indigo-950 via-slate-950 to-slate-950 z-[200] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
-            <div class="animate-splash-logo w-24 h-24 bg-amber-500 rounded-3xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-2xl mb-5 border-2 border-amber-300">
-                SC
-            </div>
-            <h2 class="text-xs uppercase font-extrabold text-indigo-400 tracking-widest mb-1">Welcome To</h2>
-            <h1 class="text-2xl font-black text-amber-400 tracking-wide mb-2">Sasaram Connect</h1>
-            <p class="text-xs text-indigo-200/80 max-w-xs">Rohtas' Own Digital Civic & Local Business Portal</p>
-            
-            <div class="absolute bottom-10 flex flex-col items-center gap-2">
-                <div class="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
-                <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Loading Experience...</span>
-            </div>
+        <!-- SPLASH SCREEN -->
+        <div id="splash-screen" class="absolute inset-0 bg-slate-950 z-[200] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-300">
+            <div class="w-20 h-20 bg-amber-500 rounded-3xl flex items-center justify-center font-black text-slate-950 text-3xl mb-4 shadow-xl">SC</div>
+            <h2 class="text-xs uppercase font-bold text-indigo-400 tracking-widest mb-1">Welcome To</h2>
+            <h1 class="text-xl font-black text-amber-400">Sasaram Connect</h1>
         </div>
         
-        <!-- HEADER WITH WHATSAPP COMMUNITY & INSTAGRAM NATIVE DEEP LINKING -->
-        <header class="bg-gradient-to-r from-indigo-900 to-slate-900 px-4 py-3 flex justify-between items-center border-b border-indigo-950 shadow-lg">
+        <!-- HEADER -->
+        <header class="bg-gradient-to-r from-indigo-950 to-slate-900 px-3 py-3 flex justify-between items-center border-b border-indigo-950 shadow-lg">
             <div class="flex items-center gap-2">
-                <div onclick="checkForAdminLogin()" class="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center font-black text-slate-950 text-base shadow-inner cursor-pointer">SC</div>
+                <!-- SC Logo opens Admin Login on Click -->
+                <button onclick="openAdminScreen()" title="Admin Login" class="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center font-black text-slate-950 text-base shadow-inner hover:scale-105 transition cursor-pointer active:scale-95">
+                    SC
+                </button>
                 <div>
                     <h1 class="text-sm font-black tracking-wider text-amber-400">Sasaram Connect</h1>
-                    <p class="text-[9px] text-indigo-200">Rohtas' Own Digital Platform</p>
+                    <p class="text-[9px] text-indigo-200">Rohtas' Digital Civic Portal</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-1.5">
-                <!-- NATIVE WHATSAPP COMMUNITY TRIGGER -->
-                <button onclick="redirectToWhatsAppCommunity()" class="bg-emerald-600 hover:opacity-90 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide shadow transition-all duration-200 cursor-pointer">
-                    <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span>Community</span>
-                </button>
-                
-                <!-- NATIVE INSTAGRAM APP DEEP LINK REDIRECT -->
-                <button onclick="redirectToInstagram()" class="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-90 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide shadow transition-all duration-200 cursor-pointer">
-                    <i class="fa-brands fa-instagram text-sm"></i>
-                    <span>Follow</span>
+                <button onclick="redirectToWhatsAppCommunity()" class="bg-emerald-600 hover:opacity-90 flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-black tracking-wide shadow cursor-pointer">
+                    <i class="fa-brands fa-whatsapp text-xs"></i> <span>Community</span>
                 </button>
             </div>
         </header>
 
         <!-- LIVE NEWS TICKER -->
         <div class="bg-amber-500/10 border-b border-amber-500/20 py-1.5 overflow-hidden relative flex items-center">
-            <span class="absolute left-0 bg-amber-500 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-r z-10 shadow-md">LIVE</span>
-            <div class="ticker-text text-[11px] text-amber-400 font-medium pl-14">
+            <span class="absolute left-0 bg-amber-500 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-r z-10 shadow-md flex items-center gap-1">
+                LIVE
+            </span>
+            <div id="ticker-display" class="ticker-text text-[11px] text-amber-400 font-medium pl-14">
                 🔴 Heavy rush of devotees at Maa Tara Chandi Dham... ⚠️ Heavy vehicles restricted on G.T. Road Bypass... 🟢 Cleanliness drive completed in Ward 12.
             </div>
         </div>
 
-        <!-- MAIN SCROLLABLE CONTENT -->
+        <!-- MAIN CONTENT -->
         <main class="flex-1 overflow-y-auto hide-scroll pb-20">
             
             <!-- TAB 1: HOME -->
             <div id="tab-home" class="tab-content space-y-4 p-4">
-                
-                <!-- Hero Banner -->
-                <div class="relative rounded-2xl overflow-hidden h-44 shadow-2xl border border-slate-800 bg-gradient-to-br from-indigo-950 to-slate-900 flex flex-col justify-end p-4">
-                    <div class="absolute top-3 left-3 bg-indigo-900/80 backdrop-blur-md text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-indigo-700/50">
-                        📍 <span>Sher Shah Suri Tomb, Sasaram</span>
-                    </div>
-                    <div class="relative z-10">
-                        <h2 class="text-base font-black text-white">Historical Heritage of Sasaram</h2>
-                        <p class="text-[10px] text-slate-300 mt-0.5">Promoting Tourism & Pride of Rohtas</p>
-                    </div>
-                </div>
 
                 <!-- Quick Actions Grid -->
                 <div>
@@ -131,7 +94,6 @@
                             <i class="fa-solid fa-bolt text-xl text-cyan-400"></i>
                             <span class="text-[10px] font-bold">Electricity & Water</span>
                         </div>
-                        <!-- GOOGLE FORM INTEGRATION -->
                         <div onclick="redirectToGoogleForm()" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-orange-500 flex items-center gap-3 cursor-pointer transition">
                             <i class="fa-solid fa-store text-xl text-orange-400"></i>
                             <span class="text-[10px] font-bold text-left">List Your Store / Market</span>
@@ -142,7 +104,6 @@
                         </div>
                     </div>
                     
-                    <!-- WHATSAPP SUPPORT DIRECT APP INTENT INJECTION -->
                     <button onclick="redirectToWhatsAppSupport()" class="w-full mt-2 bg-slate-900/80 py-2.5 px-3 rounded-xl border border-slate-800 hover:border-green-500 flex items-center justify-center gap-2 transition cursor-pointer">
                         <i class="fa-brands fa-whatsapp text-base text-green-400"></i>
                         <span class="text-[10px] font-bold">Chat on WhatsApp Support</span>
@@ -152,14 +113,12 @@
                 <!-- Mandi Bhav Section -->
                 <div class="bg-gradient-to-br from-slate-900 to-indigo-950/40 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-2.5 border-b border-slate-800 pb-2">
-                        <h3 class="text-[11px] font-bold uppercase text-amber-400 tracking-wider flex items-center gap-1.5">
-                            🌾 Rohtas Mandi Rates
-                        </h3>
+                        <h3 class="text-[11px] font-bold uppercase text-amber-400 tracking-wider flex items-center gap-1.5">🌾 Rohtas Mandi Rates</h3>
                         <span class="text-[9px] bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded font-mono">Today</span>
                     </div>
                     <div class="grid grid-cols-3 gap-2 text-center">
                         <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
-                            <p class="text-[10px] text-slate-400 font-bold">Paddy (Sona Masoori)</p>
+                            <p class="text-[10px] text-slate-400 font-bold">Paddy</p>
                             <p class="text-xs font-black text-green-400 mt-1">₹2,280 <span class="text-[9px]">/Q</span></p>
                             <span class="text-[8px] text-green-500 font-bold">▲ 1.5%</span>
                         </div>
@@ -176,18 +135,24 @@
                     </div>
                 </div>
 
-                <!-- Online Poll -->
-                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
-                    <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest">SASARAM ONLINE POLL</p>
-                    <h4 class="text-xs font-extrabold text-slate-100">How is the drainage and cleanliness management in your ward?</h4>
-                    <div class="space-y-2">
-                        <button onclick="alert('Thank you for voting!')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
+                <!-- ONLINE POLL -->
+                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3 relative">
+                    <div class="flex justify-between items-center">
+                        <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest">SASARAM ONLINE POLL</p>
+                    </div>
+
+                    <h4 id="poll-question-display" class="text-xs font-extrabold text-slate-100">
+                        How is the drainage and cleanliness management in your ward?
+                    </h4>
+
+                    <div id="poll-options-container" class="space-y-2">
+                        <button onclick="votePoll(1)" id="poll-opt-1" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
                             Excellent, cleaned regularly on time
                         </button>
-                        <button onclick="alert('Thank you for voting!')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
+                        <button onclick="votePoll(2)" id="poll-opt-2" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
                             Average, needs more improvement
                         </button>
-                        <button onclick="alert('Thank you for voting!')" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
+                        <button onclick="votePoll(3)" id="poll-opt-3" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">
                             Very poor, drains are clogged
                         </button>
                     </div>
@@ -200,293 +165,305 @@
                     <div>
                         <h2 class="text-sm font-black flex items-center gap-2">
                             <span>Sasaram Chaupal</span>
-                            <span id="admin-badge" class="hidden text-[8px] bg-red-600 text-white px-1.5 py-0.5 rounded font-black">ADMIN MODE</span>
                         </h2>
                         <p class="text-[10px] text-slate-400">Share public updates or report local issues</p>
                     </div>
-                    <div class="flex gap-1">
-                        <button id="admin-panel-btn" onclick="openAdminPanel()" class="hidden bg-red-600 hover:bg-red-700 text-xs px-2.5 py-2 rounded-lg font-bold shadow-lg">
-                            <i class="fa-solid fa-lock"></i> Pending
-                        </button>
-                        <button onclick="openPostModal()" class="bg-indigo-600 hover:bg-indigo-700 text-xs px-3 py-2 rounded-lg font-bold shadow-lg flex items-center gap-1">
-                            <i class="fa-solid fa-plus"></i> <span>Create Post</span>
-                        </button>
-                    </div>
+                    <button onclick="openPostModal()" class="bg-indigo-600 hover:bg-indigo-700 text-xs px-3 py-2 rounded-lg font-bold shadow-lg flex items-center gap-1">
+                        <i class="fa-solid fa-plus"></i> <span>Create Post</span>
+                    </button>
                 </div>
-                
-                <!-- Dynamic Post Container -->
-                <div id="chaupal-posts-container" class="space-y-4">
-                    <!-- Default Post Injection -->
-                </div>
+                <div id="chaupal-posts-container" class="space-y-4"></div>
             </div>
 
-            <!-- TAB 3: GOVERNMENT DIRECTORY -->
+            <!-- TAB 3: DIRECTORY -->
             <div id="tab-services" class="tab-content hidden p-4 space-y-4">
                 <div>
                     <h2 class="text-sm font-black">Rohtas Public Services & Helpline</h2>
-                    <p class="text-[10px] text-slate-400">Important public contact reference links within the district</p>
+                    <p class="text-[10px] text-slate-400">Important public contact reference links</p>
                 </div>
 
-                <!-- Live Search -->
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search offices, utilities, or emergency support..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
+                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search offices, utilities, helpline..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
                 </div>
 
                 <div class="space-y-2.5" id="directory-list">
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="dm office rohtas जिलाधिकारी samaharnalay collectorate">
+                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="dm office rohtas">
                         <div>
-                            <span class="text-[8px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-black border border-amber-500/10">ADMINISTRATION</span>
-                            <h3 class="text-xs font-black text-slate-100">District Magistrate (DM Office), Rohtas</h3>
+                            <span class="text-[8px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-black">ADMINISTRATION</span>
+                            <h3 class="text-xs font-black text-slate-100">District Magistrate (DM Office)</h3>
                         </div>
-                        <a href="tel:06184222226" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
+                        <a href="tel:06184222226" class="bg-indigo-600 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sp office rohtas superintendent police police mukhyalay">
+                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sp office rohtas">
                         <div>
-                            <span class="text-[8px] bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded font-black border border-red-500/10">POLICE</span>
+                            <span class="text-[8px] bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded font-black">POLICE</span>
                             <h3 class="text-xs font-black text-slate-100">Superintendent of Police (SP Office)</h3>
                         </div>
-                        <a href="tel:9431822989" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sdm sasaram sub divisional magistrate anumandal adhikari">
-                        <div>
-                            <span class="text-[8px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-black border border-amber-500/10">ADMINISTRATION</span>
-                            <h3 class="text-xs font-black text-slate-100">Sub Divisional Magistrate (SDM), Sasaram</h3>
-                        </div>
-                        <a href="tel:9431818371" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sadar hospital civil surgeon medical ambulance hospital swasthya">
-                        <div>
-                            <span class="text-[8px] bg-green-500/10 text-green-400 px-1.5 py-0.5 rounded font-black border border-green-500/10">HEALTHCARE</span>
-                            <h3 class="text-xs font-black text-slate-100">Sadar Hospital, Sasaram</h3>
-                        </div>
-                        <a href="tel:06184222212" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sasaram municipal corporation nagar nigam safai shikayat">
-                        <div>
-                            <span class="text-[8px] bg-cyan-500/10 text-cyan-400 px-1.5 py-0.5 rounded font-black border border-cyan-500/10">MUNICIPAL</span>
-                            <h3 class="text-xs font-black text-slate-100">Municipal Corporation Helpline</h3>
-                        </div>
-                        <a href="tel:18003456211" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
-                    </div>
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="electricity board sasaram light power bill bijli vibhag">
-                        <div>
-                            <span class="text-[8px] bg-cyan-500/10 text-cyan-400 px-1.5 py-0.5 rounded font-black border border-cyan-500/10">UTILITIES</span>
-                            <h3 class="text-xs font-black text-slate-100">Electricity Complaint Urban</h3>
-                        </div>
-                        <a href="tel:7033095815" class="bg-indigo-600 hover:bg-indigo-700 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
+                        <a href="tel:9431822989" class="bg-indigo-600 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 4: SUPPORT & LEGAL -->
+            <!-- TAB 4: SUPPORT -->
             <div id="tab-support" class="tab-content hidden p-4 space-y-4">
                 <h2 class="text-sm font-bold">App Support & Community Hub</h2>
-                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-center space-y-4">
-                    <p class="text-xs text-slate-400">Join our local community or reach our technical support desk below.</p>
-                    <div class="space-y-2 text-xs text-left">
-                        
-                        <!-- DEEP LINKED WHATSAPP COMMUNITY CARD -->
-                        <div onclick="redirectToWhatsAppCommunity()" class="p-2 bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-800/30 rounded-lg flex items-center gap-2 transition cursor-pointer">
-                            <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
-                            <span class="font-bold text-emerald-300">Join Sasaram Connect WhatsApp Community</span>
-                        </div>
-
-                        <!-- DEEP LINKED WHATSAPP CHAT ROW -->
-                        <div onclick="redirectToWhatsAppSupport()" class="p-2 bg-slate-950 hover:bg-indigo-950 rounded-lg flex items-center gap-2 transition cursor-pointer">
-                            <i class="fa-brands fa-whatsapp text-green-500"></i>
-                            <span class="font-mono text-slate-300">Chat on WhatsApp: +91 7449948786</span>
-                        </div>
-                        
-                        <div class="p-2 bg-slate-950 rounded-lg flex items-center gap-2">
-                            <i class="fa-solid fa-envelope text-amber-500"></i>
-                            <span class="font-mono text-slate-300">sasaramconnect@gmail.com</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GOOGLE FORM INTEGRATED BANNER -->
-                <div class="bg-gradient-to-r from-amber-600/20 to-orange-600/20 p-4 rounded-xl border border-amber-500/20 space-y-2 text-center">
-                    <h4 class="text-xs font-black text-amber-400">Want to grow your local business?</h4>
-                    <p class="text-[11px] text-slate-300">List your shop, service, or outlet in the Sasaram Market Directory today.</p>
-                    <button onclick="redirectToGoogleForm()" class="inline-block bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black px-4 py-2 rounded-lg transition shadow-md cursor-pointer">
-                        Fill Registration Form
-                    </button>
-                </div>
-
-                <!-- POLICY PAGES -->
-                <div class="border-t border-slate-800 pt-4 space-y-2.5">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-1">Legal & Play Store Policies</h3>
-                    
-                    <button onclick="openPolicy('privacy')" class="w-full bg-slate-900 hover:bg-slate-800 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs text-left transition">
-                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-user-shield text-indigo-400"></i> <span>Privacy Policy</span></span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-                    </button>
-                    
-                    <button onclick="openPolicy('terms')" class="w-full bg-slate-900 hover:bg-slate-800 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs text-left transition">
-                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-file-contract text-indigo-400"></i> <span>Terms & Conditions</span></span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-                    </button>
-                    
-                    <button onclick="openPolicy('about')" class="w-full bg-slate-900 hover:bg-slate-800 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs text-left transition">
-                        <span class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-circle-info text-indigo-400"></i> <span>About Us & Developer</span></span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-                    </button>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+                    <p class="text-slate-400">Need technical help?</p>
+                    <p class="font-mono text-green-400">WhatsApp: +91 7449948786</p>
                 </div>
             </div>
 
         </main>
 
-        <!-- BOTTOM NAVIGATION BAR -->
+        <!-- BOTTOM NAV -->
         <nav class="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 h-16 flex justify-around items-center px-2 z-50">
             <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center text-amber-500 transition">
-                <i class="fa-solid fa-house text-lg"></i>
-                <span class="text-[9px] mt-1">Home</span>
+                <i class="fa-solid fa-house text-lg"></i><span class="text-[9px] mt-1">Home</span>
             </button>
             <button onclick="switchTab('chaupal')" id="nav-chaupal" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-comments text-lg"></i>
-                <span class="text-[9px] mt-1">Chaupal</span>
+                <i class="fa-solid fa-comments text-lg"></i><span class="text-[9px] mt-1">Chaupal</span>
             </button>
             <button onclick="switchTab('services')" id="nav-services" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-address-book text-lg"></i>
-                <span class="text-[9px] mt-1">Directory</span>
+                <i class="fa-solid fa-address-book text-lg"></i><span class="text-[9px] mt-1">Directory</span>
             </button>
             <button onclick="switchTab('support')" id="nav-support" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-circle-info text-lg"></i>
-                <span class="text-[9px] mt-1">Support</span>
+                <i class="fa-solid fa-circle-info text-lg"></i><span class="text-[9px] mt-1">Support</span>
             </button>
         </nav>
 
-        <!-- DYNAMIC FULL-SCREEN LEGAL MODAL -->
-        <div id="legal-modal" class="absolute inset-0 bg-slate-950 z-[100] hidden flex flex-col">
-            <header class="bg-indigo-950 px-4 py-4 flex justify-between items-center border-b border-slate-800 shadow-md">
-                <h2 id="modal-title" class="text-sm font-black text-amber-400">Policy Title</h2>
-                <button onclick="closePolicy()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs px-2.5 py-1.5 rounded-lg border border-slate-700">
+        <!-- ================= FULL ADMIN PORTAL SCREEN ================= -->
+        <div id="admin-screen" class="absolute inset-0 bg-slate-950 z-[300] hidden flex flex-col">
+            <!-- Admin Top Bar -->
+            <header class="bg-slate-900 px-4 py-3 flex justify-between items-center border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-amber-400 text-sm"></i>
+                    <h2 class="text-xs font-black uppercase text-amber-400">Admin Control Center</h2>
+                </div>
+                <button onclick="closeAdminScreen()" class="text-slate-400 hover:text-white text-xs bg-slate-800 px-2.5 py-1 rounded-lg">
                     <i class="fa-solid fa-xmark"></i> Close
                 </button>
             </header>
-            <div class="flex-1 overflow-y-auto p-5 text-xs text-slate-300 space-y-4 hide-scroll" id="modal-content"></div>
+
+            <!-- VIEW 1: ADMIN LOGIN SCREEN -->
+            <div id="admin-login-view" class="flex-1 flex flex-col justify-center items-center p-6 space-y-4">
+                <div class="w-16 h-16 bg-red-600/10 text-red-500 border border-red-500/20 rounded-full flex items-center justify-center text-2xl shadow-inner">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-base font-black text-white">Sasaram Connect Admin</h3>
+                    <p class="text-[10px] text-slate-400">Enter passcode to manage Ticker, Polls & Chaupal</p>
+                </div>
+                <div class="w-full max-w-xs space-y-3">
+                    <input type="password" id="adminPassInput" placeholder="Enter Admin Password" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-center font-mono tracking-widest text-amber-400 focus:outline-none focus:border-amber-500">
+                    <button onclick="handleAdminLogin()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg transition">
+                        Login To Dashboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 2: ADMIN DASHBOARD (AFTER LOGIN) -->
+            <div id="admin-dashboard-view" class="flex-1 overflow-y-auto p-4 space-y-5 hidden hide-scroll">
+                <div class="flex justify-between items-center bg-indigo-950/40 p-3 rounded-xl border border-indigo-900">
+                    <span class="text-[10px] font-bold text-green-400 flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> Admin Session Active</span>
+                    <button onclick="adminLogout()" class="text-[9px] bg-red-600 text-white font-bold px-2.5 py-1 rounded">Logout</button>
+                </div>
+
+                <!-- SECTION 1: LIVE TICKER CONTROL -->
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <h3 class="text-xs font-black text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-bullhorn"></i> Update Live Ticker Text
+                    </h3>
+                    <textarea id="adminTickerText" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-amber-400 focus:outline-none resize-none"></textarea>
+                    <button onclick="saveTickerFromAdmin()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg">
+                        Update Live Announcement
+                    </button>
+                </div>
+
+                <!-- SECTION 2: ONLINE POLL CONTROL -->
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <h3 class="text-xs font-black text-indigo-400 flex items-center gap-2">
+                        <i class="fa-solid fa-square-poll-vertical"></i> Update Online Poll
+                    </h3>
+                    <div class="space-y-2">
+                        <input type="text" id="adminPollQ" placeholder="Poll Question" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
+                        <input type="text" id="adminPollOpt1" placeholder="Option 1" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
+                        <input type="text" id="adminPollOpt2" placeholder="Option 2" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
+                        <input type="text" id="adminPollOpt3" placeholder="Option 3" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
+                    </div>
+                    <button onclick="savePollFromAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2 rounded-lg">
+                        Save & Publish Poll
+                    </button>
+                </div>
+
+                <!-- SECTION 3: CHAUPAL PENDING MODERATION -->
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <h3 class="text-xs font-black text-red-400 flex items-center gap-2">
+                        <i class="fa-solid fa-clock"></i> Pending Chaupal Posts
+                    </h3>
+                    <div id="admin-pending-list" class="space-y-3"></div>
+                </div>
+            </div>
         </div>
 
-        <!-- DYNAMIC FULL-SCREEN POST MODAL -->
+        <!-- USER POST MODAL -->
         <div id="post-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] hidden flex flex-col justify-center p-5">
             <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-4 shadow-2xl">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                     <h3 class="text-xs font-black text-amber-400">Create New Post</h3>
                     <button onclick="closePostModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                
                 <div class="space-y-3">
-                    <div>
-                        <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Your Name</label>
-                        <input type="text" id="postName" placeholder="e.g. Amit Kumar" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Your Location / Ward</label>
-                        <input type="text" id="postLoc" placeholder="e.g. Ward No. 12, Sasaram" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Message or Issue Description</label>
-                        <textarea id="postMsg" rows="3" placeholder="Type your notice or civic issue details here..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 resize-none"></textarea>
-                    </div>
+                    <input type="text" id="postName" placeholder="Your Name" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
+                    <input type="text" id="postLoc" placeholder="Your Location / Ward" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
+                    <textarea id="postMsg" rows="3" placeholder="Message details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white resize-none"></textarea>
                 </div>
-
-                <div class="flex gap-2 pt-2">
-                    <button onclick="closePostModal()" class="flex-1 bg-slate-950 hover:bg-slate-800 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800 font-bold">Cancel</button>
-                    <button onclick="submitPost()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs py-2.5 rounded-lg font-bold">Publish Post</button>
+                <div class="flex gap-2">
+                    <button onclick="closePostModal()" class="flex-1 bg-slate-950 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800">Cancel</button>
+                    <button onclick="submitPost()" class="flex-1 bg-indigo-600 text-white text-xs py-2.5 rounded-lg font-bold">Publish Post</button>
                 </div>
-            </div>
-        </div>
-
-        <!-- SECRET ADMIN PANEL MODAL -->
-        <div id="admin-modal" class="absolute inset-0 bg-slate-950 z-[110] hidden flex flex-col">
-            <header class="bg-red-950 px-4 py-4 flex justify-between items-center border-b border-slate-800">
-                <h2 class="text-sm font-black text-white">Pending Posts Moderation</h2>
-                <button onclick="closeAdminPanel()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs px-2.5 py-1.5 rounded-lg border border-slate-700">
-                    <i class="fa-solid fa-xmark"></i> Close
-                </button>
-            </header>
-            <div class="flex-1 overflow-y-auto p-4 space-y-4 hide-scroll" id="pending-posts-list">
-                <!-- Pending posts dynamically inject here -->
             </div>
         </div>
 
     </div>
 
-    <!-- APP FUNCTIONAL LOGIC -->
+    <!-- SCRIPT -->
     <script>
         const STORAGE_KEY = 'sasaram_connect_posts';
+        const TICKER_KEY = 'sasaram_connect_ticker';
+        const POLL_KEY = 'sasaram_connect_poll';
         let isAdmin = false;
 
         window.addEventListener('DOMContentLoaded', () => {
             initializePosts();
-            
-            // Auto hide Splash Screen after 2.5 seconds
+            loadTickerData();
+            loadPollData();
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if(splash) {
                     splash.style.opacity = '0';
-                    setTimeout(() => splash.classList.add('hidden'), 700);
+                    setTimeout(() => splash.classList.add('hidden'), 300);
                 }
-            }, 2500);
+            }, 500);
         });
 
-        // 1. ROBUST INSTAGRAM DEEP LINKING
-        function redirectToInstagram() {
-            const username = "sasaram.connect";
-            const appUrl = `instagram://user?username=${username}`;
-            const webUrl = `https://www.instagram.com/${username}`;
-
-            window.location.href = appUrl;
-            setTimeout(() => {
-                window.open(webUrl, '_blank');
-            }, 1000);
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Failed:', err));
+            });
         }
 
-        // 2. ROBUST WHATSAPP COMMUNITY DEEP LINKING
-        function redirectToWhatsAppCommunity() {
-            const communityCode = "BREfz2bY2YAK9rW5SNbWLe";
-            const appUrl = `whatsapp://chat?code=${communityCode}`;
-            const webUrl = `https://chat.whatsapp.com/${communityCode}`;
-
-            window.location.href = appUrl;
-            setTimeout(() => {
-                window.open(webUrl, '_blank');
-            }, 1000);
+        /* --- ADMIN PORTAL NAVIGATION & LOGIN --- */
+        function openAdminScreen() {
+            document.getElementById('admin-screen').classList.remove('hidden');
+        }
+        function closeAdminScreen() {
+            document.getElementById('admin-screen').classList.add('hidden');
         }
 
-        // 3. ROBUST WHATSAPP SUPPORT DEEP LINKING
-        function redirectToWhatsAppSupport() {
-            const phone = "917449948786";
-            const msg = encodeURIComponent("Hello Sasaram Connect Support Team, I need assistance.");
-            const appUrl = `whatsapp://send?phone=${phone}&text=${msg}`;
-            const webUrl = `https://wa.me/${phone}?text=${msg}`;
-
-            window.location.href = appUrl;
-            setTimeout(() => {
-                window.open(webUrl, '_blank');
-            }, 1000);
+        function handleAdminLogin() {
+            const pass = document.getElementById('adminPassInput').value;
+            // Updated password requirement
+            if (pass === 'sameer@786') {
+                isAdmin = true;
+                document.getElementById('admin-login-view').classList.add('hidden');
+                document.getElementById('admin-dashboard-view').classList.remove('hidden');
+                populateAdminFields();
+                renderApprovedPosts();
+            } else {
+                alert('Invalid Admin Code!');
+            }
         }
 
-        // 4. GOOGLE FORM REDIRECT
-        function redirectToGoogleForm() {
-            const formUrl = 'https://forms.gle/kQ8qrozitDH1SXyNA';
-            window.open(formUrl, '_blank');
+        function adminLogout() {
+            isAdmin = false;
+            document.getElementById('adminPassInput').value = '';
+            document.getElementById('admin-dashboard-view').classList.add('hidden');
+            document.getElementById('admin-login-view').classList.remove('hidden');
+            renderApprovedPosts();
         }
 
+        function populateAdminFields() {
+            document.getElementById('adminTickerText').value = document.getElementById('ticker-display').innerText;
+            document.getElementById('adminPollQ').value = document.getElementById('poll-question-display').innerText;
+            document.getElementById('adminPollOpt1').value = document.getElementById('poll-opt-1').innerText;
+            document.getElementById('adminPollOpt2').value = document.getElementById('poll-opt-2').innerText;
+            document.getElementById('adminPollOpt3').value = document.getElementById('poll-opt-3').innerText;
+            renderPendingPosts();
+        }
+
+        /* --- TICKER FUNCTIONS --- */
+        function loadTickerData() {
+            const savedTicker = localStorage.getItem(TICKER_KEY);
+            if (savedTicker) {
+                document.getElementById('ticker-display').innerText = savedTicker;
+            }
+        }
+
+        function saveTickerFromAdmin() {
+            const val = document.getElementById('adminTickerText').value.trim();
+            if (val) {
+                localStorage.setItem(TICKER_KEY, val);
+                document.getElementById('ticker-display').innerText = val;
+                alert('Live News Ticker Updated Successfully!');
+            }
+        }
+
+        /* --- POLL FUNCTIONS --- */
+        function loadPollData() {
+            const savedPoll = JSON.parse(localStorage.getItem(POLL_KEY));
+            if (savedPoll) {
+                document.getElementById('poll-question-display').innerText = savedPoll.q;
+                document.getElementById('poll-opt-1').innerText = savedPoll.o1;
+                document.getElementById('poll-opt-2').innerText = savedPoll.o2;
+                document.getElementById('poll-opt-3').innerText = savedPoll.o3;
+            }
+        }
+
+        function savePollFromAdmin() {
+            const q = document.getElementById('adminPollQ').value.trim();
+            const o1 = document.getElementById('adminPollOpt1').value.trim();
+            const o2 = document.getElementById('adminPollOpt2').value.trim();
+            const o3 = document.getElementById('adminPollOpt3').value.trim();
+
+            if (q && o1 && o2 && o3) {
+                const pollObj = { q, o1, o2, o3 };
+                localStorage.setItem(POLL_KEY, JSON.stringify(pollObj));
+                loadPollData();
+                alert('Online Poll Updated Successfully!');
+            }
+        }
+
+        function votePoll(optionNum) { alert('Thank you for voting!'); }
+
+        /* --- REDIRECT & OTHER FUNCTIONS --- */
+        function redirectToWhatsAppCommunity() { window.open("https://chat.whatsapp.com/BREfz2bY2YAK9rW5SNbWLe", '_blank'); }
+        function redirectToWhatsAppSupport() { window.open("https://wa.me/917449948786", '_blank'); }
+        function redirectToGoogleForm() { window.open('https://forms.gle/kQ8qrozitDH1SXyNA', '_blank'); }
+
+        /* --- DIRECTORY FILTER --- */
+        function filterDirectory() {
+            const q = document.getElementById('directorySearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.contact-card');
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name.includes(q)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /* --- CHAUPAL POSTS & TAB LOGIC --- */
         function initializePosts() {
             let posts = JSON.parse(localStorage.getItem(STORAGE_KEY));
             if (!posts) {
-                posts = [
-                    {
-                        id: 'default-1',
-                        name: 'Admin Announcement',
-                        location: 'Sasaram City',
-                        message: 'Welcome to Sasaram Chaupal. Use the button above to publish updates regarding infrastructure, civic systems, or community notices. Note: All posts go through admin verification before becoming public.',
-                        status: 'approved',
-                        timestamp: 'Official'
-                    }
-                ];
+                posts = [{
+                    id: 'default-1', name: 'Admin Announcement', location: 'Sasaram City',
+                    message: 'Welcome to Sasaram Chaupal. Share public issues or news updates here.',
+                    status: 'approved', timestamp: 'Official'
+                }];
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
             }
             renderApprovedPosts();
@@ -496,7 +473,6 @@
             const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             const container = document.getElementById('chaupal-posts-container');
             container.innerHTML = '';
-
             const approvedPosts = posts.filter(p => p.status === 'approved');
 
             if (approvedPosts.length === 0) {
@@ -505,7 +481,7 @@
             }
 
             approvedPosts.slice().reverse().forEach(post => {
-                const html = `
+                container.innerHTML += `
                     <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-xs font-black text-indigo-400">${post.name}</span>
@@ -514,15 +490,13 @@
                         <p class="text-xs text-slate-300">${post.message}</p>
                         <div class="flex justify-between items-center">
                             <div class="text-[9px] text-amber-500 font-bold"><i class="fa-solid fa-location-dot"></i> ${post.location}</div>
-                            ${isAdmin ? `<button onclick="deletePost('${post.id}')" class="text-red-500 text-[10px] hover:underline">Delete</button>` : ''}
+                            ${isAdmin ? `<button onclick="deletePost('${post.id}')" class="text-red-500 text-[10px] font-bold">Delete</button>` : ''}
                         </div>
                     </div>
                 `;
-                container.innerHTML += html;
             });
         }
 
-        // TAB SWITCHING LOGIC
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
@@ -535,102 +509,58 @@
             document.getElementById(`nav-${tabId}`).classList.remove('text-slate-400');
         }
 
-        // POST MODAL CONTROLS
-        function openPostModal() {
-            document.getElementById('post-modal').classList.remove('hidden');
-        }
-
-        function closePostModal() {
-            document.getElementById('post-modal').classList.add('hidden');
-            document.getElementById('postName').value = '';
-            document.getElementById('postLoc').value = '';
-            document.getElementById('postMsg').value = '';
-        }
+        function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
+        function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
 
         function submitPost() {
             const name = document.getElementById('postName').value.trim();
             const loc = document.getElementById('postLoc').value.trim();
             const msg = document.getElementById('postMsg').value.trim();
 
-            if (!name || !loc || !msg) {
-                alert('Please fill out all fields before publishing.');
-                return;
-            }
+            if (!name || !loc || !msg) { alert('Please fill out all fields.'); return; }
 
             const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            const newPost = {
-                id: 'post-' + Date.now(),
-                name: name,
-                location: loc,
-                message: msg,
+            posts.push({
+                id: 'post-' + Date.now(), name, location: loc, message: msg,
                 status: isAdmin ? 'approved' : 'pending',
                 timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
+            });
 
-            posts.push(newPost);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-
+            document.getElementById('postName').value = '';
+            document.getElementById('postLoc').value = '';
+            document.getElementById('postMsg').value = '';
             closePostModal();
-
-            if (isAdmin) {
-                renderApprovedPosts();
-                alert('Post published directly (Admin Mode).');
-            } else {
-                alert('Thank you! Your post has been submitted and will be reviewed by an admin.');
-            }
+            renderApprovedPosts();
+            alert(isAdmin ? 'Published!' : 'Submitted for admin review.');
         }
 
-        // ADMIN ACCESS & MODERATION
-        function checkForAdminLogin() {
-            const pass = prompt('Enter Admin Access Code:');
-            if (pass === '1234') {
-                isAdmin = true;
-                document.getElementById('admin-badge').classList.remove('hidden');
-                document.getElementById('admin-panel-btn').classList.remove('hidden');
-                alert('Admin Mode Activated!');
-                renderApprovedPosts();
-            } else if (pass !== null) {
-                alert('Incorrect code!');
-            }
-        }
-
-        function openAdminPanel() {
-            document.getElementById('admin-modal').classList.remove('hidden');
-            renderPendingPosts();
-        }
-
-        function closeAdminPanel() {
-            document.getElementById('admin-modal').classList.add('hidden');
-        }
-
+        /* --- MODERATION FUNCTIONS --- */
         function renderPendingPosts() {
             const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            const container = document.getElementById('pending-posts-list');
+            const container = document.getElementById('admin-pending-list');
             container.innerHTML = '';
-
             const pending = posts.filter(p => p.status === 'pending');
 
             if (pending.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No pending posts awaiting approval.</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-slate-500 py-2">No pending posts for approval.</p>`;
                 return;
             }
 
             pending.forEach(post => {
-                const html = `
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                container.innerHTML += `
+                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2">
                         <div class="flex justify-between items-center">
-                            <span class="text-xs font-black text-amber-400">${post.name}</span>
+                            <span class="text-xs font-bold text-amber-400">${post.name} (${post.location})</span>
                             <span class="text-[9px] text-slate-500">${post.timestamp}</span>
                         </div>
                         <p class="text-xs text-slate-300">${post.message}</p>
-                        <div class="text-[9px] text-slate-400 font-bold"><i class="fa-solid fa-location-dot"></i> ${post.location}</div>
-                        <div class="flex gap-2 pt-2">
-                            <button onclick="approvePost('${post.id}')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs py-1.5 rounded font-bold">Approve</button>
-                            <button onclick="deletePost('${post.id}')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xs py-1.5 rounded font-bold">Reject</button>
+                        <div class="flex gap-2 justify-end pt-1">
+                            <button onclick="approvePost('${post.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Approve</button>
+                            <button onclick="deletePost('${post.id}')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Reject</button>
                         </div>
                     </div>
                 `;
-                container.innerHTML += html;
             });
         }
 
@@ -646,67 +576,8 @@
             let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             posts = posts.filter(p => p.id !== id);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            if (isAdmin) renderPendingPosts();
+            renderPendingPosts();
             renderApprovedPosts();
-        }
-
-        // DIRECTORY SEARCH FILTER
-        function filterDirectory() {
-            const query = document.getElementById('directorySearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.contact-card');
-
-            cards.forEach(card => {
-                const searchData = card.getAttribute('data-name').toLowerCase();
-                const textContent = card.innerText.toLowerCase();
-
-                if (searchData.includes(query) || textContent.includes(query)) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        }
-
-        // LEGAL & POLICY MODAL LOGIC
-        function openPolicy(type) {
-            const modal = document.getElementById('legal-modal');
-            const title = document.getElementById('modal-title');
-            const content = document.getElementById('modal-content');
-
-            if (type === 'privacy') {
-                title.innerText = 'Privacy Policy';
-                content.innerHTML = `
-                    <p class="font-bold text-white">1. Data Collection</p>
-                    <p>Sasaram Connect collects minimal user-provided information when submitting community posts (such as name and locality). We do not track or sell personal data.</p>
-                    <p class="font-bold text-white mt-3">2. Local Storage</p>
-                    <p>User preferences and posted content are cached locally on your device for enhanced performance and quick retrieval.</p>
-                    <p class="font-bold text-white mt-3">3. External Links</p>
-                    <p>Our app provides links to official helplines, WhatsApp groups, and social platforms. External services operate under their own privacy policies.</p>
-                `;
-            } else if (type === 'terms') {
-                title.innerText = 'Terms & Conditions';
-                content.innerHTML = `
-                    <p class="font-bold text-white">1. Community Guidelines</p>
-                    <p>Users must refrain from posting hate speech, fake news, or inappropriate content on Sasaram Chaupal. All submissions are moderated before going live.</p>
-                    <p class="font-bold text-white mt-3">2. Disclaimer</p>
-                    <p>Sasaram Connect is an independent civic portal designed for public reference and community updates. Government contacts provided are sourced from publicly available channels.</p>
-                `;
-            } else if (type === 'about') {
-                title.innerText = 'About Us & Developer';
-                content.innerHTML = `
-                    <p class="font-bold text-white">Sasaram Connect</p>
-                    <p>Dedicated to bridging local communication, civic updates, and business listings across Rohtas District.</p>
-                    <p class="font-bold text-white mt-3">Developer & Support</p>
-                    <p>Email: sasaramconnect@gmail.com</p>
-                    <p>WhatsApp: +91 7449948786</p>
-                `;
-            }
-
-            modal.classList.remove('hidden');
-        }
-
-        function closePolicy() {
-            document.getElementById('legal-modal').classList.add('hidden');
         }
     </script>
 </body>
