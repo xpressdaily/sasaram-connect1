@@ -36,12 +36,36 @@
             white-space: nowrap;
             animation: ticker 20s linear infinite;
         }
+
+        /* Splash Screen Animation */
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        .animate-splash-logo {
+            animation: pulseGlow 1.8s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-slate-900 sm:py-6 flex justify-center items-center min-h-screen text-white font-sans">
 
     <!-- App Container -->
-    <div class="mobile-container w-full h-screen bg-slate-950 flex flex-col relative">
+    <div class="mobile-container w-full h-screen bg-slate-950 flex flex-col relative overflow-hidden">
+
+        <!-- 1. WELCOME SPLASH SCREEN -->
+        <div id="splash-screen" class="absolute inset-0 bg-gradient-to-b from-indigo-950 via-slate-950 to-slate-950 z-[200] flex flex-col items-center justify-center p-6 text-center transition-opacity duration-700">
+            <div class="animate-splash-logo w-24 h-24 bg-amber-500 rounded-3xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-2xl mb-5 border-2 border-amber-300">
+                SC
+            </div>
+            <h2 class="text-xs uppercase font-extrabold text-indigo-400 tracking-widest mb-1">Welcome To</h2>
+            <h1 class="text-2xl font-black text-amber-400 tracking-wide mb-2">Sasaram Connect</h1>
+            <p class="text-xs text-indigo-200/80 max-w-xs">Rohtas' Own Digital Civic & Local Business Portal</p>
+            
+            <div class="absolute bottom-10 flex flex-col items-center gap-2">
+                <div class="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+                <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Loading Experience...</span>
+            </div>
+        </div>
         
         <!-- HEADER WITH WHATSAPP COMMUNITY & INSTAGRAM NATIVE DEEP LINKING -->
         <header class="bg-gradient-to-r from-indigo-900 to-slate-900 px-4 py-3 flex justify-between items-center border-b border-indigo-950 shadow-lg">
@@ -83,14 +107,13 @@
             <div id="tab-home" class="tab-content space-y-4 p-4">
                 
                 <!-- Hero Banner -->
-                <div class="relative rounded-2xl overflow-hidden h-44 shadow-2xl border border-slate-800">
-                    <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQII7cgfIEvZw-U4ocWMlSRk7OKuOqxrHkfwvQmUf_b2TkD4YFoMPWCRcTpS-5eH5HTJDpP8bdTVfWl3GU" alt="Sasaram Pride" class="w-full h-full object-cover brightness-75">
+                <div class="relative rounded-2xl overflow-hidden h-44 shadow-2xl border border-slate-800 bg-gradient-to-br from-indigo-950 to-slate-900 flex flex-col justify-end p-4">
                     <div class="absolute top-3 left-3 bg-indigo-900/80 backdrop-blur-md text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-indigo-700/50">
-                        📍 <span>Sher Shah Suri Tomb</span>
+                        📍 <span>Sher Shah Suri Tomb, Sasaram</span>
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent">
+                    <div class="relative z-10">
                         <h2 class="text-base font-black text-white">Historical Heritage of Sasaram</h2>
-                        <p class="text-[10px] text-slate-300 mt-0.5">Promoting Tourism, Pride of Rohtas</p>
+                        <p class="text-[10px] text-slate-300 mt-0.5">Promoting Tourism & Pride of Rohtas</p>
                     </div>
                 </div>
 
@@ -113,15 +136,15 @@
                             <i class="fa-solid fa-store text-xl text-orange-400"></i>
                             <span class="text-[10px] font-bold text-left">List Your Store / Market</span>
                         </div>
-                        <div onclick="alert('Useful Links dashboard setup coming soon!')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-purple-500 flex items-center gap-3 cursor-pointer transition">
+                        <div onclick="switchTab('services')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-purple-500 flex items-center gap-3 cursor-pointer transition">
                             <i class="fa-solid fa-link text-xl text-purple-400"></i>
                             <span class="text-[10px] font-bold">Useful Links</span>
                         </div>
                     </div>
                     
                     <!-- WHATSAPP SUPPORT DIRECT APP INTENT INJECTION -->
-                    <button onclick="redirectToWhatsAppSupport()" class="w-full mt-2 bg-slate-900/80 py-2 px-3 rounded-xl border border-slate-800 hover:border-green-500 flex items-center justify-center gap-2 transition cursor-pointer">
-                        <i class="fa-brands fa-whatsapp text-sm text-green-400"></i>
+                    <button onclick="redirectToWhatsAppSupport()" class="w-full mt-2 bg-slate-900/80 py-2.5 px-3 rounded-xl border border-slate-800 hover:border-green-500 flex items-center justify-center gap-2 transition cursor-pointer">
+                        <i class="fa-brands fa-whatsapp text-base text-green-400"></i>
                         <span class="text-[10px] font-bold">Chat on WhatsApp Support</span>
                     </button>
                 </div>
@@ -397,29 +420,55 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             initializePosts();
+            
+            // Auto hide Splash Screen after 2.5 seconds
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if(splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.classList.add('hidden'), 700);
+                }
+            }, 2500);
         });
 
-        // 1. UNIVERSAL HTTPS REDIRECT FOR INSTAGRAM
+        // 1. ROBUST INSTAGRAM DEEP LINKING
         function redirectToInstagram() {
-            const webUrl = 'https://www.instagram.com/_u/sasaram.connect';
-            window.open(webUrl, '_blank');
+            const username = "sasaram.connect";
+            const appUrl = `instagram://user?username=${username}`;
+            const webUrl = `https://www.instagram.com/${username}`;
+
+            window.location.href = appUrl;
+            setTimeout(() => {
+                window.open(webUrl, '_blank');
+            }, 1000);
         }
 
-        // 2. UNIVERSAL HTTPS REDIRECT FOR WHATSAPP COMMUNITY
+        // 2. ROBUST WHATSAPP COMMUNITY DEEP LINKING
         function redirectToWhatsAppCommunity() {
-            const communityCode = 'BREfz2bY2YAK9rW5SNbWLe';
+            const communityCode = "BREfz2bY2YAK9rW5SNbWLe";
+            const appUrl = `whatsapp://chat?code=${communityCode}`;
             const webUrl = `https://chat.whatsapp.com/${communityCode}`;
-            window.open(webUrl, '_blank');
+
+            window.location.href = appUrl;
+            setTimeout(() => {
+                window.open(webUrl, '_blank');
+            }, 1000);
         }
 
-        // 3. UNIVERSAL HTTPS REDIRECT FOR WHATSAPP SUPPORT DESK
+        // 3. ROBUST WHATSAPP SUPPORT DEEP LINKING
         function redirectToWhatsAppSupport() {
-            const message = encodeURIComponent("Hello Sasaram Connect Support Team, I need assistance.");
-            const webUrl = `https://wa.me/917449948786?text=${message}`;
-            window.open(webUrl, '_blank');
+            const phone = "917449948786";
+            const msg = encodeURIComponent("Hello Sasaram Connect Support Team, I need assistance.");
+            const appUrl = `whatsapp://send?phone=${phone}&text=${msg}`;
+            const webUrl = `https://wa.me/${phone}?text=${msg}`;
+
+            window.location.href = appUrl;
+            setTimeout(() => {
+                window.open(webUrl, '_blank');
+            }, 1000);
         }
 
-        // 4. GOOGLE FORM STRIPPED REDIRECT FOR WEBVIEW OVERLAYS
+        // 4. GOOGLE FORM REDIRECT
         function redirectToGoogleForm() {
             const formUrl = 'https://forms.gle/kQ8qrozitDH1SXyNA';
             window.open(formUrl, '_blank');
@@ -455,7 +504,7 @@
                 return;
             }
 
-            approvedPosts.reverse().forEach(post => {
+            approvedPosts.slice().reverse().forEach(post => {
                 const html = `
                     <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
                         <div class="flex justify-between items-center">
@@ -469,42 +518,34 @@
                         </div>
                     </div>
                 `;
-                container.insertAdjacentHTML('beforeend', html);
+                container.innerHTML += html;
             });
         }
 
+        // TAB SWITCHING LOGIC
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            const activeTab = document.getElementById(`tab-${tabId}`);
-            if (activeTab) activeTab.classList.remove('hidden');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-amber-500');
                 btn.classList.add('text-slate-400');
             });
-            const activeNav = document.getElementById(`nav-${tabId}`);
-            if (activeNav) {
-                activeNav.classList.add('text-amber-500');
-                activeNav.classList.remove('text-slate-400');
-            }
+            document.getElementById(`nav-${tabId}`).classList.add('text-amber-500');
+            document.getElementById(`nav-${tabId}`).classList.remove('text-slate-400');
         }
 
-        function filterDirectory() {
-            const input = document.getElementById('directorySearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.contact-card');
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                if (name.includes(input)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+        // POST MODAL CONTROLS
+        function openPostModal() {
+            document.getElementById('post-modal').classList.remove('hidden');
         }
 
-        /* Modal Handlers */
-        function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
-        function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
+        function closePostModal() {
+            document.getElementById('post-modal').classList.add('hidden');
+            document.getElementById('postName').value = '';
+            document.getElementById('postLoc').value = '';
+            document.getElementById('postMsg').value = '';
+        }
 
         function submitPost() {
             const name = document.getElementById('postName').value.trim();
@@ -512,37 +553,44 @@
             const msg = document.getElementById('postMsg').value.trim();
 
             if (!name || !loc || !msg) {
-                alert('Please fill all fields.');
+                alert('Please fill out all fields before publishing.');
                 return;
             }
 
+            const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             const newPost = {
                 id: 'post-' + Date.now(),
                 name: name,
                 location: loc,
                 message: msg,
-                status: 'pending',
-                timestamp: 'Just now'
+                status: isAdmin ? 'approved' : 'pending',
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             };
 
-            const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             posts.push(newPost);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
 
-            alert('Post submitted for admin verification!');
             closePostModal();
-            document.getElementById('postName').value = '';
-            document.getElementById('postLoc').value = '';
-            document.getElementById('postMsg').value = '';
+
+            if (isAdmin) {
+                renderApprovedPosts();
+                alert('Post published directly (Admin Mode).');
+            } else {
+                alert('Thank you! Your post has been submitted and will be reviewed by an admin.');
+            }
         }
 
+        // ADMIN ACCESS & MODERATION
         function checkForAdminLogin() {
-            const pass = prompt('Enter Admin Password:');
-            if (pass === 'admin123') {
+            const pass = prompt('Enter Admin Access Code:');
+            if (pass === '1234') {
                 isAdmin = true;
                 document.getElementById('admin-badge').classList.remove('hidden');
                 document.getElementById('admin-panel-btn').classList.remove('hidden');
+                alert('Admin Mode Activated!');
                 renderApprovedPosts();
+            } else if (pass !== null) {
+                alert('Incorrect code!');
             }
         }
 
@@ -557,31 +605,32 @@
 
         function renderPendingPosts() {
             const posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            const list = document.getElementById('pending-posts-list');
-            list.innerHTML = '';
+            const container = document.getElementById('pending-posts-list');
+            container.innerHTML = '';
 
             const pending = posts.filter(p => p.status === 'pending');
 
             if (pending.length === 0) {
-                list.innerHTML = `<p class="text-center text-xs text-slate-500 py-8">No pending posts for approval.</p>`;
+                container.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No pending posts awaiting approval.</p>`;
                 return;
             }
 
             pending.forEach(post => {
                 const html = `
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
-                        <div class="flex justify-between text-xs">
-                            <span class="font-bold text-amber-400">${post.name}</span>
-                            <span class="text-slate-500">${post.location}</span>
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-black text-amber-400">${post.name}</span>
+                            <span class="text-[9px] text-slate-500">${post.timestamp}</span>
                         </div>
                         <p class="text-xs text-slate-300">${post.message}</p>
-                        <div class="flex gap-2">
-                            <button onclick="approvePost('${post.id}')" class="flex-1 bg-green-600 py-1.5 rounded text-xs font-bold">Approve</button>
-                            <button onclick="rejectPost('${post.id}')" class="flex-1 bg-red-600 py-1.5 rounded text-xs font-bold">Reject</button>
+                        <div class="text-[9px] text-slate-400 font-bold"><i class="fa-solid fa-location-dot"></i> ${post.location}</div>
+                        <div class="flex gap-2 pt-2">
+                            <button onclick="approvePost('${post.id}')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs py-1.5 rounded font-bold">Approve</button>
+                            <button onclick="deletePost('${post.id}')" class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xs py-1.5 rounded font-bold">Reject</button>
                         </div>
                     </div>
                 `;
-                list.insertAdjacentHTML('beforeend', html);
+                container.innerHTML += html;
             });
         }
 
@@ -593,47 +642,72 @@
             renderApprovedPosts();
         }
 
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.shiftKey && event.key === 'A') {
-                checkForAdminLogin();
-            }
-        });
-
-        function rejectPost(id) {
+        function deletePost(id) {
             let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             posts = posts.filter(p => p.id !== id);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-            renderPendingPosts();
+            if (isAdmin) renderPendingPosts();
+            renderApprovedPosts();
         }
 
-        function deletePost(id) {
-            if (confirm('Delete this post?')) {
-                let posts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-                posts = posts.filter(p => p.id !== id);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-                renderApprovedPosts();
-            }
+        // DIRECTORY SEARCH FILTER
+        function filterDirectory() {
+            const query = document.getElementById('directorySearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.contact-card');
+
+            cards.forEach(card => {
+                const searchData = card.getAttribute('data-name').toLowerCase();
+                const textContent = card.innerText.toLowerCase();
+
+                if (searchData.includes(query) || textContent.includes(query)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
         }
 
+        // LEGAL & POLICY MODAL LOGIC
         function openPolicy(type) {
             const modal = document.getElementById('legal-modal');
             const title = document.getElementById('modal-title');
             const content = document.getElementById('modal-content');
-            modal.classList.remove('hidden');
 
             if (type === 'privacy') {
                 title.innerText = 'Privacy Policy';
-                content.innerHTML = `<p>Your privacy is important to us. Sasaram Connect platform does not trade, share, or capture persistent tracking elements outside local context storage rules...</p>`;
+                content.innerHTML = `
+                    <p class="font-bold text-white">1. Data Collection</p>
+                    <p>Sasaram Connect collects minimal user-provided information when submitting community posts (such as name and locality). We do not track or sell personal data.</p>
+                    <p class="font-bold text-white mt-3">2. Local Storage</p>
+                    <p>User preferences and posted content are cached locally on your device for enhanced performance and quick retrieval.</p>
+                    <p class="font-bold text-white mt-3">3. External Links</p>
+                    <p>Our app provides links to official helplines, WhatsApp groups, and social platforms. External services operate under their own privacy policies.</p>
+                `;
             } else if (type === 'terms') {
                 title.innerText = 'Terms & Conditions';
-                content.innerHTML = `<p>By accessing Sasaram Connect local link aggregation dashboard tools, you comply with regional content moderation standards...</p>`;
+                content.innerHTML = `
+                    <p class="font-bold text-white">1. Community Guidelines</p>
+                    <p>Users must refrain from posting hate speech, fake news, or inappropriate content on Sasaram Chaupal. All submissions are moderated before going live.</p>
+                    <p class="font-bold text-white mt-3">2. Disclaimer</p>
+                    <p>Sasaram Connect is an independent civic portal designed for public reference and community updates. Government contacts provided are sourced from publicly available channels.</p>
+                `;
             } else if (type === 'about') {
                 title.innerText = 'About Us & Developer';
-                content.innerHTML = `<p>Sasaram Connect is designed as a public link aggregator utility dashboard built to empower local citizens with instant navigation data...</p>`;
+                content.innerHTML = `
+                    <p class="font-bold text-white">Sasaram Connect</p>
+                    <p>Dedicated to bridging local communication, civic updates, and business listings across Rohtas District.</p>
+                    <p class="font-bold text-white mt-3">Developer & Support</p>
+                    <p>Email: sasaramconnect@gmail.com</p>
+                    <p>WhatsApp: +91 7449948786</p>
+                `;
             }
+
+            modal.classList.remove('hidden');
         }
 
-        function closePolicy() { document.getElementById('legal-modal').classList.add('hidden'); }
+        function closePolicy() {
+            document.getElementById('legal-modal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
