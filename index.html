@@ -134,23 +134,46 @@
                     </div>
                 </div>
 
-                <!-- ONLINE POLL -->
-                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3 relative">
-                    <div class="flex justify-between items-center">
-                        <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest">SASARAM ONLINE POLL</p>
-                    </div>
+               <!-- ONLINE POLL WITH PERCENTAGE -->
+<div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3 relative">
+    <div class="flex justify-between items-center">
+        <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest">SASARAM ONLINE POLL</p>
+        <span id="poll-total-votes" class="text-[9px] text-slate-400 font-mono">0 votes</span>
+    </div>
 
-                    <h4 id="poll-question-display" class="text-xs font-extrabold text-slate-100">
-                        Loading Poll...
-                    </h4>
+    <h4 id="poll-question-display" class="text-xs font-extrabold text-slate-100">
+        Loading Poll...
+    </h4>
 
-                    <div id="poll-options-container" class="space-y-2">
-                        <button onclick="votePoll(1)" id="poll-opt-1" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">Option 1</button>
-                        <button onclick="votePoll(2)" id="poll-opt-2" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">Option 2</button>
-                        <button onclick="votePoll(3)" id="poll-opt-3" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left text-xs transition">Option 3</button>
-                    </div>
-                </div>
+    <div id="poll-options-container" class="space-y-2.5">
+        <!-- Option 1 -->
+        <button onclick="votePoll(1)" id="poll-btn-1" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
+            <div id="poll-bar-1" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
+            <div class="relative z-10 flex justify-between items-center text-xs">
+                <span id="poll-opt-1" class="text-slate-200">Option 1</span>
+                <span id="poll-percent-1" class="font-bold text-amber-400 hidden">0%</span>
             </div>
+        </button>
+
+        <!-- Option 2 -->
+        <button onclick="votePoll(2)" id="poll-btn-2" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
+            <div id="poll-bar-2" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
+            <div class="relative z-10 flex justify-between items-center text-xs">
+                <span id="poll-opt-2" class="text-slate-200">Option 2</span>
+                <span id="poll-percent-2" class="font-bold text-amber-400 hidden">0%</span>
+            </div>
+        </button>
+
+        <!-- Option 3 -->
+        <button onclick="votePoll(3)" id="poll-btn-3" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
+            <div id="poll-bar-3" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
+            <div class="relative z-10 flex justify-between items-center text-xs">
+                <span id="poll-opt-3" class="text-slate-200">Option 3</span>
+                <span id="poll-percent-3" class="font-bold text-amber-400 hidden">0%</span>
+            </div>
+        </button>
+    </div>
+</div>
 
             <!-- TAB 2: CHAUPAL -->
             <div id="tab-chaupal" class="tab-content hidden p-4 space-y-4">
@@ -198,14 +221,65 @@
                 </div>
             </div>
 
-            <!-- TAB 4: SUPPORT -->
-            <div id="tab-support" class="tab-content hidden p-4 space-y-4">
-                <h2 class="text-sm font-bold">App Support & Community Hub</h2>
-                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
-                    <p class="text-slate-400">Need technical help?</p>
-                    <p class="font-mono text-green-400">WhatsApp: +91 7449948786</p>
-                </div>
-            </div>
+           <!-- TAB 4: SUPPORT & LEGAL HUB -->
+<div id="tab-support" class="tab-content hidden p-4 space-y-4">
+    <div>
+        <h2 class="text-sm font-black text-amber-400">About & Legal Center</h2>
+        <p class="text-[10px] text-slate-400">Information, policies & official support links</p>
+    </div>
+
+    <!-- Contact Us Card -->
+    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+        <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+            <i class="fa-solid fa-headset text-indigo-400"></i> Contact Us
+        </h3>
+        <p class="text-[11px] text-slate-400">Have feedback or need technical assistance with Sasaram Connect?</p>
+        <button onclick="redirectToWhatsAppSupport()" class="w-full bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 hover:bg-emerald-600/30 transition">
+            <i class="fa-brands fa-whatsapp text-sm"></i> Chat on Official Support
+        </button>
+    </div>
+
+    <!-- Links List -->
+    <div class="bg-slate-900 rounded-xl border border-slate-800 divide-y divide-slate-800/60 overflow-hidden">
+        
+        <!-- About Us -->
+        <button onclick="openInfoModal('about')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
+            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                <i class="fa-solid fa-circle-info text-amber-400 w-4"></i> About Us
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+        </button>
+
+        <!-- Terms & Conditions -->
+        <button onclick="openInfoModal('terms')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
+            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                <i class="fa-solid fa-file-contract text-cyan-400 w-4"></i> Terms & Conditions
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+        </button>
+
+        <!-- Disclaimer -->
+        <button onclick="openInfoModal('disclaimer')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
+            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-rose-400 w-4"></i> Disclaimer
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+        </button>
+
+        <!-- Privacy Policy -->
+        <button onclick="openInfoModal('privacy')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
+            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                <i class="fa-solid fa-user-shield text-emerald-400 w-4"></i> Privacy Policy
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+        </button>
+
+    </div>
+
+    <div class="text-center pt-2">
+        <p class="text-[9px] text-slate-500 font-mono">Sasaram Connect v1.0.4 • Rohtas Civic Tech</p>
+    </div>
+</div>
 
         </main>
 
