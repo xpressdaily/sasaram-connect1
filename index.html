@@ -90,9 +90,9 @@
                             <i class="fa-solid fa-bolt text-xl text-cyan-400"></i>
                             <span class="text-[10px] font-bold">Electricity & Water</span>
                         </div>
-                        <div onclick="redirectToGoogleForm()" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-orange-500 flex items-center gap-3 cursor-pointer transition">
+                        <div onclick="switchTab('stores')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-orange-500 flex items-center gap-3 cursor-pointer transition">
                             <i class="fa-solid fa-store text-xl text-orange-400"></i>
-                            <span class="text-[10px] font-bold text-left">List Your Store / Market</span>
+                            <span class="text-[10px] font-bold text-left">Local Markets & Shops</span>
                         </div>
                         <div onclick="switchTab('services')" class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 hover:border-purple-500 flex items-center gap-3 cursor-pointer transition">
                             <i class="fa-solid fa-link text-xl text-purple-400"></i>
@@ -104,6 +104,20 @@
                         <i class="fa-brands fa-whatsapp text-base text-green-400"></i>
                         <span class="text-[10px] font-bold">Chat on WhatsApp Support</span>
                     </button>
+                </div>
+
+                <!-- FEATURED SHOPS SECTION ON HOME SCREEN -->
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-[11px] font-bold uppercase text-orange-400 tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-bag-shopping"></i> Featured Local Shops
+                        </h3>
+                        <button onclick="switchTab('stores')" class="text-[10px] text-indigo-400 font-semibold hover:underline cursor-pointer">View All →</button>
+                    </div>
+                    <div id="home-featured-shops" class="flex gap-2.5 overflow-x-auto hide-scroll pb-1">
+                        <!-- Dynamic Featured Shops Load Here -->
+                        <p class="text-[10px] text-slate-500 italic py-2">Loading shops...</p>
+                    </div>
                 </div>
 
                 <!-- Mandi Bhav Section -->
@@ -188,18 +202,42 @@
                 </div>
             </div>
 
-            <!-- TAB 3: DIRECTORY -->
-            <div id="tab-services" class="tab-content hidden p-4 space-y-4">
-                <div>
-                    <h2 class="text-sm font-black">Rohtas Public Services & Helpline</h2>
-                    <p class="text-[10px] text-slate-400">Important public contact reference links</p>
+            <!-- TAB 3: STORES & SHOPS (NEW SEPARATE TAB) -->
+            <div id="tab-stores" class="tab-content hidden p-4 space-y-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-sm font-black text-orange-400">Rohtas Markets & Local Shops</h2>
+                        <p class="text-[10px] text-slate-400">Verified local sellers & businesses</p>
+                    </div>
+                    <button onclick="openShopModal()" class="bg-orange-600 hover:bg-orange-700 text-[10px] px-2.5 py-1.5 rounded-lg font-bold shadow flex items-center gap-1 cursor-pointer">
+                        <i class="fa-solid fa-plus"></i> <span>Add Store</span>
+                    </button>
                 </div>
 
                 <div class="relative">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-xs"></i>
-                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search offices, utilities, helpline..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
+                    <input type="text" id="shopSearch" onkeyup="filterShops()" placeholder="Search stores by name, category or location..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
                 </div>
 
+                <!-- Dynamic Approved Shops List -->
+                <div id="approved-shops-list" class="space-y-2.5">
+                    <!-- Approved shops render here -->
+                </div>
+            </div>
+
+            <!-- TAB 4: HELPLINE DIRECTORY -->
+            <div id="tab-services" class="tab-content hidden p-4 space-y-4">
+                <div>
+                    <h2 class="text-sm font-black">Rohtas Public Directory</h2>
+                    <p class="text-[10px] text-slate-400">Official emergency helplines & offices</p>
+                </div>
+
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+                    <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search offices, emergency services..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
+                </div>
+
+                <!-- Static Admin Helpline Services -->
                 <div class="space-y-2.5" id="directory-list">
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="dm office rohtas collectorate">
                         <div>
@@ -239,7 +277,7 @@
                 </div>
             </div>
 
-            <!-- TAB 4: SUPPORT & LEGAL HUB -->
+            <!-- TAB 5: SUPPORT & LEGAL HUB -->
             <div id="tab-support" class="tab-content hidden p-4 space-y-4">
                 <div>
                     <h2 class="text-sm font-black text-amber-400">About & Legal Center</h2>
@@ -293,19 +331,22 @@
 
         </main>
 
-        <!-- BOTTOM NAV -->
-        <nav class="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 h-16 flex justify-around items-center px-2 z-50">
+        <!-- BOTTOM NAV WITH STORE ICON -->
+        <nav class="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 h-16 flex justify-around items-center px-1 z-50">
             <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center text-amber-500 transition cursor-pointer">
-                <i class="fa-solid fa-house text-lg"></i><span class="text-[9px] mt-1">Home</span>
+                <i class="fa-solid fa-house text-base"></i><span class="text-[8px] mt-1">Home</span>
             </button>
             <button onclick="switchTab('chaupal')" id="nav-chaupal" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition cursor-pointer">
-                <i class="fa-solid fa-comments text-lg"></i><span class="text-[9px] mt-1">Chaupal</span>
+                <i class="fa-solid fa-comments text-base"></i><span class="text-[8px] mt-1">Chaupal</span>
+            </button>
+            <button onclick="switchTab('stores')" id="nav-stores" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition cursor-pointer">
+                <i class="fa-solid fa-store text-base"></i><span class="text-[8px] mt-1">Stores</span>
             </button>
             <button onclick="switchTab('services')" id="nav-services" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition cursor-pointer">
-                <i class="fa-solid fa-address-book text-lg"></i><span class="text-[9px] mt-1">Directory</span>
+                <i class="fa-solid fa-address-book text-base"></i><span class="text-[8px] mt-1">Directory</span>
             </button>
             <button onclick="switchTab('support')" id="nav-support" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition cursor-pointer">
-                <i class="fa-solid fa-circle-info text-lg"></i><span class="text-[9px] mt-1">Support</span>
+                <i class="fa-solid fa-circle-info text-base"></i><span class="text-[8px] mt-1">Support</span>
             </button>
         </nav>
 
@@ -327,7 +368,7 @@
                 </div>
                 <div class="text-center">
                     <h3 class="text-base font-black text-white">Sasaram Connect Admin</h3>
-                    <p class="text-[10px] text-slate-400">Enter passcode to manage Ticker, Polls & Chaupal</p>
+                    <p class="text-[10px] text-slate-400">Manage Ticker, Polls, Chaupal & Store Approvals</p>
                 </div>
                 <div class="w-full max-w-xs space-y-3">
                     <input type="password" id="adminPassInput" placeholder="Enter Admin Password" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-center font-mono tracking-widest text-amber-400 focus:outline-none focus:border-amber-500">
@@ -343,36 +384,54 @@
                     <button onclick="adminLogout()" class="text-[9px] bg-red-600 text-white font-bold px-2.5 py-1 rounded cursor-pointer">Logout</button>
                 </div>
 
+                <!-- ADMIN: LIVE TICKER -->
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
                     <h3 class="text-xs font-black text-amber-400 flex items-center gap-2">
                         <i class="fa-solid fa-bullhorn"></i> Update Live Ticker Text
                     </h3>
-                    <textarea id="adminTickerText" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-amber-400 focus:outline-none resize-none"></textarea>
+                    <textarea id="adminTickerText" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-amber-400 focus:outline-none resize-none"></textarea>
                     <button onclick="saveTickerFromAdmin()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg cursor-pointer">
                         Update Live Announcement
                     </button>
                 </div>
 
+                <!-- ADMIN: PENDING SHOPS APPROVAL -->
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
-                    <h3 class="text-xs font-black text-indigo-400 flex items-center gap-2">
-                        <i class="fa-solid fa-square-poll-vertical"></i> Update Online Poll
+                    <h3 class="text-xs font-black text-orange-400 flex items-center gap-2">
+                        <i class="fa-solid fa-store"></i> Pending Shop / Business Listings
                     </h3>
-                    <div class="space-y-2">
-                        <input type="text" id="adminPollQ" placeholder="Poll Question" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
-                        <input type="text" id="adminPollOpt1" placeholder="Option 1" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
-                        <input type="text" id="adminPollOpt2" placeholder="Option 2" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
-                        <input type="text" id="adminPollOpt3" placeholder="Option 3" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
-                    </div>
-                    <button onclick="savePollFromAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2 rounded-lg cursor-pointer">
-                        Save & Publish Poll
-                    </button>
+                    <div id="admin-pending-shops" class="space-y-3"></div>
                 </div>
 
+                <!-- ADMIN: PENDING CHAUPAL POSTS -->
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
                     <h3 class="text-xs font-black text-red-400 flex items-center gap-2">
                         <i class="fa-solid fa-clock"></i> Pending Chaupal Posts
                     </h3>
                     <div id="admin-pending-list" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- USER STORE REGISTRATION MODAL -->
+        <div id="shop-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] hidden flex flex-col justify-center p-5">
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-3.5 shadow-2xl">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+                    <h3 class="text-xs font-black text-orange-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-store"></i> Register Your Store / Shop
+                    </h3>
+                    <button onclick="closeShopModal()" class="text-slate-400 hover:text-white text-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="space-y-2.5">
+                    <input type="text" id="shopName" placeholder="Store / Shop Name" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
+                    <input type="text" id="shopOwner" placeholder="Owner Name" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
+                    <input type="text" id="shopCategory" placeholder="Category (e.g. Electronics, Clothing, Grocery)" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
+                    <input type="text" id="shopLoc" placeholder="Location / Address in Sasaram" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
+                    <input type="tel" id="shopPhone" placeholder="10-digit Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
+                </div>
+                <div class="flex gap-2 pt-1">
+                    <button onclick="closeShopModal()" class="flex-1 bg-slate-950 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800 cursor-pointer">Cancel</button>
+                    <button onclick="submitShop()" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white text-xs py-2.5 rounded-lg font-bold cursor-pointer">Submit For Approval</button>
                 </div>
             </div>
         </div>
@@ -431,14 +490,13 @@
         let isAdmin = false;
         let currentPollData = { v1: 0, v2: 0, v3: 0 };
 
-        // Fallback default posts to show if Firebase is empty/connecting
         const defaultPosts = [
-            { id: 'def1', name: 'Raju Kumar', location: 'Gaurakshani', message: 'Rohtas Collectorate road maintenance updates posted.', status: 'approved', timestamp: '10:30 AM' },
-            { id: 'def2', name: 'Vikram Singh', location: 'Grand Trunk Road', message: 'Traffic movement is smooth near Sher Shah Suri Tomb area today.', status: 'approved', timestamp: '01:15 PM' }
+            { id: 'def1', name: 'Raju Kumar', location: 'Gaurakshani', message: 'Rohtas Collectorate road maintenance updates posted.', status: 'approved', timestamp: '10:30 AM' }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
             listenToLiveUpdates();
+            listenToShopsUpdates();
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if(splash) {
@@ -474,24 +532,23 @@
             db.collection("posts").orderBy("createdAt", "desc").onSnapshot(snapshot => {
                 const posts = [];
                 snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
-                if (posts.length > 0) {
-                    renderPosts(posts);
-                } else {
-                    renderPosts(defaultPosts);
-                }
-            }, err => {
-                console.log("Firestore error/offline. Showing fallback posts.");
-                renderPosts(defaultPosts);
-            });
+                renderPosts(posts.length ? posts : defaultPosts);
+            }, err => renderPosts(defaultPosts));
+        }
+
+        // Realtime Listener For Shops
+        function listenToShopsUpdates() {
+            db.collection("shops").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+                const shops = [];
+                snapshot.forEach(doc => shops.push({ id: doc.id, ...doc.data() }));
+                renderShops(shops);
+            }, err => console.log("Shops offline/error"));
         }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            
             const targetTab = document.getElementById(`tab-${tabId}`);
-            if (targetTab) {
-                targetTab.classList.remove('hidden');
-            }
+            if (targetTab) targetTab.classList.remove('hidden');
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-amber-500');
@@ -515,12 +572,7 @@
                 document.getElementById('admin-login-view').classList.add('hidden');
                 document.getElementById('admin-dashboard-view').classList.remove('hidden');
                 populateAdminFields();
-                
-                db.collection("posts").orderBy("createdAt", "desc").get().then(snapshot => {
-                    const posts = [];
-                    snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
-                    renderPosts(posts.length ? posts : defaultPosts);
-                }).catch(() => renderPosts(defaultPosts));
+                listenToShopsUpdates();
             } else {
                 alert('Invalid Admin Code!');
             }
@@ -535,10 +587,6 @@
 
         function populateAdminFields() {
             document.getElementById('adminTickerText').value = document.getElementById('ticker-display').innerText;
-            document.getElementById('adminPollQ').value = document.getElementById('poll-question-display').innerText;
-            document.getElementById('adminPollOpt1').value = document.getElementById('poll-opt-1').innerText;
-            document.getElementById('adminPollOpt2').value = document.getElementById('poll-opt-2').innerText;
-            document.getElementById('adminPollOpt3').value = document.getElementById('poll-opt-3').innerText;
         }
 
         function saveTickerFromAdmin() {
@@ -550,56 +598,131 @@
             }
         }
 
-        function savePollFromAdmin() {
-            const q = document.getElementById('adminPollQ').value.trim();
-            const o1 = document.getElementById('adminPollOpt1').value.trim();
-            const o2 = document.getElementById('adminPollOpt2').value.trim();
-            const o3 = document.getElementById('adminPollOpt3').value.trim();
+        // Shop Listing Handlers
+        function openShopModal() { document.getElementById('shop-modal').classList.remove('hidden'); }
+        function closeShopModal() { document.getElementById('shop-modal').classList.add('hidden'); }
 
-            if (q && o1 && o2 && o3) {
-                db.collection("settings").doc("poll").set({ 
-                    q, o1, o2, o3,
-                    v1: 0, v2: 0, v3: 0 
-                })
-                .then(() => alert('Poll Reset & Published Globally!'))
-                .catch(err => alert('Error: ' + err.message));
+        function submitShop() {
+            const name = document.getElementById('shopName').value.trim();
+            const owner = document.getElementById('shopOwner').value.trim();
+            const category = document.getElementById('shopCategory').value.trim();
+            const loc = document.getElementById('shopLoc').value.trim();
+            const phone = document.getElementById('shopPhone').value.trim();
+
+            if (!name || !owner || !category || !loc || !phone) {
+                alert('Please fill all shop details.');
+                return;
+            }
+
+            db.collection("shops").add({
+                shopName: name,
+                ownerName: owner,
+                category: category,
+                location: loc,
+                phone: phone,
+                status: 'pending',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById('shopName').value = '';
+                document.getElementById('shopOwner').value = '';
+                document.getElementById('shopCategory').value = '';
+                document.getElementById('shopLoc').value = '';
+                document.getElementById('shopPhone').value = '';
+                closeShopModal();
+                alert('Your store request has been submitted for Admin Review!');
+            }).catch(err => alert('Error submitting store: ' + err.message));
+        }
+
+        function renderShops(shops) {
+            const approvedList = document.getElementById('approved-shops-list');
+            const homeFeaturedList = document.getElementById('home-featured-shops');
+            const pendingList = document.getElementById('admin-pending-shops');
+
+            if (approvedList) approvedList.innerHTML = '';
+            if (homeFeaturedList) homeFeaturedList.innerHTML = '';
+            if (pendingList) pendingList.innerHTML = '';
+
+            let hasApproved = false;
+            let hasPending = false;
+
+            shops.forEach(shop => {
+                if (shop.status === 'approved') {
+                    hasApproved = true;
+
+                    // Dedicated Stores Tab Rendering
+                    if (approvedList) {
+                        approvedList.innerHTML += `
+                            <div class="shop-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="${escapeHtml(shop.shopName)} ${escapeHtml(shop.category)} ${escapeHtml(shop.location)}">
+                                <div>
+                                    <span class="text-[8px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-black uppercase">${escapeHtml(shop.category)}</span>
+                                    <h3 class="text-xs font-black text-slate-100 mt-1">${escapeHtml(shop.shopName)}</h3>
+                                    <p class="text-[9px] text-slate-400"><i class="fa-solid fa-location-dot text-amber-400"></i> ${escapeHtml(shop.location)} (${escapeHtml(shop.ownerName)})</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <a href="tel:${escapeHtml(shop.phone)}" class="bg-emerald-600 w-8 h-8 rounded-full flex items-center justify-center text-xs text-white"><i class="fa-solid fa-phone"></i></a>
+                                    ${isAdmin ? `<button onclick="deleteShop('${shop.id}')" class="text-red-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Home Screen Horizontal Featured Shops
+                    if (homeFeaturedList) {
+                        homeFeaturedList.innerHTML += `
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 min-w-[140px] max-w-[150px] shrink-0 flex flex-col justify-between space-y-2">
+                                <div>
+                                    <span class="text-[7px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-black uppercase tracking-wider block w-max">${escapeHtml(shop.category)}</span>
+                                    <h4 class="text-xs font-bold text-white mt-1.5 truncate">${escapeHtml(shop.shopName)}</h4>
+                                    <p class="text-[8px] text-slate-400 truncate"><i class="fa-solid fa-location-dot text-amber-400"></i> ${escapeHtml(shop.location)}</p>
+                                </div>
+                                <a href="tel:${escapeHtml(shop.phone)}" class="bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 text-[9px] font-bold py-1 px-2 rounded flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-phone text-[8px]"></i> Call Now
+                                </a>
+                            </div>
+                        `;
+                    }
+
+                } else if (shop.status === 'pending' && pendingList) {
+                    hasPending = true;
+                    pendingList.innerHTML += `
+                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-1.5">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xs font-bold text-white">${escapeHtml(shop.shopName)} <span class="text-orange-400">(${escapeHtml(shop.category)})</span></h4>
+                                    <p class="text-[10px] text-slate-300">Owner: ${escapeHtml(shop.ownerName)} | Tel: ${escapeHtml(shop.phone)}</p>
+                                    <p class="text-[9px] text-slate-400"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(shop.location)}</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 pt-1">
+                                <button onclick="approveShop('${shop.id}')" class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1 rounded cursor-pointer">Approve & Live</button>
+                                <button onclick="deleteShop('${shop.id}')" class="bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded cursor-pointer">Reject</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            if (approvedList && !hasApproved) {
+                approvedList.innerHTML = `<p class="text-[10px] text-slate-500 italic py-2 text-center">No shops listed yet. Be the first to add your store!</p>`;
+            }
+
+            if (homeFeaturedList && !hasApproved) {
+                homeFeaturedList.innerHTML = `<p class="text-[10px] text-slate-500 italic py-1">No featured shops yet.</p>`;
+            }
+
+            if (pendingList && !hasPending) {
+                pendingList.innerHTML = `<p class="text-[10px] text-slate-500 italic">No pending shop applications.</p>`;
             }
         }
 
-        function votePoll(optionNum) {
-            const pollRef = db.collection("settings").doc("poll");
-            db.runTransaction(transaction => {
-                return transaction.get(pollRef).then(doc => {
-                    if (!doc.exists) return;
-                    const field = `v${optionNum}`;
-                    const newCount = (doc.data()[field] || 0) + 1;
-                    transaction.update(pollRef, { [field]: newCount });
-                });
-            }).then(() => {
-                localStorage.setItem('hasVotedPoll', 'true');
-            }).catch(err => console.error("Vote failed: ", err));
+        function approveShop(id) {
+            db.collection("shops").doc(id).update({ status: 'approved' })
+                .then(() => alert('Shop Approved & Made Live!'));
         }
 
-        function updatePollDisplay() {
-            const total = currentPollData.v1 + currentPollData.v2 + currentPollData.v3;
-            document.getElementById('poll-total-votes').innerText = `${total} votes`;
-
-            const p1 = total > 0 ? Math.round((currentPollData.v1 / total) * 100) : 0;
-            const p2 = total > 0 ? Math.round((currentPollData.v2 / total) * 100) : 0;
-            const p3 = total > 0 ? Math.round((currentPollData.v3 / total) * 100) : 0;
-
-            document.getElementById('poll-bar-1').style.width = `${p1}%`;
-            document.getElementById('poll-bar-2').style.width = `${p2}%`;
-            document.getElementById('poll-bar-3').style.width = `${p3}%`;
-
-            if (total > 0 || localStorage.getItem('hasVotedPoll')) {
-                document.getElementById('poll-percent-1').classList.remove('hidden');
-                document.getElementById('poll-percent-2').classList.remove('hidden');
-                document.getElementById('poll-percent-3').classList.remove('hidden');
-
-                document.getElementById('poll-percent-1').innerText = `${p1}%`;
-                document.getElementById('poll-percent-2').innerText = `${p2}%`;
-                document.getElementById('poll-percent-3').innerText = `${p3}%`;
+        function deleteShop(id) {
+            if (confirm("Remove this store listing?")) {
+                db.collection("shops").doc(id).delete();
             }
         }
 
@@ -614,9 +737,7 @@
             if (!name || !loc || !msg) { alert('Please fill all fields.'); return; }
 
             db.collection("posts").add({
-                name,
-                location: loc,
-                message: msg,
+                name, location: loc, message: msg,
                 status: isAdmin ? 'approved' : 'pending',
                 timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -626,8 +747,6 @@
                 document.getElementById('postMsg').value = '';
                 closePostModal();
                 alert(isAdmin ? 'Published Globally!' : 'Submitted for admin review.');
-            }).catch(err => {
-                alert('Submission error: Check Firebase Security Rules');
             });
         }
 
@@ -678,16 +797,9 @@
             if (pendingContainer && !hasPending) {
                 pendingContainer.innerHTML = `<p class="text-[10px] text-slate-500 italic">No pending approvals.</p>`;
             }
-
-            if (approvedContainer.innerHTML === '') {
-                approvedContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No community posts yet. Be the first to share!</p>`;
-            }
         }
 
-        function approvePost(id) {
-            db.collection("posts").doc(id).update({ status: 'approved' });
-        }
-
+        function approvePost(id) { db.collection("posts").doc(id).update({ status: 'approved' }); }
         function deletePost(id) {
             if (confirm("Are you sure you want to remove this post?")) {
                 db.collection("posts").doc(id).delete();
@@ -703,17 +815,52 @@
             });
         }
 
-        function redirectToWhatsAppCommunity() {
-            window.open('https://chat.whatsapp.com/', '_blank');
+        function filterShops() {
+            const query = document.getElementById('shopSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('#approved-shops-list .shop-card');
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name') || card.innerText.toLowerCase();
+                card.style.display = name.includes(query) ? 'flex' : 'none';
+            });
         }
 
-        function redirectToWhatsAppSupport() {
-            window.open('https://wa.me/', '_blank');
+        function votePoll(optionNum) {
+            const pollRef = db.collection("settings").doc("poll");
+            db.runTransaction(transaction => {
+                return transaction.get(pollRef).then(doc => {
+                    if (!doc.exists) return;
+                    const field = `v${optionNum}`;
+                    const newCount = (doc.data()[field] || 0) + 1;
+                    transaction.update(pollRef, { [field]: newCount });
+                });
+            }).then(() => localStorage.setItem('hasVotedPoll', 'true'));
         }
 
-        function redirectToGoogleForm() {
-            window.open('https://forms.google.com/', '_blank');
+        function updatePollDisplay() {
+            const total = currentPollData.v1 + currentPollData.v2 + currentPollData.v3;
+            document.getElementById('poll-total-votes').innerText = `${total} votes`;
+
+            const p1 = total > 0 ? Math.round((currentPollData.v1 / total) * 100) : 0;
+            const p2 = total > 0 ? Math.round((currentPollData.v2 / total) * 100) : 0;
+            const p3 = total > 0 ? Math.round((currentPollData.v3 / total) * 100) : 0;
+
+            document.getElementById('poll-bar-1').style.width = `${p1}%`;
+            document.getElementById('poll-bar-2').style.width = `${p2}%`;
+            document.getElementById('poll-bar-3').style.width = `${p3}%`;
+
+            if (total > 0 || localStorage.getItem('hasVotedPoll')) {
+                document.getElementById('poll-percent-1').classList.remove('hidden');
+                document.getElementById('poll-percent-2').classList.remove('hidden');
+                document.getElementById('poll-percent-3').classList.remove('hidden');
+
+                document.getElementById('poll-percent-1').innerText = `${p1}%`;
+                document.getElementById('poll-percent-2').innerText = `${p2}%`;
+                document.getElementById('poll-percent-3').innerText = `${p3}%`;
+            }
         }
+
+        function redirectToWhatsAppCommunity() { window.open('https://chat.whatsapp.com/', '_blank'); }
+        function redirectToWhatsAppSupport() { window.open('https://wa.me/', '_blank'); }
 
         function openInfoModal(type) {
             const modal = document.getElementById('info-modal');
@@ -737,9 +884,7 @@
             modal.classList.remove('hidden');
         }
 
-        function closeInfoModal() {
-            document.getElementById('info-modal').classList.add('hidden');
-        }
+        function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
 
         function escapeHtml(text) {
             if (!text) return '';
