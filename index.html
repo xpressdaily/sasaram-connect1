@@ -9,11 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sasaram Connect</title>
 
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         body { -webkit-tap-highlight-color: transparent; }
@@ -69,7 +66,7 @@
                 LIVE
             </span>
             <div id="ticker-display" class="ticker-text text-[11px] text-amber-400 font-medium pl-14">
-                Loading live updates...
+                Welcome to Sasaram Connect Digital Civic Portal!
             </div>
         </div>
 
@@ -134,46 +131,44 @@
                     </div>
                 </div>
 
-               <!-- ONLINE POLL WITH PERCENTAGE -->
-<div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3 relative">
-    <div class="flex justify-between items-center">
-        <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest">SASARAM ONLINE POLL</p>
-        <span id="poll-total-votes" class="text-[9px] text-slate-400 font-mono">0 votes</span>
-    </div>
+                <!-- ONLINE POLL WITH PERCENTAGE -->
+                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3 relative">
+                    <div class="flex justify-between items-center">
+                        <p class="text-[10px] text-indigo-400 font-black uppercase tracking-widest">SASARAM ONLINE POLL</p>
+                        <span id="poll-total-votes" class="text-[9px] text-slate-400 font-mono">0 votes</span>
+                    </div>
 
-    <h4 id="poll-question-display" class="text-xs font-extrabold text-slate-100">
-        Loading Poll...
-    </h4>
+                    <h4 id="poll-question-display" class="text-xs font-extrabold text-slate-100">
+                        Sasaram Ki Subah Sabase Pasandida Jagah Kon Si Hai?
+                    </h4>
 
-    <div id="poll-options-container" class="space-y-2.5">
-        <!-- Option 1 -->
-        <button onclick="votePoll(1)" id="poll-btn-1" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
-            <div id="poll-bar-1" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
-            <div class="relative z-10 flex justify-between items-center text-xs">
-                <span id="poll-opt-1" class="text-slate-200">Option 1</span>
-                <span id="poll-percent-1" class="font-bold text-amber-400 hidden">0%</span>
+                    <div id="poll-options-container" class="space-y-2.5">
+                        <button onclick="votePoll(1)" id="poll-btn-1" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
+                            <div id="poll-bar-1" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
+                            <div class="relative z-10 flex justify-between items-center text-xs">
+                                <span id="poll-opt-1" class="text-slate-200">Sher Shah Suri Tomb</span>
+                                <span id="poll-percent-1" class="font-bold text-amber-400 hidden">0%</span>
+                            </div>
+                        </button>
+
+                        <button onclick="votePoll(2)" id="poll-btn-2" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
+                            <div id="poll-bar-2" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
+                            <div class="relative z-10 flex justify-between items-center text-xs">
+                                <span id="poll-opt-2" class="text-slate-200">Pilot Baba Dham</span>
+                                <span id="poll-percent-2" class="font-bold text-amber-400 hidden">0%</span>
+                            </div>
+                        </button>
+
+                        <button onclick="votePoll(3)" id="poll-btn-3" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
+                            <div id="poll-bar-3" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
+                            <div class="relative z-10 flex justify-between items-center text-xs">
+                                <span id="poll-opt-3" class="text-slate-200">Tara Chandi Temple</span>
+                                <span id="poll-percent-3" class="font-bold text-amber-400 hidden">0%</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </button>
-
-        <!-- Option 2 -->
-        <button onclick="votePoll(2)" id="poll-btn-2" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
-            <div id="poll-bar-2" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
-            <div class="relative z-10 flex justify-between items-center text-xs">
-                <span id="poll-opt-2" class="text-slate-200">Option 2</span>
-                <span id="poll-percent-2" class="font-bold text-amber-400 hidden">0%</span>
-            </div>
-        </button>
-
-        <!-- Option 3 -->
-        <button onclick="votePoll(3)" id="poll-btn-3" class="w-full bg-slate-950 hover:bg-indigo-900/30 p-2.5 rounded-lg border border-slate-800 text-left transition relative overflow-hidden group">
-            <div id="poll-bar-3" class="absolute top-0 bottom-0 left-0 bg-indigo-600/30 transition-all duration-500 w-0"></div>
-            <div class="relative z-10 flex justify-between items-center text-xs">
-                <span id="poll-opt-3" class="text-slate-200">Option 3</span>
-                <span id="poll-percent-3" class="font-bold text-amber-400 hidden">0%</span>
-            </div>
-        </button>
-    </div>
-</div>
 
             <!-- TAB 2: CHAUPAL -->
             <div id="tab-chaupal" class="tab-content hidden p-4 space-y-4">
@@ -184,11 +179,13 @@
                         </h2>
                         <p class="text-[10px] text-slate-400">Share public updates or report local issues</p>
                     </div>
-                    <button onclick="openPostModal()" class="bg-indigo-600 hover:bg-indigo-700 text-xs px-3 py-2 rounded-lg font-bold shadow-lg flex items-center gap-1">
+                    <button onclick="openPostModal()" class="bg-indigo-600 hover:bg-indigo-700 text-xs px-3 py-2 rounded-lg font-bold shadow-lg flex items-center gap-1 cursor-pointer">
                         <i class="fa-solid fa-plus"></i> <span>Create Post</span>
                     </button>
                 </div>
-                <div id="chaupal-posts-container" class="space-y-4"></div>
+                <div id="chaupal-posts-container" class="space-y-4">
+                    <p class="text-xs text-slate-500 text-center py-6">Loading community posts...</p>
+                </div>
             </div>
 
             <!-- TAB 3: DIRECTORY -->
@@ -204,97 +201,110 @@
                 </div>
 
                 <div class="space-y-2.5" id="directory-list">
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="dm office rohtas">
+                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="dm office rohtas collectorate">
                         <div>
                             <span class="text-[8px] bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded font-black">ADMINISTRATION</span>
                             <h3 class="text-xs font-black text-slate-100">District Magistrate (DM Office)</h3>
+                            <p class="text-[9px] text-slate-400">Collectorate, Sasaram</p>
                         </div>
                         <a href="tel:06184222226" class="bg-indigo-600 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
-                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sp office rohtas">
+
+                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sp office rohtas police control room">
                         <div>
                             <span class="text-[8px] bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded font-black">POLICE</span>
-                            <h3 class="text-xs font-black text-slate-100">Superintendent of Police (SP Office)</h3>
+                            <h3 class="text-xs font-black text-slate-100">SP Office / Police Control Room</h3>
+                            <p class="text-[9px] text-slate-400">Police Line, Sasaram</p>
                         </div>
                         <a href="tel:9431822989" class="bg-indigo-600 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
+                    </div>
+
+                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="sadar hospital ambulance emergency medical">
+                        <div>
+                            <span class="text-[8px] bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-black">HEALTHCARE</span>
+                            <h3 class="text-xs font-black text-slate-100">Sadar Hospital Ambulance</h3>
+                            <p class="text-[9px] text-slate-400">Emergency Helpline</p>
+                        </div>
+                        <a href="tel:102" class="bg-emerald-600 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
+                    </div>
+
+                    <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="electricity complaint bijli rohtas south bihar power">
+                        <div>
+                            <span class="text-[8px] bg-cyan-500/10 text-cyan-400 px-1.5 py-0.5 rounded font-black">ELECTRICITY</span>
+                            <h3 class="text-xs font-black text-slate-100">Electricity Helpline (SBPDCL)</h3>
+                            <p class="text-[9px] text-slate-400">Toll Free Complaint</p>
+                        </div>
+                        <a href="tel:1912" class="bg-cyan-600 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
                     </div>
                 </div>
             </div>
 
-           <!-- TAB 4: SUPPORT & LEGAL HUB -->
-<div id="tab-support" class="tab-content hidden p-4 space-y-4">
-    <div>
-        <h2 class="text-sm font-black text-amber-400">About & Legal Center</h2>
-        <p class="text-[10px] text-slate-400">Information, policies & official support links</p>
-    </div>
+            <!-- TAB 4: SUPPORT & LEGAL HUB -->
+            <div id="tab-support" class="tab-content hidden p-4 space-y-4">
+                <div>
+                    <h2 class="text-sm font-black text-amber-400">About & Legal Center</h2>
+                    <p class="text-[10px] text-slate-400">Information, policies & official support links</p>
+                </div>
 
-    <!-- Contact Us Card -->
-    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
-        <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <i class="fa-solid fa-headset text-indigo-400"></i> Contact Us
-        </h3>
-        <p class="text-[11px] text-slate-400">Have feedback or need technical assistance with Sasaram Connect?</p>
-        <button onclick="redirectToWhatsAppSupport()" class="w-full bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 hover:bg-emerald-600/30 transition">
-            <i class="fa-brands fa-whatsapp text-sm"></i> Chat on Official Support
-        </button>
-    </div>
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                    <h3 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                        <i class="fa-solid fa-headset text-indigo-400"></i> Contact Us
+                    </h3>
+                    <p class="text-[11px] text-slate-400">Have feedback or need technical assistance with Sasaram Connect?</p>
+                    <button onclick="redirectToWhatsAppSupport()" class="w-full bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 hover:bg-emerald-600/30 transition cursor-pointer">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Chat on Official Support
+                    </button>
+                </div>
 
-    <!-- Links List -->
-    <div class="bg-slate-900 rounded-xl border border-slate-800 divide-y divide-slate-800/60 overflow-hidden">
-        
-        <!-- About Us -->
-        <button onclick="openInfoModal('about')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
-            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
-                <i class="fa-solid fa-circle-info text-amber-400 w-4"></i> About Us
-            </span>
-            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-        </button>
+                <div class="bg-slate-900 rounded-xl border border-slate-800 divide-y divide-slate-800/60 overflow-hidden">
+                    <button onclick="openInfoModal('about')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition cursor-pointer">
+                        <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-amber-400 w-4"></i> About Us
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                    </button>
 
-        <!-- Terms & Conditions -->
-        <button onclick="openInfoModal('terms')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
-            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
-                <i class="fa-solid fa-file-contract text-cyan-400 w-4"></i> Terms & Conditions
-            </span>
-            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-        </button>
+                    <button onclick="openInfoModal('terms')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition cursor-pointer">
+                        <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-file-contract text-cyan-400 w-4"></i> Terms & Conditions
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                    </button>
 
-        <!-- Disclaimer -->
-        <button onclick="openInfoModal('disclaimer')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
-            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
-                <i class="fa-solid fa-triangle-exclamation text-rose-400 w-4"></i> Disclaimer
-            </span>
-            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-        </button>
+                    <button onclick="openInfoModal('disclaimer')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition cursor-pointer">
+                        <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-rose-400 w-4"></i> Disclaimer
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                    </button>
 
-        <!-- Privacy Policy -->
-        <button onclick="openInfoModal('privacy')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition">
-            <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
-                <i class="fa-solid fa-user-shield text-emerald-400 w-4"></i> Privacy Policy
-            </span>
-            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-        </button>
+                    <button onclick="openInfoModal('privacy')" class="w-full px-4 py-3 flex justify-between items-center text-left hover:bg-slate-800/50 transition cursor-pointer">
+                        <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                            <i class="fa-solid fa-user-shield text-emerald-400 w-4"></i> Privacy Policy
+                        </span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                    </button>
+                </div>
 
-    </div>
-
-    <div class="text-center pt-2">
-        <p class="text-[9px] text-slate-500 font-mono">Sasaram Connect v1.0.4 • Rohtas Civic Tech</p>
-    </div>
-</div>
+                <div class="text-center pt-2">
+                    <p class="text-[9px] text-slate-500 font-mono">Sasaram Connect v1.0.4 • Rohtas Civic Tech</p>
+                </div>
+            </div>
 
         </main>
 
         <!-- BOTTOM NAV -->
         <nav class="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 h-16 flex justify-around items-center px-2 z-50">
-            <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center text-amber-500 transition">
+            <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center text-amber-500 transition cursor-pointer">
                 <i class="fa-solid fa-house text-lg"></i><span class="text-[9px] mt-1">Home</span>
             </button>
-            <button onclick="switchTab('chaupal')" id="nav-chaupal" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
+            <button onclick="switchTab('chaupal')" id="nav-chaupal" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition cursor-pointer">
                 <i class="fa-solid fa-comments text-lg"></i><span class="text-[9px] mt-1">Chaupal</span>
             </button>
-            <button onclick="switchTab('services')" id="nav-services" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
+            <button onclick="switchTab('services')" id="nav-services" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition cursor-pointer">
                 <i class="fa-solid fa-address-book text-lg"></i><span class="text-[9px] mt-1">Directory</span>
             </button>
-            <button onclick="switchTab('support')" id="nav-support" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition">
+            <button onclick="switchTab('support')" id="nav-support" class="nav-btn flex flex-col items-center text-slate-400 hover:text-white transition cursor-pointer">
                 <i class="fa-solid fa-circle-info text-lg"></i><span class="text-[9px] mt-1">Support</span>
             </button>
         </nav>
@@ -306,7 +316,7 @@
                     <i class="fa-solid fa-shield-halved text-amber-400 text-sm"></i>
                     <h2 class="text-xs font-black uppercase text-amber-400">Admin Control Center</h2>
                 </div>
-                <button onclick="closeAdminScreen()" class="text-slate-400 hover:text-white text-xs bg-slate-800 px-2.5 py-1 rounded-lg">
+                <button onclick="closeAdminScreen()" class="text-slate-400 hover:text-white text-xs bg-slate-800 px-2.5 py-1 rounded-lg cursor-pointer">
                     <i class="fa-solid fa-xmark"></i> Close
                 </button>
             </header>
@@ -321,7 +331,7 @@
                 </div>
                 <div class="w-full max-w-xs space-y-3">
                     <input type="password" id="adminPassInput" placeholder="Enter Admin Password" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-center font-mono tracking-widest text-amber-400 focus:outline-none focus:border-amber-500">
-                    <button onclick="handleAdminLogin()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg transition">
+                    <button onclick="handleAdminLogin()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg transition cursor-pointer">
                         Login To Dashboard
                     </button>
                 </div>
@@ -330,7 +340,7 @@
             <div id="admin-dashboard-view" class="flex-1 overflow-y-auto p-4 space-y-5 hidden hide-scroll">
                 <div class="flex justify-between items-center bg-indigo-950/40 p-3 rounded-xl border border-indigo-900">
                     <span class="text-[10px] font-bold text-green-400 flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> Admin Session Active</span>
-                    <button onclick="adminLogout()" class="text-[9px] bg-red-600 text-white font-bold px-2.5 py-1 rounded">Logout</button>
+                    <button onclick="adminLogout()" class="text-[9px] bg-red-600 text-white font-bold px-2.5 py-1 rounded cursor-pointer">Logout</button>
                 </div>
 
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
@@ -338,7 +348,7 @@
                         <i class="fa-solid fa-bullhorn"></i> Update Live Ticker Text
                     </h3>
                     <textarea id="adminTickerText" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-amber-400 focus:outline-none resize-none"></textarea>
-                    <button onclick="saveTickerFromAdmin()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg">
+                    <button onclick="saveTickerFromAdmin()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 rounded-lg cursor-pointer">
                         Update Live Announcement
                     </button>
                 </div>
@@ -353,7 +363,7 @@
                         <input type="text" id="adminPollOpt2" placeholder="Option 2" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
                         <input type="text" id="adminPollOpt3" placeholder="Option 3" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-xs text-white">
                     </div>
-                    <button onclick="savePollFromAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2 rounded-lg">
+                    <button onclick="savePollFromAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-2 rounded-lg cursor-pointer">
                         Save & Publish Poll
                     </button>
                 </div>
@@ -372,7 +382,7 @@
             <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-4 shadow-2xl">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                     <h3 class="text-xs font-black text-amber-400">Create New Post</h3>
-                    <button onclick="closePostModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="closePostModal()" class="text-slate-400 hover:text-white text-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="space-y-3">
                     <input type="text" id="postName" placeholder="Your Name" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
@@ -380,9 +390,21 @@
                     <textarea id="postMsg" rows="3" placeholder="Message details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white resize-none"></textarea>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="closePostModal()" class="flex-1 bg-slate-950 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800">Cancel</button>
-                    <button onclick="submitPost()" class="flex-1 bg-indigo-600 text-white text-xs py-2.5 rounded-lg font-bold">Publish Post</button>
+                    <button onclick="closePostModal()" class="flex-1 bg-slate-950 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800 cursor-pointer">Cancel</button>
+                    <button onclick="submitPost()" class="flex-1 bg-indigo-600 text-white text-xs py-2.5 rounded-lg font-bold cursor-pointer">Publish Post</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- INFO / LEGAL MODAL -->
+        <div id="info-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] hidden flex flex-col justify-center p-5">
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-4 shadow-2xl max-h-[80vh] flex flex-col">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                    <h3 id="info-modal-title" class="text-xs font-black text-amber-400 uppercase tracking-wider">Info</h3>
+                    <button onclick="closeInfoModal()" class="text-slate-400 hover:text-white text-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="info-modal-body" class="text-xs text-slate-300 space-y-2 overflow-y-auto hide-scroll flex-1"></div>
+                <button onclick="closeInfoModal()" class="w-full bg-slate-800 text-slate-200 text-xs py-2 rounded-lg cursor-pointer">Close</button>
             </div>
         </div>
 
@@ -407,6 +429,13 @@
         const db = firebase.firestore();
 
         let isAdmin = false;
+        let currentPollData = { v1: 0, v2: 0, v3: 0 };
+
+        // Fallback default posts to show if Firebase is empty/connecting
+        const defaultPosts = [
+            { id: 'def1', name: 'Raju Kumar', location: 'Gaurakshani', message: 'Rohtas Collectorate road maintenance updates posted.', status: 'approved', timestamp: '10:30 AM' },
+            { id: 'def2', name: 'Vikram Singh', location: 'Grand Trunk Road', message: 'Traffic movement is smooth near Sher Shah Suri Tomb area today.', status: 'approved', timestamp: '01:15 PM' }
+        ];
 
         window.addEventListener('DOMContentLoaded', () => {
             listenToLiveUpdates();
@@ -421,28 +450,59 @@
 
         function listenToLiveUpdates() {
             db.collection("settings").doc("ticker").onSnapshot(doc => {
-                if (doc.exists) {
+                if (doc.exists && doc.data().text) {
                     document.getElementById('ticker-display').innerText = doc.data().text;
-                } else {
-                    document.getElementById('ticker-display').innerText = "🔴 Welcome to Sasaram Connect digital civic portal.";
                 }
-            });
+            }, err => console.log("Ticker offline mode"));
 
             db.collection("settings").doc("poll").onSnapshot(doc => {
                 if (doc.exists) {
                     const poll = doc.data();
-                    document.getElementById('poll-question-display').innerText = poll.q;
-                    document.getElementById('poll-opt-1').innerText = poll.o1;
-                    document.getElementById('poll-opt-2').innerText = poll.o2;
-                    document.getElementById('poll-opt-3').innerText = poll.o3;
+                    if (poll.q) document.getElementById('poll-question-display').innerText = poll.q;
+                    if (poll.o1) document.getElementById('poll-opt-1').innerText = poll.o1;
+                    if (poll.o2) document.getElementById('poll-opt-2').innerText = poll.o2;
+                    if (poll.o3) document.getElementById('poll-opt-3').innerText = poll.o3;
+                    
+                    currentPollData.v1 = poll.v1 || 0;
+                    currentPollData.v2 = poll.v2 || 0;
+                    currentPollData.v3 = poll.v3 || 0;
+                    
+                    updatePollDisplay();
                 }
-            });
+            }, err => console.log("Poll offline mode"));
 
             db.collection("posts").orderBy("createdAt", "desc").onSnapshot(snapshot => {
                 const posts = [];
                 snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
-                renderPosts(posts);
+                if (posts.length > 0) {
+                    renderPosts(posts);
+                } else {
+                    renderPosts(defaultPosts);
+                }
+            }, err => {
+                console.log("Firestore error/offline. Showing fallback posts.");
+                renderPosts(defaultPosts);
             });
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+            }
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-amber-500');
+                btn.classList.add('text-slate-400');
+            });
+
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.remove('text-slate-400');
+                activeNav.classList.add('text-amber-500');
+            }
         }
 
         function openAdminScreen() { document.getElementById('admin-screen').classList.remove('hidden'); }
@@ -455,6 +515,12 @@
                 document.getElementById('admin-login-view').classList.add('hidden');
                 document.getElementById('admin-dashboard-view').classList.remove('hidden');
                 populateAdminFields();
+                
+                db.collection("posts").orderBy("createdAt", "desc").get().then(snapshot => {
+                    const posts = [];
+                    snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
+                    renderPosts(posts.length ? posts : defaultPosts);
+                }).catch(() => renderPosts(defaultPosts));
             } else {
                 alert('Invalid Admin Code!');
             }
@@ -491,11 +557,54 @@
             const o3 = document.getElementById('adminPollOpt3').value.trim();
 
             if (q && o1 && o2 && o3) {
-                db.collection("settings").doc("poll").set({ q, o1, o2, o3 })
-                    .then(() => alert('Poll Updated Globally!'))
-                    .catch(err => alert('Error: ' + err.message));
+                db.collection("settings").doc("poll").set({ 
+                    q, o1, o2, o3,
+                    v1: 0, v2: 0, v3: 0 
+                })
+                .then(() => alert('Poll Reset & Published Globally!'))
+                .catch(err => alert('Error: ' + err.message));
             }
         }
+
+        function votePoll(optionNum) {
+            const pollRef = db.collection("settings").doc("poll");
+            db.runTransaction(transaction => {
+                return transaction.get(pollRef).then(doc => {
+                    if (!doc.exists) return;
+                    const field = `v${optionNum}`;
+                    const newCount = (doc.data()[field] || 0) + 1;
+                    transaction.update(pollRef, { [field]: newCount });
+                });
+            }).then(() => {
+                localStorage.setItem('hasVotedPoll', 'true');
+            }).catch(err => console.error("Vote failed: ", err));
+        }
+
+        function updatePollDisplay() {
+            const total = currentPollData.v1 + currentPollData.v2 + currentPollData.v3;
+            document.getElementById('poll-total-votes').innerText = `${total} votes`;
+
+            const p1 = total > 0 ? Math.round((currentPollData.v1 / total) * 100) : 0;
+            const p2 = total > 0 ? Math.round((currentPollData.v2 / total) * 100) : 0;
+            const p3 = total > 0 ? Math.round((currentPollData.v3 / total) * 100) : 0;
+
+            document.getElementById('poll-bar-1').style.width = `${p1}%`;
+            document.getElementById('poll-bar-2').style.width = `${p2}%`;
+            document.getElementById('poll-bar-3').style.width = `${p3}%`;
+
+            if (total > 0 || localStorage.getItem('hasVotedPoll')) {
+                document.getElementById('poll-percent-1').classList.remove('hidden');
+                document.getElementById('poll-percent-2').classList.remove('hidden');
+                document.getElementById('poll-percent-3').classList.remove('hidden');
+
+                document.getElementById('poll-percent-1').innerText = `${p1}%`;
+                document.getElementById('poll-percent-2').innerText = `${p2}%`;
+                document.getElementById('poll-percent-3').innerText = `${p3}%`;
+            }
+        }
+
+        function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
+        function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
 
         function submitPost() {
             const name = document.getElementById('postName').value.trim();
@@ -517,6 +626,8 @@
                 document.getElementById('postMsg').value = '';
                 closePostModal();
                 alert(isAdmin ? 'Published Globally!' : 'Submitted for admin review.');
+            }).catch(err => {
+                alert('Submission error: Check Firebase Security Rules');
             });
         }
 
@@ -524,85 +635,119 @@
             const approvedContainer = document.getElementById('chaupal-posts-container');
             const pendingContainer = document.getElementById('admin-pending-list');
 
+            if (!approvedContainer) return;
             approvedContainer.innerHTML = '';
             if (pendingContainer) pendingContainer.innerHTML = '';
 
-            const approved = posts.filter(p => p.status === 'approved');
-            const pending = posts.filter(p => p.status === 'pending');
+            let hasPending = false;
 
-            if (approved.length === 0) {
-                approvedContainer.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No active posts on Chaupal.</p>`;
-            } else {
-                approved.forEach(post => {
+            posts.forEach(post => {
+                if (post.status === 'approved') {
                     approvedContainer.innerHTML += `
                         <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-xs font-black text-indigo-400">${post.name}</span>
-                                <span class="text-[9px] text-slate-500">${post.timestamp || ''}</span>
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="text-xs font-black text-slate-100">${escapeHtml(post.name)}</h4>
+                                    <p class="text-[9px] text-amber-400 font-medium"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(post.location)}</p>
+                                </div>
+                                <span class="text-[9px] text-slate-500 font-mono">${post.timestamp || ''}</span>
                             </div>
-                            <p class="text-xs text-slate-300">${post.message}</p>
-                            <div class="flex justify-between items-center">
-                                <div class="text-[9px] text-amber-500 font-bold"><i class="fa-solid fa-location-dot"></i> ${post.location}</div>
-                                ${isAdmin ? `<button onclick="deletePost('${post.id}')" class="text-red-500 text-[10px] font-bold">Delete</button>` : ''}
+                            <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(post.message)}</p>
+                            ${isAdmin ? `<button onclick="deletePost('${post.id}')" class="text-[9px] text-red-400 hover:underline pt-1">Delete Post</button>` : ''}
+                        </div>
+                    `;
+                } else if (post.status === 'pending' && pendingContainer) {
+                    hasPending = true;
+                    pendingContainer.innerHTML += `
+                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h5 class="text-xs font-bold text-white">${escapeHtml(post.name)} (${escapeHtml(post.location)})</h5>
+                                    <p class="text-[10px] text-slate-300 mt-1">${escapeHtml(post.message)}</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 pt-1">
+                                <button onclick="approvePost('${post.id}')" class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1 rounded">Approve</button>
+                                <button onclick="deletePost('${post.id}')" class="bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded">Reject</button>
                             </div>
                         </div>
                     `;
-                });
-            }
-
-            if (pendingContainer) {
-                if (pending.length === 0) {
-                    pendingContainer.innerHTML = `<p class="text-center text-xs text-slate-500 py-2">No pending posts for approval.</p>`;
-                } else {
-                    pending.forEach(post => {
-                        pendingContainer.innerHTML += `
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs font-bold text-amber-400">${post.name} (${post.location})</span>
-                                    <span class="text-[9px] text-slate-500">${post.timestamp || ''}</span>
-                                </div>
-                                <p class="text-xs text-slate-300">${post.message}</p>
-                                <div class="flex gap-2 justify-end pt-1">
-                                    <button onclick="approvePost('${post.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Approve</button>
-                                    <button onclick="deletePost('${post.id}')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] px-2.5 py-1 rounded font-bold">Reject</button>
-                                </div>
-                            </div>
-                        `;
-                    });
                 }
+            });
+
+            if (pendingContainer && !hasPending) {
+                pendingContainer.innerHTML = `<p class="text-[10px] text-slate-500 italic">No pending approvals.</p>`;
+            }
+
+            if (approvedContainer.innerHTML === '') {
+                approvedContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No community posts yet. Be the first to share!</p>`;
             }
         }
 
-        function approvePost(id) { db.collection("posts").doc(id).update({ status: 'approved' }); }
-        function deletePost(id) { db.collection("posts").doc(id).delete(); }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-amber-500');
-                btn.classList.add('text-slate-400');
-            });
-            document.getElementById(`nav-${tabId}`).classList.add('text-amber-500');
-            document.getElementById(`nav-${tabId}`).classList.remove('text-slate-400');
+        function approvePost(id) {
+            db.collection("posts").doc(id).update({ status: 'approved' });
         }
 
-        function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
-        function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
-        function votePoll(optionNum) { alert('Thank you for voting!'); }
-        function redirectToWhatsAppCommunity() { window.open("https://chat.whatsapp.com/BREfz2bY2YAK9rW5SNbWLe", '_blank'); }
-        function redirectToWhatsAppSupport() { window.open("https://wa.me/917449948786", '_blank'); }
-        function redirectToGoogleForm() { window.open('https://forms.gle/kQ8qrozitDH1SXyNA', '_blank'); }
+        function deletePost(id) {
+            if (confirm("Are you sure you want to remove this post?")) {
+                db.collection("posts").doc(id).delete();
+            }
+        }
 
         function filterDirectory() {
-            const q = document.getElementById('directorySearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.contact-card');
+            const query = document.getElementById('directorySearch').value.toLowerCase();
+            const cards = document.querySelectorAll('#directory-list .contact-card');
             cards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                if (name.includes(q)) card.style.display = 'flex';
-                else card.style.display = 'none';
+                const name = card.getAttribute('data-name') || card.innerText.toLowerCase();
+                card.style.display = name.includes(query) ? 'flex' : 'none';
             });
+        }
+
+        function redirectToWhatsAppCommunity() {
+            window.open('https://chat.whatsapp.com/', '_blank');
+        }
+
+        function redirectToWhatsAppSupport() {
+            window.open('https://wa.me/', '_blank');
+        }
+
+        function redirectToGoogleForm() {
+            window.open('https://forms.google.com/', '_blank');
+        }
+
+        function openInfoModal(type) {
+            const modal = document.getElementById('info-modal');
+            const title = document.getElementById('info-modal-title');
+            const body = document.getElementById('info-modal-body');
+
+            if (type === 'about') {
+                title.innerText = "About Us";
+                body.innerHTML = "<p><strong>Sasaram Connect</strong> is a dedicated civic portal bringing local governance, public transport, live mandi updates, and local community discussions together into one seamless platform for the residents of Rohtas district.</p>";
+            } else if (type === 'terms') {
+                title.innerText = "Terms & Conditions";
+                body.innerHTML = "<p>By using Sasaram Connect, you agree to post respectful, verified local updates. Spam, political misinformation, and harassment in the Chaupal section are strictly prohibited and subject to removal.</p>";
+            } else if (type === 'disclaimer') {
+                title.innerText = "Disclaimer";
+                body.innerHTML = "<p>This app serves as a civic reference aggregator. Mandi rates are collected from local sources and may fluctuate dynamically throughout the day. Government links redirect to official portals.</p>";
+            } else if (type === 'privacy') {
+                title.innerText = "Privacy Policy";
+                body.innerHTML = "<p>We respect your privacy. Posts published on Chaupal carry only the name and location/ward you voluntarily submit. We do not sell or store personal background tracking data.</p>";
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;")
+                       .replace(/</g, "&lt;")
+                       .replace(/>/g, "&gt;")
+                       .replace(/"/g, "&quot;")
+                       .replace(/'/g, "&#039;");
         }
     </script>
 </body>
