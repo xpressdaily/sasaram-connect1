@@ -41,7 +41,7 @@
             <h1 class="text-xl font-black text-amber-400">Sasaram Connect</h1>
         </div>
         
-        <!-- HEADER -->
+        <!-- HEADER WITH NOTIFICATION BELL -->
         <header class="bg-gradient-to-r from-indigo-950 to-slate-900 px-3 py-3 flex justify-between items-center border-b border-indigo-950 shadow-lg">
             <div class="flex items-center gap-2">
                 <button onclick="openAdminScreen()" title="Admin Login" class="w-9 h-9 bg-amber-500 rounded-full flex items-center justify-center font-black text-slate-950 text-base shadow-inner hover:scale-105 transition cursor-pointer active:scale-95">
@@ -53,7 +53,13 @@
                 </div>
             </div>
             
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-2">
+                <!-- NOTIFICATION BELL ICON -->
+                <button onclick="openNotificationModal()" class="relative bg-slate-800 p-2 rounded-full text-slate-300 hover:text-amber-400 transition cursor-pointer">
+                    <i class="fa-solid fa-bell text-sm"></i>
+                    <span id="notif-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full hidden">0</span>
+                </button>
+
                 <button onclick="redirectToWhatsAppCommunity()" class="bg-emerald-600 hover:opacity-90 flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-black tracking-wide shadow cursor-pointer">
                     <i class="fa-brands fa-whatsapp text-xs"></i> <span>Community</span>
                 </button>
@@ -75,6 +81,20 @@
             
             <!-- TAB 1: HOME -->
             <div id="tab-home" class="tab-content space-y-4 p-4">
+
+                <!-- Push Notification Permission Banner -->
+                <div id="push-permission-banner" class="bg-indigo-950/60 border border-indigo-800 p-3 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-bell-ring text-amber-400 text-lg"></i>
+                        <div>
+                            <h4 class="text-xs font-bold text-white">Get Live Updates?</h4>
+                            <p class="text-[9px] text-indigo-200">Enable notification alerts for Sasaram updates</p>
+                        </div>
+                    </div>
+                    <button onclick="requestNotificationPermission()" class="bg-amber-500 text-slate-950 text-[10px] font-black px-2.5 py-1.5 rounded-lg">
+                        Enable
+                    </button>
+                </div>
 
                 <!-- Quick Actions Grid -->
                 <div>
@@ -115,7 +135,6 @@
                         <button onclick="switchTab('stores')" class="text-[10px] text-indigo-400 font-semibold hover:underline cursor-pointer">View All →</button>
                     </div>
                     <div id="home-featured-shops" class="flex gap-2.5 overflow-x-auto hide-scroll pb-1">
-                        <!-- Dynamic Featured Shops Load Here -->
                         <p class="text-[10px] text-slate-500 italic py-2">Loading shops...</p>
                     </div>
                 </div>
@@ -202,7 +221,7 @@
                 </div>
             </div>
 
-            <!-- TAB 3: STORES & SHOPS (NEW SEPARATE TAB) -->
+            <!-- TAB 3: STORES & SHOPS -->
             <div id="tab-stores" class="tab-content hidden p-4 space-y-4">
                 <div class="flex justify-between items-center">
                     <div>
@@ -219,10 +238,7 @@
                     <input type="text" id="shopSearch" onkeyup="filterShops()" placeholder="Search stores by name, category or location..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
                 </div>
 
-                <!-- Dynamic Approved Shops List -->
-                <div id="approved-shops-list" class="space-y-2.5">
-                    <!-- Approved shops render here -->
-                </div>
+                <div id="approved-shops-list" class="space-y-2.5"></div>
             </div>
 
             <!-- TAB 4: HELPLINE DIRECTORY -->
@@ -237,7 +253,6 @@
                     <input type="text" id="directorySearch" onkeyup="filterDirectory()" placeholder="Search offices, emergency services..." class="w-full bg-slate-900 border border-slate-800 rounded-xl py-2 px-10 text-xs focus:outline-none">
                 </div>
 
-                <!-- Static Admin Helpline Services -->
                 <div class="space-y-2.5" id="directory-list">
                     <div class="contact-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="dm office rohtas collectorate">
                         <div>
@@ -331,7 +346,7 @@
 
         </main>
 
-        <!-- BOTTOM NAV WITH STORE ICON -->
+        <!-- BOTTOM NAV -->
         <nav class="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 h-16 flex justify-around items-center px-1 z-50">
             <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center text-amber-500 transition cursor-pointer">
                 <i class="fa-solid fa-house text-base"></i><span class="text-[8px] mt-1">Home</span>
@@ -413,6 +428,26 @@
             </div>
         </div>
 
+        <!-- NOTIFICATION MODAL DRAWER -->
+        <div id="notification-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-[150] hidden flex flex-col justify-end">
+            <div class="bg-slate-900 rounded-t-3xl border-t border-slate-800 p-5 space-y-3 shadow-2xl max-h-[80vh] flex flex-col">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+                    <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-bell"></i> Notifications & Updates
+                    </h3>
+                    <button onclick="closeNotificationModal()" class="text-slate-400 hover:text-white text-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div id="notification-list" class="space-y-2.5 overflow-y-auto hide-scroll flex-1 py-1">
+                    <!-- Dynamic notifications loaded here -->
+                </div>
+
+                <button onclick="clearNotifications()" class="w-full bg-slate-950 text-slate-400 text-xs py-2 rounded-lg border border-slate-800 mt-2 cursor-pointer hover:text-white">
+                    Clear All Notifications
+                </button>
+            </div>
+        </div>
+
         <!-- USER STORE REGISTRATION MODAL -->
         <div id="shop-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] hidden flex flex-col justify-center p-5">
             <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-3.5 shadow-2xl">
@@ -444,117 +479,161 @@
                     <button onclick="closePostModal()" class="text-slate-400 hover:text-white text-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="space-y-3">
-                    <input type="text" id="postName" placeholder="Your Name" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
-                    <input type="text" id="postLoc" placeholder="Your Location / Ward" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white">
-                    <textarea id="postMsg" rows="3" placeholder="Message details..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white resize-none"></textarea>
+                    <input type="text" id="postName" placeholder="Your Name" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-amber-500">
+                    <input type="text" id="postLoc" placeholder="Your Location / Ward" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-amber-500">
+                    <textarea id="postContent" rows="4" placeholder="What's happening in Sasaram?" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-amber-500 resize-none"></textarea>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 pt-1">
                     <button onclick="closePostModal()" class="flex-1 bg-slate-950 text-slate-300 text-xs py-2.5 rounded-lg border border-slate-800 cursor-pointer">Cancel</button>
-                    <button onclick="submitPost()" class="flex-1 bg-indigo-600 text-white text-xs py-2.5 rounded-lg font-bold cursor-pointer">Publish Post</button>
+                    <button onclick="submitPost()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs py-2.5 rounded-lg font-bold cursor-pointer">Submit Post</button>
                 </div>
             </div>
         </div>
 
         <!-- INFO / LEGAL MODAL -->
         <div id="info-modal" class="absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-[100] hidden flex flex-col justify-center p-5">
-            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-4 shadow-2xl max-h-[80vh] flex flex-col">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                    <h3 id="info-modal-title" class="text-xs font-black text-amber-400 uppercase tracking-wider">Info</h3>
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 space-y-3 shadow-2xl max-h-[80vh] flex flex-col">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+                    <h3 id="info-modal-title" class="text-xs font-black text-amber-400 uppercase tracking-wider">Information</h3>
                     <button onclick="closeInfoModal()" class="text-slate-400 hover:text-white text-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <div id="info-modal-body" class="text-xs text-slate-300 space-y-2 overflow-y-auto hide-scroll flex-1"></div>
-                <button onclick="closeInfoModal()" class="w-full bg-slate-800 text-slate-200 text-xs py-2 rounded-lg cursor-pointer">Close</button>
+                <div id="info-modal-body" class="text-xs text-slate-300 space-y-2 overflow-y-auto hide-scroll flex-1 py-1"></div>
+                <button onclick="closeInfoModal()" class="w-full bg-slate-950 text-slate-300 text-xs py-2 rounded-lg border border-slate-800 mt-2 cursor-pointer">Close</button>
             </div>
         </div>
 
     </div>
 
-    <!-- FIREBASE SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
+    <!-- APPLICATION LOGIC SCRIPT -->
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCWoHEDVLGCSwR9LPNY60ImtNvqSJGwcn0",
-            authDomain: "sasaram-connect.firebaseapp.com",
-            projectId: "sasaram-connect",
-            storageBucket: "sasaram-connect.firebasestorage.app",
-            messagingSenderId: "873384703418",
-            appId: "1:873384703418:web:a286d7323a3e02b7799983",
-            measurementId: "G-0FEC7TP8PH"
+        // App State
+        let appState = {
+            ticker: "Welcome to Sasaram Connect Digital Civic Portal!",
+            pollVotes: [0, 0, 0],
+            hasVoted: false,
+            notifications: [
+                { id: 1, title: "Welcome to Sasaram Connect!", desc: "Explore local updates, mandi rates, and community discussions.", time: "Just now", read: false }
+            ],
+            posts: [
+                { id: 1, name: "Rahul Kumar", loc: "Gaurakshani", content: "Road repair work started near Gaurakshani overbridge. Drive safely!", approved: true, time: "2h ago" }
+            ],
+            shops: [
+                { id: 1, name: "Verma Electronics", owner: "Amit Verma", cat: "Electronics", loc: "Dharamsala Road", phone: "9876543210", approved: true },
+                { id: 2, name: "Rohtas Kirana Store", owner: "Suresh Gupta", cat: "Grocery", loc: "Post Office Road", phone: "9123456789", approved: true }
+            ]
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        let isAdmin = false;
-        let currentPollData = { v1: 0, v2: 0, v3: 0 };
-
-        const defaultPosts = [
-            { id: 'def1', name: 'Raju Kumar', location: 'Gaurakshani', message: 'Rohtas Collectorate road maintenance updates posted.', status: 'approved', timestamp: '10:30 AM' }
-        ];
-
+        // App Initialization
         window.addEventListener('DOMContentLoaded', () => {
-            listenToLiveUpdates();
-            listenToShopsUpdates();
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
-                if(splash) {
-                    splash.style.opacity = '0';
-                    setTimeout(() => splash.classList.add('hidden'), 300);
-                }
-            }, 500);
+                splash.style.opacity = '0';
+                setTimeout(() => splash.style.display = 'none', 300);
+            }, 1200);
+
+            loadInitialData();
+            checkPushPermission();
         });
 
-        function listenToLiveUpdates() {
-            db.collection("settings").doc("ticker").onSnapshot(doc => {
-                if (doc.exists && doc.data().text) {
-                    document.getElementById('ticker-display').innerText = doc.data().text;
-                }
-            }, err => console.log("Ticker offline mode"));
-
-            db.collection("settings").doc("poll").onSnapshot(doc => {
-                if (doc.exists) {
-                    const poll = doc.data();
-                    if (poll.q) document.getElementById('poll-question-display').innerText = poll.q;
-                    if (poll.o1) document.getElementById('poll-opt-1').innerText = poll.o1;
-                    if (poll.o2) document.getElementById('poll-opt-2').innerText = poll.o2;
-                    if (poll.o3) document.getElementById('poll-opt-3').innerText = poll.o3;
-                    
-                    currentPollData.v1 = poll.v1 || 0;
-                    currentPollData.v2 = poll.v2 || 0;
-                    currentPollData.v3 = poll.v3 || 0;
-                    
-                    updatePollDisplay();
-                }
-            }, err => console.log("Poll offline mode"));
-
-            db.collection("posts").orderBy("createdAt", "desc").onSnapshot(snapshot => {
-                const posts = [];
-                snapshot.forEach(doc => posts.push({ id: doc.id, ...doc.data() }));
-                renderPosts(posts.length ? posts : defaultPosts);
-            }, err => renderPosts(defaultPosts));
+        function loadInitialData() {
+            renderTicker();
+            renderPoll();
+            renderShops();
+            renderPosts();
+            renderNotifications();
         }
 
-        // Realtime Listener For Shops
-        function listenToShopsUpdates() {
-            db.collection("shops").orderBy("createdAt", "desc").onSnapshot(snapshot => {
-                const shops = [];
-                snapshot.forEach(doc => shops.push({ id: doc.id, ...doc.data() }));
-                renderShops(shops);
-            }, err => console.log("Shops offline/error"));
+        // --- NOTIFICATION SYSTEM LOGIC ---
+        function requestNotificationPermission() {
+            if ("Notification" in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        document.getElementById('push-permission-banner').classList.add('hidden');
+                        sendPushNotification("Notifications Enabled!", "You will now receive important updates about Sasaram.");
+                    }
+                });
+            } else {
+                alert("Browser does not support desktop notifications");
+            }
         }
 
+        function checkPushPermission() {
+            if ("Notification" in window && Notification.permission === "granted") {
+                document.getElementById('push-permission-banner').classList.add('hidden');
+            }
+        }
+
+        function triggerNewNotification(title, desc) {
+            // Add to in-app notifications
+            appState.notifications.unshift({
+                id: Date.now(),
+                title: title,
+                desc: desc,
+                time: "Just now",
+                read: false
+            });
+            
+            renderNotifications();
+            sendPushNotification(title, desc);
+        }
+
+        function sendPushNotification(title, body) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification(title, {
+                    body: body,
+                    icon: "icon-192.png"
+                });
+            }
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notification-list');
+            const badge = document.getElementById('notif-badge');
+            
+            const unreadCount = appState.notifications.filter(n => !n.read).length;
+            
+            if (unreadCount > 0) {
+                badge.innerText = unreadCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            list.innerHTML = appState.notifications.map(n => `
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1 ${!n.read ? 'border-l-4 border-l-amber-500' : ''}">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-xs font-bold text-amber-400">${n.title}</h4>
+                        <span class="text-[8px] text-slate-500">${n.time}</span>
+                    </div>
+                    <p class="text-[10px] text-slate-300 leading-relaxed">${n.desc}</p>
+                </div>
+            `).join('') || '<p class="text-xs text-slate-500 text-center py-4">No notifications yet.</p>';
+        }
+
+        function openNotificationModal() {
+            appState.notifications.forEach(n => n.read = true);
+            renderNotifications();
+            document.getElementById('notification-modal').classList.remove('hidden');
+        }
+
+        function closeNotificationModal() {
+            document.getElementById('notification-modal').classList.add('hidden');
+        }
+
+        function clearNotifications() {
+            appState.notifications = [];
+            renderNotifications();
+        }
+
+        // Tab Navigation
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            const targetTab = document.getElementById(`tab-${tabId}`);
-            if (targetTab) targetTab.classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-amber-500');
                 btn.classList.add('text-slate-400');
             });
-
             const activeNav = document.getElementById(`nav-${tabId}`);
             if (activeNav) {
                 activeNav.classList.remove('text-slate-400');
@@ -562,337 +641,250 @@
             }
         }
 
-        function openAdminScreen() { document.getElementById('admin-screen').classList.remove('hidden'); }
-        function closeAdminScreen() { document.getElementById('admin-screen').classList.add('hidden'); }
-
-        function handleAdminLogin() {
-            const pass = document.getElementById('adminPassInput').value;
-            if (pass === 'sameer@786') {
-                isAdmin = true;
-                document.getElementById('admin-login-view').classList.add('hidden');
-                document.getElementById('admin-dashboard-view').classList.remove('hidden');
-                populateAdminFields();
-                listenToShopsUpdates();
-            } else {
-                alert('Invalid Admin Code!');
-            }
-        }
-
-        function adminLogout() {
-            isAdmin = false;
-            document.getElementById('adminPassInput').value = '';
-            document.getElementById('admin-dashboard-view').classList.add('hidden');
-            document.getElementById('admin-login-view').classList.remove('hidden');
-        }
-
-        function populateAdminFields() {
-            document.getElementById('adminTickerText').value = document.getElementById('ticker-display').innerText;
+        // Live News Ticker
+        function renderTicker() {
+            document.getElementById('ticker-display').innerText = appState.ticker;
+            document.getElementById('adminTickerText').value = appState.ticker;
         }
 
         function saveTickerFromAdmin() {
-            const text = document.getElementById('adminTickerText').value.trim();
-            if (text) {
-                db.collection("settings").doc("ticker").set({ text })
-                    .then(() => alert('Live News Ticker Updated Globally!'))
-                    .catch(err => alert('Error: ' + err.message));
+            const val = document.getElementById('adminTickerText').value;
+            if (val.trim()) {
+                appState.ticker = val;
+                renderTicker();
+                triggerNewNotification("New Live Announcement", val);
+                alert("Ticker updated and notification sent!");
             }
         }
 
-        // Shop Listing Handlers
+        // Interactive Poll
+        function votePoll(optionIdx) {
+            if (appState.hasVoted) {
+                alert("You have already voted on this poll!");
+                return;
+            }
+            appState.pollVotes[optionIdx - 1]++;
+            appState.hasVoted = true;
+            renderPoll();
+        }
+
+        function renderPoll() {
+            const total = appState.pollVotes.reduce((a, b) => a + b, 0);
+            document.getElementById('poll-total-votes').innerText = `${total} votes`;
+
+            for (let i = 1; i <= 3; i++) {
+                const count = appState.pollVotes[i - 1];
+                const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                
+                const bar = document.getElementById(`poll-bar-${i}`);
+                const percentLabel = document.getElementById(`poll-percent-${i}`);
+                
+                bar.style.width = `${pct}%`;
+                if (appState.hasVoted) {
+                    percentLabel.innerText = `${pct}%`;
+                    percentLabel.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Shops Management
+        function renderShops() {
+            const approvedList = document.getElementById('approved-shops-list');
+            const featuredList = document.getElementById('home-featured-shops');
+            const pendingList = document.getElementById('admin-pending-shops');
+
+            const approved = appState.shops.filter(s => s.approved);
+            const pending = appState.shops.filter(s => !s.approved);
+
+            featuredList.innerHTML = approved.slice(0, 4).map(s => `
+                <div class="min-w-[130px] bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[8px] text-orange-400 font-bold uppercase tracking-wider">${s.cat}</span>
+                        <h4 class="text-xs font-bold text-slate-100 truncate mt-0.5">${s.name}</h4>
+                        <p class="text-[9px] text-slate-400 truncate">${s.loc}</p>
+                    </div>
+                    <a href="tel:${s.phone}" class="mt-2 bg-orange-600/20 border border-orange-500/30 text-orange-400 text-[9px] font-bold py-1 rounded text-center block">Call</a>
+                </div>
+            `).join('') || '<p class="text-[10px] text-slate-500">No shops listed yet.</p>';
+
+            approvedList.innerHTML = approved.map(s => `
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <div>
+                        <span class="text-[8px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-black">${s.cat.toUpperCase()}</span>
+                        <h3 class="text-xs font-black text-slate-100 mt-1">${s.name}</h3>
+                        <p class="text-[9px] text-slate-400"><i class="fa-solid fa-user text-[8px] mr-1"></i>${s.owner} • ${s.loc}</p>
+                    </div>
+                    <a href="tel:${s.phone}" class="bg-orange-600 w-8 h-8 rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-phone"></i></a>
+                </div>
+            `).join('');
+
+            pendingList.innerHTML = pending.map(s => `
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-1.5">
+                    <p class="text-xs font-bold text-amber-400">${s.name} <span class="text-slate-400">(${s.cat})</span></p>
+                    <p class="text-[10px] text-slate-300">Owner: ${s.owner} | Phone: ${s.phone}</p>
+                    <p class="text-[10px] text-slate-400">${s.loc}</p>
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="approveShop(${s.id})" class="flex-1 bg-green-600 text-white text-[10px] font-bold py-1 rounded">Approve</button>
+                        <button onclick="deleteShop(${s.id})" class="flex-1 bg-red-600 text-white text-[10px] font-bold py-1 rounded">Reject</button>
+                    </div>
+                </div>
+            `).join('') || '<p class="text-[10px] text-slate-500">No pending shop requests.</p>';
+        }
+
         function openShopModal() { document.getElementById('shop-modal').classList.remove('hidden'); }
         function closeShopModal() { document.getElementById('shop-modal').classList.add('hidden'); }
 
         function submitShop() {
-            const name = document.getElementById('shopName').value.trim();
-            const owner = document.getElementById('shopOwner').value.trim();
-            const category = document.getElementById('shopCategory').value.trim();
-            const loc = document.getElementById('shopLoc').value.trim();
-            const phone = document.getElementById('shopPhone').value.trim();
+            const name = document.getElementById('shopName').value;
+            const owner = document.getElementById('shopOwner').value;
+            const cat = document.getElementById('shopCategory').value;
+            const loc = document.getElementById('shopLoc').value;
+            const phone = document.getElementById('shopPhone').value;
 
-            if (!name || !owner || !category || !loc || !phone) {
-                alert('Please fill all shop details.');
-                return;
-            }
-
-            db.collection("shops").add({
-                shopName: name,
-                ownerName: owner,
-                category: category,
-                location: loc,
-                phone: phone,
-                status: 'pending',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                document.getElementById('shopName').value = '';
-                document.getElementById('shopOwner').value = '';
-                document.getElementById('shopCategory').value = '';
-                document.getElementById('shopLoc').value = '';
-                document.getElementById('shopPhone').value = '';
+            if (name && owner && cat && loc && phone) {
+                appState.shops.push({ id: Date.now(), name, owner, cat, loc, phone, approved: false });
+                alert("Shop submitted for admin approval!");
                 closeShopModal();
-                alert('Your store request has been submitted for Admin Review!');
-            }).catch(err => alert('Error submitting store: ' + err.message));
-        }
-
-        function renderShops(shops) {
-            const approvedList = document.getElementById('approved-shops-list');
-            const homeFeaturedList = document.getElementById('home-featured-shops');
-            const pendingList = document.getElementById('admin-pending-shops');
-
-            if (approvedList) approvedList.innerHTML = '';
-            if (homeFeaturedList) homeFeaturedList.innerHTML = '';
-            if (pendingList) pendingList.innerHTML = '';
-
-            let hasApproved = false;
-            let hasPending = false;
-
-            shops.forEach(shop => {
-                if (shop.status === 'approved') {
-                    hasApproved = true;
-
-                    // Dedicated Stores Tab Rendering
-                    if (approvedList) {
-                        approvedList.innerHTML += `
-                            <div class="shop-card bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center" data-name="${escapeHtml(shop.shopName)} ${escapeHtml(shop.category)} ${escapeHtml(shop.location)}">
-                                <div>
-                                    <span class="text-[8px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-black uppercase">${escapeHtml(shop.category)}</span>
-                                    <h3 class="text-xs font-black text-slate-100 mt-1">${escapeHtml(shop.shopName)}</h3>
-                                    <p class="text-[9px] text-slate-400"><i class="fa-solid fa-location-dot text-amber-400"></i> ${escapeHtml(shop.location)} (${escapeHtml(shop.ownerName)})</p>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <a href="tel:${escapeHtml(shop.phone)}" class="bg-emerald-600 w-8 h-8 rounded-full flex items-center justify-center text-xs text-white"><i class="fa-solid fa-phone"></i></a>
-                                    ${isAdmin ? `<button onclick="deleteShop('${shop.id}')" class="text-red-400 text-xs p-1"><i class="fa-solid fa-trash"></i></button>` : ''}
-                                </div>
-                            </div>
-                        `;
-                    }
-
-                    // Home Screen Horizontal Featured Shops
-                    if (homeFeaturedList) {
-                        homeFeaturedList.innerHTML += `
-                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 min-w-[140px] max-w-[150px] shrink-0 flex flex-col justify-between space-y-2">
-                                <div>
-                                    <span class="text-[7px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-black uppercase tracking-wider block w-max">${escapeHtml(shop.category)}</span>
-                                    <h4 class="text-xs font-bold text-white mt-1.5 truncate">${escapeHtml(shop.shopName)}</h4>
-                                    <p class="text-[8px] text-slate-400 truncate"><i class="fa-solid fa-location-dot text-amber-400"></i> ${escapeHtml(shop.location)}</p>
-                                </div>
-                                <a href="tel:${escapeHtml(shop.phone)}" class="bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 text-[9px] font-bold py-1 px-2 rounded flex items-center justify-center gap-1">
-                                    <i class="fa-solid fa-phone text-[8px]"></i> Call Now
-                                </a>
-                            </div>
-                        `;
-                    }
-
-                } else if (shop.status === 'pending' && pendingList) {
-                    hasPending = true;
-                    pendingList.innerHTML += `
-                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-1.5">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h4 class="text-xs font-bold text-white">${escapeHtml(shop.shopName)} <span class="text-orange-400">(${escapeHtml(shop.category)})</span></h4>
-                                    <p class="text-[10px] text-slate-300">Owner: ${escapeHtml(shop.ownerName)} | Tel: ${escapeHtml(shop.phone)}</p>
-                                    <p class="text-[9px] text-slate-400"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(shop.location)}</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 pt-1">
-                                <button onclick="approveShop('${shop.id}')" class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1 rounded cursor-pointer">Approve & Live</button>
-                                <button onclick="deleteShop('${shop.id}')" class="bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded cursor-pointer">Reject</button>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
-            if (approvedList && !hasApproved) {
-                approvedList.innerHTML = `<p class="text-[10px] text-slate-500 italic py-2 text-center">No shops listed yet. Be the first to add your store!</p>`;
-            }
-
-            if (homeFeaturedList && !hasApproved) {
-                homeFeaturedList.innerHTML = `<p class="text-[10px] text-slate-500 italic py-1">No featured shops yet.</p>`;
-            }
-
-            if (pendingList && !hasPending) {
-                pendingList.innerHTML = `<p class="text-[10px] text-slate-500 italic">No pending shop applications.</p>`;
+                renderShops();
+            } else {
+                alert("Please fill in all details.");
             }
         }
 
         function approveShop(id) {
-            db.collection("shops").doc(id).update({ status: 'approved' })
-                .then(() => alert('Shop Approved & Made Live!'));
+            const s = appState.shops.find(x => x.id === id);
+            if (s) {
+                s.approved = true;
+                triggerNewNotification("New Store Added!", `${s.name} is now listed on Sasaram Connect in ${s.cat}.`);
+            }
+            renderShops();
         }
 
         function deleteShop(id) {
-            if (confirm("Remove this store listing?")) {
-                db.collection("shops").doc(id).delete();
-            }
+            appState.shops = appState.shops.filter(x => x.id !== id);
+            renderShops();
+        }
+
+        function filterShops() {
+            const q = document.getElementById('shopSearch').value.toLowerCase();
+            document.querySelectorAll('#approved-shops-list > div').forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
+            });
+        }
+
+        // Chaupal Community Posts
+        function renderPosts() {
+            const container = document.getElementById('chaupal-posts-container');
+            const pendingList = document.getElementById('admin-pending-list');
+
+            const approved = appState.posts.filter(p => p.approved);
+            const pending = appState.posts.filter(p => !p.approved);
+
+            container.innerHTML = approved.map(p => `
+                <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-200">${p.name} <span class="text-[9px] text-slate-400 font-normal">in ${p.loc}</span></span>
+                        <span class="text-[9px] text-slate-500">${p.time}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${p.content}</p>
+                </div>
+            `).join('') || '<p class="text-xs text-slate-500 text-center py-6">No posts yet.</p>';
+
+            pendingList.innerHTML = pending.map(p => `
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-1.5">
+                    <p class="text-xs font-bold text-slate-200">${p.name} (${p.loc})</p>
+                    <p class="text-[10px] text-slate-300">${p.content}</p>
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="approvePost(${p.id})" class="flex-1 bg-green-600 text-white text-[10px] font-bold py-1 rounded">Approve</button>
+                        <button onclick="deletePost(${p.id})" class="flex-1 bg-red-600 text-white text-[10px] font-bold py-1 rounded">Delete</button>
+                    </div>
+                </div>
+            `).join('') || '<p class="text-[10px] text-slate-500">No pending posts.</p>';
         }
 
         function openPostModal() { document.getElementById('post-modal').classList.remove('hidden'); }
         function closePostModal() { document.getElementById('post-modal').classList.add('hidden'); }
 
         function submitPost() {
-            const name = document.getElementById('postName').value.trim();
-            const loc = document.getElementById('postLoc').value.trim();
-            const msg = document.getElementById('postMsg').value.trim();
+            const name = document.getElementById('postName').value;
+            const loc = document.getElementById('postLoc').value;
+            const content = document.getElementById('postContent').value;
 
-            if (!name || !loc || !msg) { alert('Please fill all fields.'); return; }
-
-            db.collection("posts").add({
-                name, location: loc, message: msg,
-                status: isAdmin ? 'approved' : 'pending',
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                document.getElementById('postName').value = '';
-                document.getElementById('postLoc').value = '';
-                document.getElementById('postMsg').value = '';
+            if (name && loc && content) {
+                appState.posts.push({ id: Date.now(), name, loc, content, approved: false, time: "Just now" });
+                alert("Post submitted for approval!");
                 closePostModal();
-                alert(isAdmin ? 'Published Globally!' : 'Submitted for admin review.');
-            });
-        }
-
-        function renderPosts(posts) {
-            const approvedContainer = document.getElementById('chaupal-posts-container');
-            const pendingContainer = document.getElementById('admin-pending-list');
-
-            if (!approvedContainer) return;
-            approvedContainer.innerHTML = '';
-            if (pendingContainer) pendingContainer.innerHTML = '';
-
-            let hasPending = false;
-
-            posts.forEach(post => {
-                if (post.status === 'approved') {
-                    approvedContainer.innerHTML += `
-                        <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h4 class="text-xs font-black text-slate-100">${escapeHtml(post.name)}</h4>
-                                    <p class="text-[9px] text-amber-400 font-medium"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(post.location)}</p>
-                                </div>
-                                <span class="text-[9px] text-slate-500 font-mono">${post.timestamp || ''}</span>
-                            </div>
-                            <p class="text-xs text-slate-300 leading-relaxed">${escapeHtml(post.message)}</p>
-                            ${isAdmin ? `<button onclick="deletePost('${post.id}')" class="text-[9px] text-red-400 hover:underline pt-1">Delete Post</button>` : ''}
-                        </div>
-                    `;
-                } else if (post.status === 'pending' && pendingContainer) {
-                    hasPending = true;
-                    pendingContainer.innerHTML += `
-                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 space-y-2">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h5 class="text-xs font-bold text-white">${escapeHtml(post.name)} (${escapeHtml(post.location)})</h5>
-                                    <p class="text-[10px] text-slate-300 mt-1">${escapeHtml(post.message)}</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 pt-1">
-                                <button onclick="approvePost('${post.id}')" class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1 rounded">Approve</button>
-                                <button onclick="deletePost('${post.id}')" class="bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded">Reject</button>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
-            if (pendingContainer && !hasPending) {
-                pendingContainer.innerHTML = `<p class="text-[10px] text-slate-500 italic">No pending approvals.</p>`;
+                renderPosts();
+            } else {
+                alert("Please complete all fields.");
             }
         }
 
-        function approvePost(id) { db.collection("posts").doc(id).update({ status: 'approved' }); }
+        function approvePost(id) {
+            const p = appState.posts.find(x => x.id === id);
+            if (p) {
+                p.approved = true;
+                triggerNewNotification("New Community Post", `${p.name} shared a new update in Chaupal.`);
+            }
+            renderPosts();
+        }
+
         function deletePost(id) {
-            if (confirm("Are you sure you want to remove this post?")) {
-                db.collection("posts").doc(id).delete();
-            }
+            appState.posts = appState.posts.filter(x => x.id !== id);
+            renderPosts();
         }
 
+        // Directory Search
         function filterDirectory() {
-            const query = document.getElementById('directorySearch').value.toLowerCase();
-            const cards = document.querySelectorAll('#directory-list .contact-card');
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name') || card.innerText.toLowerCase();
-                card.style.display = name.includes(query) ? 'flex' : 'none';
+            const q = document.getElementById('directorySearch').value.toLowerCase();
+            document.querySelectorAll('#directory-list .contact-card').forEach(card => {
+                const name = card.getAttribute('data-name');
+                card.style.display = name.includes(q) ? 'flex' : 'none';
             });
         }
 
-        function filterShops() {
-            const query = document.getElementById('shopSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('#approved-shops-list .shop-card');
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name') || card.innerText.toLowerCase();
-                card.style.display = name.includes(query) ? 'flex' : 'none';
-            });
-        }
+        // Admin Management
+        function openAdminScreen() { document.getElementById('admin-screen').classList.remove('hidden'); }
+        function closeAdminScreen() { document.getElementById('admin-screen').classList.add('hidden'); }
 
-        function votePoll(optionNum) {
-            const pollRef = db.collection("settings").doc("poll");
-            db.runTransaction(transaction => {
-                return transaction.get(pollRef).then(doc => {
-                    if (!doc.exists) return;
-                    const field = `v${optionNum}`;
-                    const newCount = (doc.data()[field] || 0) + 1;
-                    transaction.update(pollRef, { [field]: newCount });
-                });
-            }).then(() => localStorage.setItem('hasVotedPoll', 'true'));
-        }
-
-        function updatePollDisplay() {
-            const total = currentPollData.v1 + currentPollData.v2 + currentPollData.v3;
-            document.getElementById('poll-total-votes').innerText = `${total} votes`;
-
-            const p1 = total > 0 ? Math.round((currentPollData.v1 / total) * 100) : 0;
-            const p2 = total > 0 ? Math.round((currentPollData.v2 / total) * 100) : 0;
-            const p3 = total > 0 ? Math.round((currentPollData.v3 / total) * 100) : 0;
-
-            document.getElementById('poll-bar-1').style.width = `${p1}%`;
-            document.getElementById('poll-bar-2').style.width = `${p2}%`;
-            document.getElementById('poll-bar-3').style.width = `${p3}%`;
-
-            if (total > 0 || localStorage.getItem('hasVotedPoll')) {
-                document.getElementById('poll-percent-1').classList.remove('hidden');
-                document.getElementById('poll-percent-2').classList.remove('hidden');
-                document.getElementById('poll-percent-3').classList.remove('hidden');
-
-                document.getElementById('poll-percent-1').innerText = `${p1}%`;
-                document.getElementById('poll-percent-2').innerText = `${p2}%`;
-                document.getElementById('poll-percent-3').innerText = `${p3}%`;
+        function handleAdminLogin() {
+            const pass = document.getElementById('adminPassInput').value;
+            if (pass === "admin123" || pass === "rohtas") {
+                document.getElementById('admin-login-view').classList.add('hidden');
+                document.getElementById('admin-dashboard-view').classList.remove('hidden');
+            } else {
+                alert("Invalid Admin Password!");
             }
         }
 
-        function redirectToWhatsAppCommunity() { window.open('https://chat.whatsapp.com/', '_blank'); }
-        function redirectToWhatsAppSupport() { window.open('https://wa.me/', '_blank'); }
-
-        function openInfoModal(type) {
-            const modal = document.getElementById('info-modal');
-            const title = document.getElementById('info-modal-title');
-            const body = document.getElementById('info-modal-body');
-
-            if (type === 'about') {
-                title.innerText = "About Us";
-                body.innerHTML = "<p><strong>Sasaram Connect</strong> is a dedicated civic portal bringing local governance, public transport, live mandi updates, and local community discussions together into one seamless platform for the residents of Rohtas district.</p>";
-            } else if (type === 'terms') {
-                title.innerText = "Terms & Conditions";
-                body.innerHTML = "<p>By using Sasaram Connect, you agree to post respectful, verified local updates. Spam, political misinformation, and harassment in the Chaupal section are strictly prohibited and subject to removal.</p>";
-            } else if (type === 'disclaimer') {
-                title.innerText = "Disclaimer";
-                body.innerHTML = "<p>This app serves as a civic reference aggregator. Mandi rates are collected from local sources and may fluctuate dynamically throughout the day. Government links redirect to official portals.</p>";
-            } else if (type === 'privacy') {
-                title.innerText = "Privacy Policy";
-                body.innerHTML = "<p>We respect your privacy. Posts published on Chaupal carry only the name and location/ward you voluntarily submit. We do not sell or store personal background tracking data.</p>";
-            }
-
-            modal.classList.remove('hidden');
+        function adminLogout() {
+            document.getElementById('adminPassInput').value = '';
+            document.getElementById('admin-dashboard-view').classList.add('hidden');
+            document.getElementById('admin-login-view').classList.remove('hidden');
         }
 
+        // Info Modals (About / Legal)
+        const LEGAL_TEXTS = {
+            about: "<b>Sasaram Connect</b> is a community-driven digital civic platform built for the citizens of Sasaram, Rohtas. Our goal is to provide seamless access to local services, emergency numbers, local business discovery, and community discussion forums.",
+            terms: "By using Sasaram Connect, you agree to share accurate local feedback and refrain from posting hate speech, spam, or misleading civic reports. Misuse may result in IP blacklisting.",
+            disclaimer: "This platform is an independent civic tech portal maintained for local convenience. Official updates regarding district administration should be cross-verified at standard government outlets.",
+            privacy: "We respect your privacy. No personal user data is sold or redistributed. Basic submitted information for local store approvals is verified prior to public listing."
+        };
+
+        function openInfoModal(key) {
+            document.getElementById('info-modal-title').innerText = key.toUpperCase();
+            document.getElementById('info-modal-body').innerHTML = LEGAL_TEXTS[key] || "";
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
         function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text.replace(/&/g, "&amp;")
-                       .replace(/</g, "&lt;")
-                       .replace(/>/g, "&gt;")
-                       .replace(/"/g, "&quot;")
-                       .replace(/'/g, "&#039;");
+        // WhatsApp Integrations
+        function redirectToWhatsAppCommunity() {
+            window.open("https://chat.whatsapp.com/example", "_blank");
+        }
+
+        function redirectToWhatsAppSupport() {
+            window.open("https://wa.me/910000000000?text=Hello%20Sasaram%20Connect%20Team", "_blank");
         }
     </script>
 </body>
